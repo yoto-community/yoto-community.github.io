@@ -1,0 +1,16 @@
+---
+const { message, visible = false } = Astro.props as { message: string; visible?: boolean };
+---
+
+<p class="empty" data-empty role="status" hidden={!visible}>{message}</p>
+
+<style>
+  .empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--ink-muted);
+    background: var(--surface-2);
+    border-radius: var(--radius);
+    padding: var(--space-8);
+  }
+</style>

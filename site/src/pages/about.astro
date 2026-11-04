@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import AboutView from '../views/AboutView.astro';
+import { t } from '../i18n';
+---
+
+<Base
+  lang="en"
+  title={t('en', 'nav.about')}
+  description="What Awesome Yoto lists, what it excludes and how entries are checked."
+  path="/about/"
+>
+  <AboutView lang="en" />
+</Base>

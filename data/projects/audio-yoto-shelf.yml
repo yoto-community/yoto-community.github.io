@@ -1,0 +1,13 @@
+name: AudioYotoShelf
+url: https://github.com/O-Mutt/AudioYotoShelf
+repo: https://github.com/O-Mutt/AudioYotoShelf
+description: Self-hosted app that transfers Audiobookshelf books to Yoto MYO cards with generated chapter icons.
+category: audio
+tags: [audiobook, self-hosted]
+author: Matt O'Keefe
+license: MIT
+status: active
+official: false
+platforms: [web]
+requires: [self-hosted, yoto-account, yoto-api-key]
+added: 2026-11-03

@@ -1,0 +1,14 @@
+name: toto-backup
+url: https://github.com/ldesgrange/toto-backup
+repo: https://github.com/ldesgrange/toto-backup
+description: Python command-line tool that saves a Yoto card's tracks, icons and cover art to a local folder.
+descriptionFr: Outil en ligne de commande qui enregistre les pistes, icônes et jaquettes d'une carte Yoto dans un dossier local.
+category: backup
+tags: [cli, api]
+author: ldesgrange
+license: MPL-2.0
+status: active
+official: false
+platforms: [cli]
+warning: legal-backup
+added: 2026-11-03

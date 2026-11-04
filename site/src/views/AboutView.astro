@@ -1,0 +1,74 @@
+---
+import { t } from '../i18n';
+import { localePath, type Lang } from '../lib/routes';
+const { lang } = Astro.props as { lang: Lang };
+const criteria =
+  lang === 'fr'
+    ? [
+        'Un lien public, vivant et en HTTPS.',
+        'Un README ou une documentation utilisable en deux minutes.',
+        'Une licence explicite, ou une licence inconnue assumée. Une licence propriétaire est acceptée si l’outil est gratuit.',
+        'Un rapport direct avec Yoto : lecture, cartes, icônes, API ou appareil.',
+        'Un seul projet par entrée ; les forks sont exclus.',
+      ]
+    : [
+        'A public, working HTTPS link.',
+        'A README or documentation usable in two minutes.',
+        'An explicit license, or an acknowledged unknown license. A proprietary license is accepted when the tool is free to use.',
+        'A direct relationship with Yoto: playback, cards, icons, API or device.',
+        'One entry per project; forks are excluded.',
+      ];
+const excluded =
+  lang === 'fr'
+    ? [
+        'Contournement de DRM ou de paywall.',
+        'Revente de cartes ou de contenus sous licence.',
+        'Liens affiliés ou trackés.',
+        'Les projets sans aucun lien public (binaires opaques, uniquement sur Discord).',
+      ]
+    : [
+        'DRM or paywall circumvention.',
+        'Resale of cards or licensed content.',
+        'Affiliate or tracked links.',
+        'Projects without any public link (opaque binaries, Discord-only).',
+      ];
+---
+
+<section class="container page">
+  <h1>{lang === 'fr' ? 'À propos' : 'About'}</h1>
+  <p>
+    {
+      lang === 'fr'
+        ? 'Awesome Yoto est un annuaire communautaire de l’écosystème Yoto. Les entrées sont vérifiées, catégorisées et datées ; un projet abandonné reste visible avec un statut, il n’est jamais supprimé.'
+        : 'Awesome Yoto is a community directory of the Yoto ecosystem. Entries are checked, categorized and dated; an abandoned project stays visible with a status instead of being deleted.'
+    }
+  </p>
+  <p class="banner">{t(lang, 'footer.disclaimer')}</p>
+  <h2>{lang === 'fr' ? 'Critères d’inclusion' : 'Inclusion criteria'}</h2>
+  <ul>{criteria.map((item) => <li>{item}</li>)}</ul>
+  <h2>Exclusions</h2>
+  <ul>{excluded.map((item) => <li>{item}</li>)}</ul>
+  <h2>{lang === 'fr' ? 'Corriger une fiche' : 'Fix an entry'}</h2>
+  <p>
+    {lang === 'fr' ? 'Ouvrez une issue ou une pull request : ' : 'Open an issue or a pull request: '}
+    <a href={localePath(lang, '/contribute/')}>{t(lang, 'nav.contribute')}</a>.
+  </p>
+</section>
+
+<style>
+  .page {
+    padding-block: var(--space-8);
+    max-width: 760px;
+  }
+  .banner {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-4);
+    font-weight: 700;
+  }
+  ul {
+    display: grid;
+    gap: var(--space-2);
+  }
+</style>

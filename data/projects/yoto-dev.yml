@@ -1,0 +1,12 @@
+name: Yoto Developer Portal
+url: https://yoto.dev/
+description: Official API documentation, OAuth setup and developer dashboard for Yoto apps.
+descriptionFr: Documentation officielle de l'API, configuration OAuth et tableau de bord développeur.
+category: official
+tags: [api, oauth]
+author: Yoto
+license: Proprietary
+status: active
+official: true
+platforms: [web, api]
+added: 2026-11-03

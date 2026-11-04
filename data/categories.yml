@@ -1,0 +1,63 @@
+- slug: official
+  label: { en: Official, fr: Officiel }
+  description:
+    en: Yoto apps, developer portal and official SDKs.
+    fr: Applications Yoto, portail développeur et SDK officiels.
+  icon: badge-check
+  order: 10
+- slug: create
+  label: { en: Make Your Own, fr: Créer une carte }
+  description:
+    en: Import audio, split it into chapters, upload it and associate a card.
+    fr: Importer de l'audio, le découper, l'envoyer et associer une carte.
+  icon: cards
+  order: 20
+- slug: icons
+  label: { en: Icons & design, fr: Icônes & design }
+  description:
+    en: 16x16 icon libraries, editors and printable labels.
+    fr: Bibliothèques d'icônes 16x16, éditeurs et labels à imprimer.
+  icon: palette
+  order: 30
+- slug: audio
+  label: { en: Audio & podcasts, fr: Audio & podcasts }
+  description:
+    en: Podcasts, radio, audiobooks and streaming sources.
+    fr: Podcasts, radio, livres audio et sources de streaming.
+  icon: headphones
+  order: 40
+- slug: automate
+  label: { en: Automation, fr: Automatisation }
+  description:
+    en: Home Assistant, Homebridge, MQTT and device control.
+    fr: Home Assistant, Homebridge, MQTT et contrôle de l'appareil.
+  icon: workflow
+  order: 50
+- slug: develop
+  label: { en: Developer tools, fr: Outils dev }
+  description:
+    en: SDKs, API clients, CLIs and MCP servers.
+    fr: SDK, clients API, CLI et serveurs MCP.
+  icon: code
+  order: 60
+- slug: backup
+  label: { en: Backup & migration, fr: Sauvegarde }
+  description:
+    en: Export and migration of cards you own.
+    fr: Export et migration des cartes que vous possédez.
+  icon: archive
+  order: 70
+- slug: hardware
+  label: { en: Hardware & DIY, fr: Matériel & DIY }
+  description:
+    en: Firmware, teardowns, DIY players and accessories.
+    fr: Firmware, démontages, lecteurs maison et accessoires.
+  icon: cpu
+  order: 80
+- slug: learn
+  label: { en: Community & learning, fr: Communauté }
+  description:
+    en: Guides, blogs, videos, forums and communities.
+    fr: Guides, blogs, vidéos, forums et communautés.
+  icon: book-open
+  order: 90

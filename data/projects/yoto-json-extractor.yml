@@ -1,0 +1,12 @@
+name: YOTO JSON Extractor
+url: https://github.com/afsenovilla/YOTO-json-extractor
+repo: https://github.com/afsenovilla/YOTO-json-extractor
+description: Python tool that extracts a card's JSON, audio and images, embeds metadata and packs the result.
+category: develop
+tags: [api, desktop]
+author: afsenovilla
+license: MIT
+status: active
+official: false
+platforms: [windows, macos, linux]
+added: 2026-11-03

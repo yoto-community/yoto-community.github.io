@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # check:readme must run before build:data: build:data rewrites README.md,
+      # so running it first would hide any drift between data/ and the README.
+      - run: pnpm validate
+      - run: pnpm check:readme
+      - run: pnpm build:data
+
+      - run: pnpm test
+      - run: pnpm --filter site check
+      - run: pnpm check:types
+
+      - run: pnpm build
+      - run: pnpm check:build
+      - run: pnpm check:i18n
+      - run: pnpm check:budget
+
+      # Advisory: awesome-lint requires the published repository to have its
+      # description, topics and license set. Flip continue-on-error off once the
+      # settings documented in docs/launch-checklist.md are applied.
+      - name: awesome-lint (advisory until the repository metadata is set)
+        run: pnpm exec awesome-lint README.md
+        continue-on-error: true
+
+      # E2E runs against site/dist, so it must stay after `pnpm build`.
+      - run: pnpm --filter site exec playwright install --with-deps chromium
+      - run: pnpm --filter site test:e2e

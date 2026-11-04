@@ -1,0 +1,13 @@
+name: yotolike
+url: https://github.com/JpTiger/yotolike
+repo: https://github.com/JpTiger/yotolike
+description: DIY Raspberry Pi music box for kids that plays audio from RFID cards, inspired by Yoto.
+category: hardware
+tags: [hardware, nfc]
+author: JpTiger
+license: MIT
+status: stale
+official: false
+platforms: [hardware]
+requires: [nfc-writer]
+added: 2026-11-03

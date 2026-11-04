@@ -1,0 +1,13 @@
+name: Audiobookshelf Bridge
+url: https://github.com/mylacc/yoto-audiobookshelf-bridge
+repo: https://github.com/mylacc/yoto-audiobookshelf-bridge
+description: Docker service that streams Audiobookshelf books to Yoto players and keeps progress in Audiobookshelf.
+category: audio
+tags: [audiobook, self-hosted]
+author: mylacc
+license: MIT
+status: active
+official: false
+platforms: [web]
+requires: [self-hosted, yoto-account, yoto-api-key]
+added: 2026-11-03

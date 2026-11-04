@@ -1,0 +1,13 @@
+name: Yoto Node.js Client
+url: https://github.com/bcomnes/yoto-nodejs-client
+repo: https://github.com/bcomnes/yoto-nodejs-client
+description: Node.js client for the Yoto API with token refresh, MQTT device state and TypeScript types.
+category: develop
+tags: [api, oauth]
+author: bcomnes
+license: MIT
+status: maintained
+official: false
+platforms: [api]
+requires: [yoto-api-key]
+added: 2026-11-03

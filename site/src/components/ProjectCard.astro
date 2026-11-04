@@ -1,0 +1,118 @@
+---
+import StatusBadge from './StatusBadge.astro';
+import { t } from '../i18n';
+import { localePath, type Lang } from '../lib/routes';
+import type { Project } from '../../../scripts/lib/types';
+
+interface Props {
+  project: Project;
+  lang: Lang;
+}
+const { project, lang } = Astro.props;
+const description =
+  lang === 'fr' && project.descriptionFr ? project.descriptionFr : project.description;
+const fallback = lang === 'fr' && !project.descriptionFr;
+---
+
+<article
+  class="card"
+  data-project
+  data-slug={project.slug}
+  data-category={project.category}
+  data-status={project.status}
+  data-platforms={project.platforms.join(' ')}
+  data-tags={project.tags.join(' ')}
+  data-official={project.official ? '1' : '0'}
+  data-french={project.descriptionFr ? '1' : '0'}
+  data-name={project.name}
+  data-description={`${project.description} ${project.descriptionFr ?? ''}`}
+  data-added={project.added}
+  data-stars={project.meta?.stars ?? 0}
+>
+  <div class="top">
+    <h2><a href={localePath(lang, `/p/${project.slug}/`)}>{project.name}</a></h2>
+    <StatusBadge status={project.status} lang={lang} />
+  </div>
+  <p class="desc">
+    {description}{fallback && <span class="en" title={t(lang, 'project.englishOnly')}>EN</span>}
+  </p>
+  <ul class="tags" aria-label={t(lang, 'filter.tag')}>
+    {project.tags.map((tag) => <li>{tag}</li>)}
+  </ul>
+  <p class="meta">
+    {project.official && <span class="official">{lang === 'fr' ? 'Officiel' : 'Official'}</span>}
+    {project.meta?.stars !== undefined && <span>★ {project.meta.stars}</span>}
+    {project.meta?.lastCommit && <span>{project.meta.lastCommit}</span>}
+  </p>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-5);
+    box-shadow: var(--shadow);
+  }
+  .top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+  h2 {
+    margin: 0;
+    font-size: 1.15rem;
+  }
+  h2 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  h2 a:hover {
+    color: var(--accent-strong);
+  }
+  .desc {
+    margin: 0;
+    color: var(--ink-muted);
+    font-size: 0.97rem;
+  }
+  .en {
+    margin-inline-start: 0.4rem;
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: var(--ink-muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0 0.25rem;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .tags li {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--ink-muted);
+    background: var(--surface-2);
+    border-radius: var(--radius-pill);
+    padding: 0.1rem 0.5rem;
+  }
+  .meta {
+    display: flex;
+    gap: var(--space-3);
+    margin: auto 0 0;
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+  }
+  .official {
+    color: var(--accent-strong);
+    font-weight: 800;
+  }
+</style>

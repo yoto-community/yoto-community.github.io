@@ -1,0 +1,13 @@
+name: CircuitPython Yoto Player
+url: https://github.com/adafruit/Adafruit_CircuitPython_YotoPlayer
+repo: https://github.com/adafruit/Adafruit_CircuitPython_YotoPlayer
+description: CircuitPython helper library that exposes the Yoto Player's PortalBase hardware features.
+category: hardware
+tags: [hardware, api]
+author: Adafruit
+license: MIT
+status: maintained
+official: false
+platforms: [hardware]
+requires: [paid-hardware]
+added: 2026-11-03

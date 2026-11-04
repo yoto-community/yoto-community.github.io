@@ -1,0 +1,42 @@
+{
+  "name": "awesome-yoto",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "packageManager": "pnpm@10.11.0",
+  "scripts": {
+    "validate": "tsx scripts/validate.ts",
+    "build:data": "tsx scripts/build.ts",
+    "build": "pnpm build:data && pnpm --filter site build && tsx scripts/postbuild.ts && pagefind --site site/dist --force-language en",
+    "dev": "pnpm build:data && pnpm --filter site dev",
+    "check:readme": "tsx scripts/build.ts --check",
+    "check": "pnpm validate && pnpm check:readme && pnpm build:data && pnpm --filter site check && pnpm check:types",
+    "check:build": "tsx scripts/check-search.ts",
+    "check:i18n": "tsx scripts/check-i18n-routes.ts",
+    "check:budget": "tsx scripts/check-budget.ts",
+    "check:types": "tsc --noEmit",
+    "verify": "pnpm check && pnpm build && pnpm check:build && pnpm check:i18n && pnpm check:budget",
+    "test": "vitest run",
+    "og": "tsx scripts/og.ts",
+    "enrich": "tsx scripts/enrich.ts",
+    "check:links": "tsx scripts/check-links.ts",
+    "lint:awesome": "awesome-lint README.md"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "awesome-lint": "^2.2.0",
+    "pagefind": "^1.4.0",
+    "prettier": "^3.9.10",
+    "sharp": "^0.35.5",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}

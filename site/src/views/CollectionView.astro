@@ -1,0 +1,63 @@
+---
+import EmptyState from '../components/EmptyState.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { t } from '../i18n';
+import { localePath, type Lang } from '../lib/routes';
+import type { Collection, Project } from '../../../scripts/lib/types';
+
+interface Props {
+  collection: Collection;
+  projects: Project[];
+  lang: Lang;
+}
+const { collection, projects, lang } = Astro.props;
+const emptyMessage =
+  lang === 'fr'
+    ? 'Aucun projet dans cette collection pour l’instant.'
+    : 'No project in this collection yet.';
+---
+
+<section class="container page">
+  <nav class="crumbs" aria-label={lang === 'fr' ? 'Fil d’Ariane' : 'Breadcrumb'}>
+    <a href={localePath(lang, '/projects/')}>{t(lang, 'nav.projects')}</a>
+    <span aria-hidden="true">/</span>
+    <span>{collection.title[lang]}</span>
+  </nav>
+  <h1>{collection.title[lang]}</h1>
+  <p class="lede">{collection.description[lang]}</p>
+  <p class="count">
+    {projects.length}
+    {projects.length === 1 ? t(lang, 'filter.resultsOne') : t(lang, 'filter.results')}
+  </p>
+  <div class="grid" data-pagefind-ignore>
+    {projects.map((project) => <ProjectCard project={project} lang={lang} />)}
+    {projects.length === 0 && <EmptyState message={emptyMessage} visible />}
+  </div>
+</section>
+
+<style>
+  .page {
+    padding-block: var(--space-8);
+  }
+  .crumbs {
+    display: flex;
+    gap: var(--space-2);
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    margin-bottom: var(--space-5);
+  }
+  .lede {
+    color: var(--ink-muted);
+    font-size: 1.1rem;
+    max-width: 62ch;
+  }
+  .count {
+    color: var(--ink-muted);
+    font-weight: 700;
+  }
+  .grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+</style>

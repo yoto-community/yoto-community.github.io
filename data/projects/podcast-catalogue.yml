@@ -1,0 +1,12 @@
+name: Yoto Podcast Catalogue
+url: https://yoto-community.github.io/podcast-catalogue/
+description: Curated child-safe podcast feeds sorted by age and theme, ready for MYO cards.
+descriptionFr: Flux de podcasts pour enfants validés, classés par langue et par âge, prêts pour les cartes MYO.
+category: audio
+tags: [podcast, rss, french]
+author: Yoto Community
+license: MIT
+status: active
+official: false
+platforms: [web]
+added: 2026-11-03

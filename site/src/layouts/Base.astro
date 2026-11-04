@@ -1,0 +1,60 @@
+---
+import '@fontsource-variable/nunito';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { localePath, otherLang, type Lang } from '../lib/routes';
+import { t } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  path: string;
+}
+const { lang, title, description, path } = Astro.props;
+const canonical = new URL(localePath(lang, path), Astro.site).href;
+const alt = new URL(localePath(otherLang(lang), path), Astro.site).href;
+const fullTitle =
+  path === '/' || path === '/fr/'
+    ? `${title} — ${t(lang, 'site.tagline')}`
+    : `${title} — ${t(lang, 'site.title')}`;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={new URL(localePath('en', path), Astro.site).href} />
+    <link rel="alternate" hreflang="fr" href={new URL(localePath('fr', path), Astro.site).href} />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(localePath('en', path), Astro.site).href}
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Awesome Yoto" />
+    <meta property="og:image" content={new URL('/og.png', Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={fullTitle} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={new URL('/og.png', Astro.site).href} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{lang === 'fr' ? 'Aller au contenu' : 'Skip to content'}</a>
+    <Header lang={lang} path={path} altUrl={alt} />
+    <main id="main" data-pagefind-body>
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

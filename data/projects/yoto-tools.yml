@@ -1,0 +1,14 @@
+name: YotoTools
+url: https://github.com/trywait/YotoTools
+repo: https://github.com/trywait/YotoTools
+description: Chrome extension that saves the audio, icons and metadata of cards you own as a local backup.
+category: backup
+tags: [api, experimental]
+author: trywait
+license: MIT
+status: active
+official: false
+platforms: [web]
+requires: [yoto-account]
+warning: legal-backup
+added: 2026-11-03

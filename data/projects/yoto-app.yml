@@ -1,0 +1,11 @@
+name: Yoto
+url: https://yotoplay.com/
+description: The official Yoto website and store.
+category: official
+tags: [kids, web]
+author: Yoto
+license: Proprietary
+status: active
+official: true
+platforms: [web]
+added: 2026-11-03

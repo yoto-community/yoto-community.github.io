@@ -1,0 +1,14 @@
+name: Yoto for Home Assistant
+url: https://github.com/cdnninja/yoto_ha
+repo: https://github.com/cdnninja/yoto_ha
+description: Custom Home Assistant integration for Yoto players, now superseded by the core integration.
+category: automate
+tags: [home-assistant, mqtt]
+author: cdnninja
+license: MIT
+status: deprecated
+deprecatedBy: Home Assistant core Yoto integration
+official: false
+platforms: [home-assistant]
+requires: [yoto-account]
+added: 2026-11-03

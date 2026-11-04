@@ -1,0 +1,276 @@
+---
+import StatusBadge from '../components/StatusBadge.astro';
+import { t, type MessageKey } from '../i18n';
+import { localePath, type Lang } from '../lib/routes';
+import { catalog } from '../lib/catalog';
+import { humanizeList } from '../lib/format';
+import { absoluteUrl } from '../lib/site';
+import { projectJsonLd, jsonLdScript } from '../lib/jsonld';
+import type { Project } from '../../../scripts/lib/types';
+
+interface Props {
+  project: Project;
+  lang: Lang;
+}
+const { project, lang } = Astro.props;
+const description =
+  lang === 'fr' && project.descriptionFr ? project.descriptionFr : project.description;
+const fallback = lang === 'fr' && !project.descriptionFr;
+const category = catalog.categories.find((item) => item.slug === project.category);
+const related = catalog.projects
+  .filter(
+    (item) =>
+      item.slug !== project.slug &&
+      item.category === project.category &&
+      item.tags.some((tag) => project.tags.includes(tag)),
+  )
+  .sort(
+    (a, b) =>
+      b.tags.filter((tag) => project.tags.includes(tag)).length -
+      a.tags.filter((tag) => project.tags.includes(tag)).length,
+  )
+  .slice(0, 3);
+const describe = (item: Project) =>
+  lang === 'fr' && item.descriptionFr ? item.descriptionFr : item.description;
+const needsEnglish = (item: Project) => lang === 'fr' && !item.descriptionFr;
+const warningKey = project.warning ? (`project.warning.${project.warning}` as MessageKey) : null;
+const projectsHref = localePath(lang, '/projects/');
+---
+
+<article class="container detail">
+  <nav class="crumbs" aria-label={lang === 'fr' ? 'Fil d’Ariane' : 'Breadcrumb'}>
+    <a href={projectsHref}>{t(lang, 'nav.projects')}</a>
+    <span aria-hidden="true">/</span>
+    <a href={localePath(lang, `/categories/${project.category}/`)}>
+      {category?.label[lang] ?? project.category}
+    </a>
+  </nav>
+  <header>
+    <div class="title">
+      <h1>{project.name}</h1>
+      <script
+        type="application/ld+json"
+        set:html={jsonLdScript(
+          projectJsonLd(project, absoluteUrl(lang, `/p/${project.slug}/`), description),
+        )}
+      />
+      <StatusBadge status={project.status} lang={lang} />
+    </div>
+    <p class="lede">
+      {description}{fallback && <span class="en" title={t(lang, 'project.englishOnly')}>EN</span>}
+    </p>
+    <div class="actions">
+      <a class="btn primary" href={project.url} rel="noopener" target="_blank">
+        {t(lang, 'project.website')}
+      </a>
+      {
+        project.repo && (
+          <a class="btn ghost" href={project.repo} rel="noopener" target="_blank">
+            {t(lang, 'project.repo')}
+          </a>
+        )
+      }
+    </div>
+  </header>
+  {warningKey && <p class="warning">{t(lang, warningKey)}</p>}
+  <dl class="meta">
+    <div><dt>{t(lang, 'project.author')}</dt><dd>{project.author}</dd></div>
+    <div><dt>{t(lang, 'project.license')}</dt><dd>{project.license}</dd></div>
+    <div>
+      <dt>{t(lang, 'project.platforms')}</dt>
+      <dd>{humanizeList(project.platforms)}</dd>
+    </div>
+    {
+      project.requires?.length ? (
+        <div>
+          <dt>{t(lang, 'project.requires')}</dt>
+          <dd>{humanizeList(project.requires)}</dd>
+        </div>
+      ) : null
+    }
+    {
+      project.meta?.lastCommit ? (
+        <div>
+          <dt>{t(lang, 'project.lastCommit')}</dt>
+          <dd>{project.meta.lastCommit}</dd>
+        </div>
+      ) : null
+    }
+    {
+      project.meta?.stars !== undefined ? (
+        <div>
+          <dt>{t(lang, 'project.stars')}</dt>
+          <dd>★ {project.meta.stars}</dd>
+        </div>
+      ) : null
+    }
+  </dl>
+  <ul class="tags" aria-label={t(lang, 'filter.tag')}>
+    {
+      project.tags.map((tag) => (
+        <li>
+          <a href={`${projectsHref}?tag=${encodeURIComponent(tag)}`}>{tag}</a>
+        </li>
+      ))
+    }
+  </ul>
+  {
+    project.status === 'deprecated' && project.deprecatedBy && (
+      <p class="replaced">
+        {lang === 'fr'
+          ? `Remplacé par : ${project.deprecatedBy}`
+          : `Replaced by ${project.deprecatedBy}`}
+      </p>
+    )
+  }
+  {
+    related.length > 0 && (
+      <section aria-labelledby="related" data-pagefind-ignore>
+        <h2 id="related">{t(lang, 'project.related')}</h2>
+        <ul class="related">
+          {related.map((item) => (
+            <li>
+              <a href={localePath(lang, `/p/${item.slug}/`)}>{item.name}</a>
+              <span class="desc">
+                {describe(item)}{needsEnglish(item) && (
+                  <span class="en" title={t(lang, 'project.englishOnly')}>EN</span>
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</article>
+
+<style>
+  .detail {
+    padding-block: var(--space-8);
+    max-width: 820px;
+  }
+  .crumbs {
+    display: flex;
+    gap: var(--space-2);
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    margin-bottom: var(--space-5);
+  }
+  .title {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+  .title h1 {
+    margin: 0;
+  }
+  .lede {
+    font-size: 1.15rem;
+    color: var(--ink-muted);
+    margin-top: var(--space-3);
+    max-width: var(--measure);
+  }
+  .en {
+    margin-inline-start: 0.4rem;
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: var(--ink-muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0 0.25rem;
+    vertical-align: middle;
+  }
+  .actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin: var(--space-5) 0;
+  }
+  .btn {
+    padding: 0.7rem 1.1rem;
+    border-radius: var(--radius-pill);
+    font-weight: 800;
+    text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .primary {
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .primary:hover {
+    background: var(--accent-strong);
+    color: var(--bg);
+  }
+  .ghost {
+    border-color: var(--border);
+    color: var(--ink);
+    background: var(--surface);
+  }
+  .warning {
+    background: var(--warn-soft);
+    color: var(--warn);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-4);
+    font-weight: 700;
+  }
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: var(--space-4);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-5);
+  }
+  dt {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    font-weight: 800;
+  }
+  dd {
+    margin: 0.2rem 0 0;
+    font-weight: 700;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    padding: 0;
+  }
+  .tags a {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    background: var(--surface-2);
+    border-radius: var(--radius-pill);
+    padding: 0.15rem 0.6rem;
+  }
+  .tags a:hover {
+    color: var(--accent-strong);
+    text-decoration: underline;
+  }
+  .replaced {
+    color: var(--danger);
+    font-weight: 700;
+  }
+  .related {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .related a {
+    font-weight: 800;
+  }
+  .related .desc {
+    display: block;
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+  }
+</style>

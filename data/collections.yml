@@ -1,0 +1,24 @@
+- slug: start-here
+  title: { en: Start here, fr: Commencer ici }
+  description:
+    en: Five links that cover the whole Yoto experience.
+    fr: Cinq liens qui couvrent toute l'expérience Yoto.
+  items: [yoto-app, yoto-dev, louis, icons-catalogue, podcast-catalogue]
+- slug: myo-journey
+  title: { en: MYO journey, fr: Parcours MYO }
+  description:
+    en: The four tools that cover a card from audio to icon.
+    fr: Les quatre outils qui couvrent une carte, de l'audio à l'icône.
+  items: [podcast-catalogue, louis, icons-catalogue, yoto-app]
+- slug: french
+  title: { en: French resources, fr: Ressources francophones }
+  description:
+    en: Tools and catalogues with French support.
+    fr: Outils et catalogues avec support du français.
+  items: [icons-catalogue, podcast-catalogue]
+- slug: editors-picks
+  title: { en: Editor's picks, fr: Coups de cœur }
+  description:
+    en: Hand-picked projects worth trying first.
+    fr: Projets choisis à essayer en premier.
+  items: [louis, yoto-downloader, yoto-mcp]

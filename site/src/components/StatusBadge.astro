@@ -1,0 +1,43 @@
+---
+import { t, type MessageKey } from '../i18n';
+import type { Status } from '../../../scripts/lib/types';
+import type { Lang } from '../lib/routes';
+const { status, lang } = Astro.props as { status: Status; lang: Lang };
+---
+
+<span class:list={['badge', status]}>{t(lang, `status.${status}` as MessageKey)}</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border-radius: var(--radius-pill);
+    padding: 0.2rem 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+  }
+  .active {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+  }
+  .maintained {
+    background: var(--surface-2);
+    color: var(--ink-muted);
+  }
+  .stale {
+    background: var(--warn-soft);
+    color: var(--warn);
+  }
+  .archived {
+    background: var(--surface-2);
+    color: var(--ink-muted);
+  }
+  .deprecated {
+    background: var(--danger-soft);
+    color: var(--danger);
+  }
+</style>

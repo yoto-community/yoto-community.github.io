@@ -1,0 +1,95 @@
+name: Issue to PR
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: issue-to-pr-${{ github.event.issue.number }}
+  cancel-in-progress: true
+
+jobs:
+  convert:
+    if: contains(github.event.issue.labels.*.name, 'app:submission') && github.event.issue.state == 'open'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # The issue body is untrusted: it travels through the environment, never
+      # through the shell, and the script only writes YAML via the yaml library.
+      - name: Build the entry
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm tsx scripts/issue-to-project.ts
+
+      # A failing build step above means the script commented on the issue and
+      # exited 1, so no branch and no pull request are created here.
+      #
+      # README.md is generated from data/: it must be regenerated and committed
+      # with the new entry or the pull request fails check:readme.
+      - name: Regenerate the README and validate
+        run: |
+          pnpm validate
+          pnpm build:data
+
+      - name: Ensure the submission label exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh label create app:submission --description "App submitted through the issue form" --color "0E8A16" --force
+
+      - name: Open the pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          set -euo pipefail
+          slug=$(tr -d '\n' < .issue-slug)
+          branch="app/$slug"
+
+          # Pull requests opened with GITHUB_TOKEN do not trigger ci.yml, so this
+          # workflow runs validate and build:data itself. The open-PR check keeps
+          # re-runs (issues "edited" events) from opening duplicates.
+          if gh pr list --head "$branch" --state open --json number --jq '.[0].number // empty' | grep -q .; then
+            echo "PR already exists, skipping."
+            exit 0
+          fi
+
+          # A previous run may have pushed the branch without opening a PR.
+          remote_sha=$(git ls-remote origin "refs/heads/$branch" | cut -f1)
+          if [ -n "$remote_sha" ]; then
+            echo "Branch $branch exists without an open PR; rebuilding it."
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add README.md "data/projects/$slug.yml"
+          git commit -m "feat: add $slug from #$ISSUE_NUMBER"
+
+          # The branch is bot-owned and holds only the generated entry, so an
+          # orphaned branch is overwritten under an explicit lease.
+          if [ -n "$remote_sha" ]; then
+            git push -u origin "$branch" --force-with-lease="refs/heads/$branch:$remote_sha"
+          else
+            git push -u origin "$branch"
+          fi
+
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "feat: add $slug" \
+            --body "Closes #$ISSUE_NUMBER. Generated from the submission form; this workflow ran validate and build:data." \
+            --label app:submission

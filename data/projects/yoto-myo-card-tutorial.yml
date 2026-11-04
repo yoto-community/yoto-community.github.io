@@ -1,0 +1,14 @@
+name: MYO Card Tutorial
+url: https://github.com/BeniVidiVici/yoto-myo-card-tutorial
+repo: https://github.com/BeniVidiVici/yoto-myo-card-tutorial
+description: Illustrated French and English tutorial for formatting a blank NFC card and linking it to a playlist.
+descriptionFr: Tutoriel illustré en français et en anglais pour formater une carte NFC vierge et la relier à une playlist.
+category: learn
+tags: [nfc, french]
+author: BeniVidiVici
+license: Unknown
+status: active
+official: false
+platforms: [web]
+requires: [nfc-writer]
+added: 2026-11-03

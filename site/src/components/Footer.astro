@@ -1,0 +1,29 @@
+---
+import { t } from '../i18n';
+import { localePath, type Lang } from '../lib/routes';
+const { lang } = Astro.props as { lang: Lang };
+---
+
+<footer class="site-footer" data-pagefind-ignore>
+  <div class="container">
+    <p>{t(lang, 'footer.disclaimer')} · {t(lang, 'footer.license')}</p>
+    <p>
+      <a href={localePath(lang, '/about/')}>{t(lang, 'nav.about')}</a> ·
+      <a href={localePath(lang, '/api/')}>{t(lang, 'nav.api')}</a> ·
+      <a href="https://yoto.space/developers">Yoto Space</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    margin-top: var(--space-12);
+    padding-block: var(--space-8);
+    color: var(--ink-muted);
+  }
+  p {
+    margin: 0 0 var(--space-2);
+    font-size: 0.95rem;
+  }
+</style>

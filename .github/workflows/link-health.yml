@@ -1,0 +1,46 @@
+name: Link health
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: link-health
+  cancel-in-progress: false
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check:links
+
+      - name: Publish the report
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          [ -f .dead-count ] || { echo "::error::link report missing"; exit 1; }
+          gh label create link-health --color B45309 --description "Dead links report" 2>/dev/null || true
+          number=$(gh issue list --label link-health --state open --limit 1 --json number --jq '.[0].number // empty')
+          count=$(cat .dead-count)
+          if [ "$count" -gt 0 ]; then
+            if [ -n "$number" ]; then
+              gh issue edit "$number" --body-file link-report.md
+            else
+              gh issue create --title "Dead links" --label link-health --body-file link-report.md
+            fi
+          elif [ -n "$number" ]; then
+            gh issue close "$number" --comment "All links are healthy again."
+          fi

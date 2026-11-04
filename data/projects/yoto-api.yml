@@ -1,0 +1,13 @@
+name: yoto_api
+url: https://github.com/cdnninja/yoto_api
+repo: https://github.com/cdnninja/yoto_api
+description: Async Python wrapper for the Yoto API, with device control and live MQTT playback events.
+category: develop
+tags: [api, mqtt]
+author: cdnninja
+license: Apache-2.0
+status: active
+official: false
+platforms: [api]
+requires: [yoto-api-key]
+added: 2026-11-03

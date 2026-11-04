@@ -1,0 +1,11 @@
+name: Yoto Space
+url: https://yoto.space/
+description: Official Yoto community space to create, connect and discover audio content for children.
+category: official
+tags: [kids, web]
+author: Yoto
+license: Proprietary
+status: active
+official: true
+platforms: [web]
+added: 2026-11-03

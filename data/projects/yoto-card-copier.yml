@@ -1,0 +1,14 @@
+name: Yoto Card Copier
+url: https://github.com/DovieW/yoto-card-copier
+repo: https://github.com/DovieW/yoto-card-copier
+description: Offline Android app that copies a linked MYO playlist from a genuine card onto a blank MIFARE tag.
+descriptionFr: Application Android hors ligne qui copie une playlist MYO d'une carte officielle vers une puce MIFARE vierge.
+category: create
+tags: [nfc, android]
+author: DovieW
+license: MIT
+status: active
+official: false
+platforms: [android]
+requires: [nfc-writer]
+added: 2026-11-03

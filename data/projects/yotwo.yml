@@ -1,0 +1,14 @@
+name: yotwo
+url: https://github.com/tomekent/yotwo
+repo: https://github.com/tomekent/yotwo
+description: Custom firmware that turns a second-generation Yoto Player into an Audiobookshelf client.
+category: hardware
+tags: [hardware, audiobook]
+author: tomekent
+license: GPL-3.0
+status: active
+official: false
+platforms: [hardware]
+requires: [paid-hardware]
+warning: experimental
+added: 2026-11-03

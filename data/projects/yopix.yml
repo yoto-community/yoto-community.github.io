@@ -1,0 +1,13 @@
+name: YoPix
+url: https://github.com/trywait/yopix-public
+repo: https://github.com/trywait/yopix-public
+description: Convert any image into a 16x16 pixel-art icon for Yoto MYO cards.
+descriptionFr: Convertit n'importe quelle image en icône pixel art 16x16 pour les cartes MYO Yoto.
+category: icons
+tags: [pixel-art, web]
+author: trywait
+license: MIT
+status: stale
+official: false
+platforms: [web]
+added: 2026-11-03

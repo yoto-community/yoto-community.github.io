@@ -1,0 +1,14 @@
+name: Yoto Media Manager
+url: https://github.com/damione1/yoto-media-manager
+repo: https://github.com/damione1/yoto-media-manager
+description: Desktop app that imports audio from files or YouTube links, trims it and adds it to a Yoto playlist.
+descriptionFr: Application de bureau qui importe l'audio depuis un fichier ou YouTube, le découpe et l'ajoute à une playlist Yoto.
+category: create
+tags: [desktop, youtube]
+author: damione1
+license: GPL-3.0-or-later
+status: active
+official: false
+platforms: [macos, windows]
+requires: [yoto-account]
+added: 2026-11-03

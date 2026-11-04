@@ -1,0 +1,13 @@
+name: Yoto TypeScript SDK
+url: https://github.com/yotoplay/yoto-sdk
+repo: https://github.com/yotoplay/yoto-sdk
+description: TypeScript SDK for Yoto's public API, covering content, devices, media, icons and family library.
+category: official
+tags: [api, oauth]
+author: Yoto
+license: MIT
+status: active
+official: true
+platforms: [api]
+requires: [yoto-api-key]
+added: 2026-11-03

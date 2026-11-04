@@ -1,0 +1,13 @@
+name: yoto-up
+url: https://github.com/xkjq/yoto-up
+repo: https://github.com/xkjq/yoto-up
+description: Python toolbox with CLI, TUI and GUI modes for organising Yoto playlists, icons, covers and audio.
+category: audio
+tags: [cli, api]
+author: xkjq
+license: MIT
+status: active
+official: false
+platforms: [cli]
+requires: [yoto-account]
+added: 2026-11-03

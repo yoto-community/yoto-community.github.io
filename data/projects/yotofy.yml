@@ -1,0 +1,13 @@
+name: yotofy
+url: https://github.com/jstammers/yotofy
+repo: https://github.com/jstammers/yotofy
+description: Command-line tool that exports a Spotify playlist to a Yoto MYO card, fetching audio through spotDL.
+category: create
+tags: [spotify, api]
+author: jstammers
+license: MIT
+status: active
+official: false
+platforms: [cli]
+requires: [yoto-account, yoto-api-key]
+added: 2026-11-03

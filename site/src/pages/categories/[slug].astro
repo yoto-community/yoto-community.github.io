@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import CategoryView from '../../views/CategoryView.astro';
+import { catalog } from '../../lib/catalog';
+
+export function getStaticPaths() {
+  return catalog.categories.map((category) => ({
+    params: { slug: category.slug },
+    props: {
+      category,
+      projects: catalog.projects.filter((project) => project.category === category.slug),
+    },
+  }));
+}
+const { category, projects } = Astro.props;
+---
+
+<Base
+  lang="en"
+  title={category.label.en}
+  description={category.description.en}
+  path={`/categories/${category.slug}/`}
+>
+  <CategoryView category={category} projects={projects} lang="en" />
+</Base>

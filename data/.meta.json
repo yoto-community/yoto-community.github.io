@@ -1,0 +1,263 @@
+{
+  "updatedAt": "2026-11-03",
+  "projects": {
+    "yoto-audiobookshelf-bridge": {
+      "stars": 16,
+      "lastCommit": "2026-10-21",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "audio-yoto-shelf": {
+      "stars": 14,
+      "lastCommit": "2026-11-02",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "circuitpython-yoto": {
+      "stars": 3,
+      "lastCommit": "2026-04-23",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "custom-yoto-cards": {
+      "stars": 8,
+      "lastCommit": "2026-10-05",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "homebridge-yoto": {
+      "stars": 0,
+      "lastCommit": "2026-08-22",
+      "archived": false
+    },
+    "louis": {
+      "stars": 56,
+      "lastCommit": "2026-09-30",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "lovelace-yoto-cards": {
+      "stars": 0,
+      "lastCommit": "2026-09-26",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-myo-card-provisioner": {
+      "stars": 0,
+      "lastCommit": "2026-09-22",
+      "archived": false
+    },
+    "yoto-myo-card-tutorial": {
+      "stars": 0,
+      "lastCommit": "2026-09-20",
+      "archived": false
+    },
+    "open-yoto": {
+      "stars": 12,
+      "lastCommit": "2026-09-08",
+      "archived": false,
+      "licenseDetected": "NOASSERTION"
+    },
+    "selphyoto": {
+      "stars": 1,
+      "lastCommit": "2026-02-23",
+      "archived": false
+    },
+    "toto-backup": {
+      "stars": 21,
+      "lastCommit": "2026-10-31",
+      "archived": false,
+      "licenseDetected": "MPL-2.0"
+    },
+    "twee2yoto": {
+      "stars": 1,
+      "lastCommit": "2026-04-29",
+      "archived": false
+    },
+    "yodex": {
+      "stars": 2,
+      "lastCommit": "2026-08-03",
+      "archived": false
+    },
+    "yopix": {
+      "stars": 11,
+      "lastCommit": "2025-03-31",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-browser-player": {
+      "stars": 8,
+      "lastCommit": "2026-10-01",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-card-copier": {
+      "stars": 0,
+      "lastCommit": "2026-11-01",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-card-kit": {
+      "stars": 0,
+      "lastCommit": "2026-08-11",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-card-studio": {
+      "stars": 0,
+      "lastCommit": "2026-10-29",
+      "archived": false
+    },
+    "yoto-examples": {
+      "stars": 23,
+      "lastCommit": "2026-10-27",
+      "archived": false
+    },
+    "yoto-ha": {
+      "stars": 230,
+      "lastCommit": "2026-11-03",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-icon-search": {
+      "stars": 6,
+      "lastCommit": "2024-09-22",
+      "archived": false
+    },
+    "yoto-json-extractor": {
+      "stars": 21,
+      "lastCommit": "2026-10-24",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-mcp-server": {
+      "stars": 2,
+      "lastCommit": "2025-11-13",
+      "archived": false
+    },
+    "yoto-media-manager": {
+      "stars": 1,
+      "lastCommit": "2026-10-28",
+      "archived": false,
+      "licenseDetected": "GPL-3.0"
+    },
+    "yoto-nodejs-client": {
+      "stars": 7,
+      "lastCommit": "2026-04-15",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-playlist-creator": {
+      "stars": 9,
+      "lastCommit": "2026-01-07",
+      "archived": false
+    },
+    "yoto-sdk": {
+      "stars": 9,
+      "lastCommit": "2026-08-21",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-v3-teardown": {
+      "stars": 2,
+      "lastCommit": "2026-11-03",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-api": {
+      "stars": 57,
+      "lastCommit": "2026-11-02",
+      "archived": false,
+      "licenseDetected": "Apache-2.0"
+    },
+    "yoto-backup": {
+      "stars": 1,
+      "lastCommit": "2025-10-15",
+      "archived": false
+    },
+    "yoto-bulk": {
+      "stars": 0,
+      "lastCommit": "2026-11-01",
+      "archived": false
+    },
+    "yoto-cli": {
+      "stars": 16,
+      "lastCommit": "2026-01-01",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-downloader": {
+      "stars": 57,
+      "lastCommit": "2025-04-28",
+      "archived": false
+    },
+    "yoto-downloader-py": {
+      "stars": 0,
+      "lastCommit": "2026-09-28",
+      "archived": false
+    },
+    "yoto-library": {
+      "stars": 1,
+      "lastCommit": "2026-05-30",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-maker": {
+      "stars": 0,
+      "lastCommit": "2026-09-12",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-manager": {
+      "stars": 0,
+      "lastCommit": "2026-10-02",
+      "archived": false
+    },
+    "yoto-mcp": {
+      "stars": 2,
+      "lastCommit": "2026-05-17",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-music": {
+      "stars": 13,
+      "lastCommit": "2023-11-20",
+      "archived": false
+    },
+    "yoto-smart-stream": {
+      "stars": 10,
+      "lastCommit": "2026-09-26",
+      "archived": false
+    },
+    "yoto-up": {
+      "stars": 25,
+      "lastCommit": "2026-10-13",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yoto-book-maker": {
+      "stars": 16,
+      "lastCommit": "2026-09-12",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yotofy": {
+      "stars": 0,
+      "lastCommit": "2026-06-19",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yotolabels": {
+      "stars": 0,
+      "lastCommit": "2026-10-19",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yotolike": {
+      "stars": 9,
+      "lastCommit": "2025-10-04",
+      "archived": false,
+      "licenseDetected": "MIT"
+    }
+  }
+}

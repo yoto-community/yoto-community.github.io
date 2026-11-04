@@ -1,0 +1,14 @@
+name: yoto-library
+url: https://github.com/steverice/yoto-library
+repo: https://github.com/steverice/yoto-library
+description: Python CLI that mirrors CYO playlists as folders on disk and syncs them both ways with the Yoto API.
+category: backup
+tags: [cli, self-hosted]
+author: steverice
+license: MIT
+status: active
+official: false
+platforms: [cli, macos]
+requires: [yoto-account]
+warning: legal-backup
+added: 2026-11-03

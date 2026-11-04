@@ -1,0 +1,56 @@
+---
+import { t } from '../i18n';
+import { localePath, type Lang } from '../lib/routes';
+const { lang } = Astro.props as { lang: Lang };
+---
+
+<section class="container page" data-pagefind-ignore>
+  <p class="code" aria-hidden="true">404</p>
+  <h1>{t(lang, 'notfound.title')}</h1>
+  <p class="text">{t(lang, 'notfound.text')}</p>
+  <nav class="links" aria-label={lang === 'fr' ? 'Pages utiles' : 'Useful pages'}>
+    <a class="primary" href={localePath(lang, '/projects/')}
+      >{t(lang, 'notfound.back')} →</a
+    >
+    <a href={localePath(lang, '/')}
+      >{lang === 'fr' ? 'Retour à l’accueil' : 'Back to the home page'}</a
+    >
+  </nav>
+</section>
+
+<style>
+  .page {
+    padding-block: var(--space-12);
+    max-width: 640px;
+  }
+  .code {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+  }
+  .text {
+    color: var(--ink-muted);
+    font-size: 1.1rem;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    font-weight: 700;
+  }
+  .primary {
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: var(--radius-pill);
+    padding: 0.55rem 1.1rem;
+    text-decoration: none;
+  }
+  .primary:hover {
+    background: var(--accent-strong);
+    color: var(--bg);
+  }
+</style>

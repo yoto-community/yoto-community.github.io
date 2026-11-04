@@ -1,0 +1,14 @@
+name: Yoto Playlist Creator
+url: https://github.com/cjlm/yoto-playlist-creator
+repo: https://github.com/cjlm/yoto-playlist-creator
+description: Web app that searches YouTube, downloads audio with yt-dlp and uploads playlists as Yoto MYO cards.
+descriptionFr: Application web qui recherche sur YouTube, télécharge l'audio avec yt-dlp et crée des cartes MYO Yoto.
+category: create
+tags: [youtube, web]
+author: cjlm
+license: MIT
+status: maintained
+official: false
+platforms: [web]
+requires: [yoto-account]
+added: 2026-11-03

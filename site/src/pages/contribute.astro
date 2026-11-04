@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import ContributeView from '../views/ContributeView.astro';
+import { t } from '../i18n';
+---
+
+<Base
+  lang="en"
+  title={t('en', 'nav.contribute')}
+  description="Submit a project, fix an entry or report a dead link in Awesome Yoto."
+  path="/contribute/"
+>
+  <ContributeView lang="en" />
+</Base>

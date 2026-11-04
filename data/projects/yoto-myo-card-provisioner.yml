@@ -1,0 +1,13 @@
+name: MYO Card Provisioner
+url: https://github.com/NitsujY/yoto-myo-card-provisioner
+repo: https://github.com/NitsujY/yoto-myo-card-provisioner
+description: Single-page tool that generates a Yoto MYO URL and writes it to a blank NFC card over Web NFC.
+category: create
+tags: [nfc, web]
+author: NitsujY
+license: Unknown
+status: active
+official: false
+platforms: [web]
+requires: [nfc-writer]
+added: 2026-11-03

@@ -1,0 +1,13 @@
+name: Yoto MCP Server
+url: https://github.com/bperkinspdx/yoto-mcp-server
+repo: https://github.com/bperkinspdx/yoto-mcp-server
+description: MCP server for Warp that uploads audio and creates MYO cards through the Yoto API.
+category: develop
+tags: [mcp, api]
+author: bperkinspdx
+license: MIT
+status: maintained
+official: false
+platforms: [api]
+requires: [yoto-account]
+added: 2026-11-03

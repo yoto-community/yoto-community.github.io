@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import ApiView from '../views/ApiView.astro';
+import { t } from '../i18n';
+---
+
+<Base
+  lang="en"
+  title={t('en', 'nav.api')}
+  description="Static JSON API for the Awesome Yoto catalogue."
+  path="/api/"
+>
+  <ApiView lang="en" />
+</Base>

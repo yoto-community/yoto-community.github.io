@@ -1,0 +1,169 @@
+---
+import Button from '../components/Button.astro';
+import Search from '../components/Search.astro';
+import { catalog } from '../lib/catalog';
+import { t } from '../i18n';
+import { localePath, type Lang } from '../lib/routes';
+const { lang } = Astro.props as { lang: Lang };
+const catalogues = [
+  {
+    title: 'home.catalogues.myo',
+    text: 'home.catalogues.myo.text',
+    href: '/myo/',
+    localized: true,
+  },
+  {
+    title: 'home.catalogues.icons',
+    text: 'home.catalogues.icons.text',
+    href: '/icons-catalogue/',
+    localized: false,
+  },
+  {
+    title: 'home.catalogues.podcasts',
+    text: 'home.catalogues.podcasts.text',
+    href: '/podcast-catalogue/',
+    localized: false,
+  },
+] as const;
+
+const podcastFrUrl = 'https://yoto-community.github.io/podcast-catalogue/fr/';
+
+function tileHref(item: (typeof catalogues)[number]): string {
+  if (item.href === '/podcast-catalogue/' && lang === 'fr') return podcastFrUrl;
+  return item.localized ? localePath(lang, item.href) : item.href;
+}
+---
+
+<section class="hero">
+  <div class="container">
+    <p class="eyebrow">{t(lang, 'site.tagline')}</p>
+    <h1>{t(lang, 'home.hero.title')}</h1>
+    <p class="lede">{t(lang, 'home.hero.subtitle')}</p>
+    <div class="actions">
+      <Button href={localePath(lang, '/projects/')}>{t(lang, 'home.hero.cta')}</Button>
+      <Button href={localePath(lang, '/myo/')} variant="ghost"
+        >{t(lang, 'home.hero.secondary')}</Button
+      >
+    </div>
+  </div>
+</section>
+
+<section class="container"><Search lang={lang} /></section>
+
+<section class="container deeper" aria-labelledby="deeper-title">
+  <h2 id="deeper-title">{t(lang, 'home.catalogues.title')}</h2>
+  <div class="grid">
+    {
+      catalogues.map((item) => (
+        <a class="tile" href={tileHref(item)}>
+          <h3>{t(lang, item.title)}</h3>
+          <p>{t(lang, item.text)}</p>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<section class="container start-here" aria-labelledby="start-here-title">
+  <h2 id="start-here-title">{lang === 'fr' ? 'Commencer ici' : 'Start here'}</h2>
+  <ul class="collections">
+    {
+      catalog.collections.map((collection) => (
+        <li>
+          <a href={localePath(lang, `/collections/${collection.slug}/`)}>
+            <strong>{collection.title[lang]}</strong>
+            <span>{collection.description[lang]}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(3rem, 9vw, 7rem) var(--space-12);
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: var(--space-3);
+  }
+  .lede {
+    max-width: 58ch;
+    font-size: 1.2rem;
+    color: var(--ink-muted);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+  .deeper {
+    padding-block: var(--space-8);
+  }
+  .grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .tile {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform 180ms var(--ease);
+  }
+  .tile:hover {
+    transform: translateY(-3px);
+  }
+  .tile h3 {
+    margin-bottom: var(--space-2);
+    color: var(--accent-strong);
+  }
+  .tile p {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+  .start-here {
+    padding-block: var(--space-8) var(--space-12);
+  }
+  .collections {
+    display: grid;
+    gap: var(--space-3);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .collections a {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    height: 100%;
+    background: var(--surface-2);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4);
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .collections a:hover {
+    color: var(--ink);
+    background: var(--accent-soft);
+  }
+  .collections strong {
+    color: var(--accent-strong);
+  }
+  .collections span {
+    color: var(--ink-muted);
+    font-size: 0.92rem;
+  }
+</style>

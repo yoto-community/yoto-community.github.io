@@ -1,0 +1,14 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProjectsView from '../../views/ProjectsView.astro';
+import { t } from '../../i18n';
+---
+
+<Base
+  lang="en"
+  title={t('en', 'nav.projects')}
+  description={t('en', 'site.description')}
+  path="/projects/"
+>
+  <ProjectsView lang="en" />
+</Base>

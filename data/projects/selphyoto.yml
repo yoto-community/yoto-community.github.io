@@ -1,0 +1,13 @@
+name: Selphyoto
+url: https://github.com/m600x/Selphyoto
+repo: https://github.com/m600x/Selphyoto
+description: Browser app that lays out and prints precisely sized Yoto card labels on a Canon Selphy CP1500 or CP1300.
+descriptionFr: Application web pour composer et imprimer des étiquettes de cartes Yoto au format exact sur une Canon Selphy.
+category: icons
+tags: [printing, pixel-art]
+author: m600x
+license: Unknown
+status: maintained
+official: false
+platforms: [web]
+added: 2026-11-03

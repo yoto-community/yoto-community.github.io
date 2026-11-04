@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import CollectionView from '../../views/CollectionView.astro';
+import { catalog } from '../../lib/catalog';
+import type { Project } from '../../../../scripts/lib/types';
+
+export function getStaticPaths() {
+  return catalog.collections.map((collection) => ({
+    params: { slug: collection.slug },
+    props: {
+      collection,
+      projects: collection.items
+        .map((slug) => catalog.projects.find((project) => project.slug === slug))
+        .filter((project): project is Project => project !== undefined),
+    },
+  }));
+}
+const { collection, projects } = Astro.props;
+---
+
+<Base
+  lang="en"
+  title={collection.title.en}
+  description={collection.description.en}
+  path={`/collections/${collection.slug}/`}
+>
+  <CollectionView collection={collection} projects={projects} lang="en" />
+</Base>

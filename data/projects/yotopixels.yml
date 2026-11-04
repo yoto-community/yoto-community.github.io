@@ -1,0 +1,11 @@
+name: YotoPixels
+url: https://yotopixels.com/
+description: Browser tool that crops and pixelates an image into pixel-art icons for Yoto players.
+category: icons
+tags: [pixel-art, web]
+author: YotoPixels
+license: Unknown
+status: active
+official: false
+platforms: [web]
+added: 2026-11-03

@@ -1,0 +1,13 @@
+name: Yoto Card Kit
+url: https://github.com/eddowding/yoto-card-kit
+repo: https://github.com/eddowding/yoto-card-kit
+description: Claude Code skill that turns a YouTube link or audio file into numbered tracks, icons and card art.
+category: create
+tags: [cli, audiobook]
+author: eddowding
+license: MIT
+status: active
+official: false
+platforms: [cli]
+requires: [yoto-account]
+added: 2026-11-03

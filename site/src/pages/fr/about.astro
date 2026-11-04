@@ -1,0 +1,14 @@
+---
+import Base from '../../layouts/Base.astro';
+import AboutView from '../../views/AboutView.astro';
+import { t } from '../../i18n';
+---
+
+<Base
+  lang="fr"
+  title={t('fr', 'nav.about')}
+  description="À propos d'Awesome Yoto, de ses critères et de son indépendance."
+  path="/about/"
+>
+  <AboutView lang="fr" />
+</Base>

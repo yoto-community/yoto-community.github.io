@@ -1,0 +1,75 @@
+---
+import { t } from '../i18n';
+import { localePath, type Lang } from '../lib/routes';
+const { lang } = Astro.props as { lang: Lang };
+const repo = 'https://github.com/yoto-community/yoto-community.github.io';
+---
+
+<section class="container page">
+  <h1>{t(lang, 'nav.contribute')}</h1>
+  <p>
+    {
+      lang === 'fr'
+        ? 'Le dépôt est la seule source de vérité : on édite data/, jamais le README ni le site.'
+        : 'The repository is the only source of truth: edit data/, never the README or the site.'
+    }
+  </p>
+  <h2>{lang === 'fr' ? 'Trois façons de contribuer' : 'Three ways to contribute'}</h2>
+  <ol>
+    <li>
+      <strong>{lang === 'fr' ? 'Formulaire' : 'Form'}</strong> —
+      <a href={`${repo}/issues/new?template=submit-app.yml`}
+        >{lang === 'fr' ? 'proposer une application' : 'submit an app'}</a
+      >.
+    </li>
+    <li>
+      <strong>Pull request</strong> —
+      {
+        lang === 'fr'
+          ? 'ajoutez un fichier YAML dans data/projects/.'
+          : 'add a YAML file under data/projects/.'
+      }
+    </li>
+    <li>
+      <strong>{lang === 'fr' ? 'Signaler' : 'Report'}</strong> —
+      <a href={`${repo}/issues/new?labels=link-health&title=Dead+link`}
+        >{lang === 'fr' ? 'un lien mort' : 'a dead link'}</a
+      >.
+    </li>
+  </ol>
+  <h2>{lang === 'fr' ? 'Vérifier en local' : 'Check locally'}</h2>
+  <pre><code>pnpm install
+pnpm validate
+pnpm build:data
+pnpm verify</code></pre>
+  <p>
+    {
+      lang === 'fr'
+        ? 'La CI rejette toute PR si le schéma, les doublons, les catégories ou le README généré sont invalides.'
+        : 'CI blocks any PR with an invalid schema, duplicate, unknown category, or stale generated README.'
+    }
+  </p>
+  <a href={localePath(lang, '/projects/')}>{t(lang, 'nav.projects')} →</a>
+</section>
+
+<style>
+  .page {
+    padding-block: var(--space-8);
+    max-width: 760px;
+  }
+  ol {
+    display: grid;
+    gap: var(--space-3);
+  }
+  pre {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-4);
+    overflow-x: auto;
+  }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9em;
+  }
+</style>

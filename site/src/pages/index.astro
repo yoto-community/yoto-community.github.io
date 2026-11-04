@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import HomeView from '../views/HomeView.astro';
+import { t } from '../i18n';
+---
+
+<Base lang="en" title={t('en', 'site.title')} description={t('en', 'site.description')} path="/">
+  <HomeView lang="en" />
+</Base>

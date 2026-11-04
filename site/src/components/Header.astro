@@ -1,0 +1,199 @@
+---
+import { t } from '../i18n';
+import { localePath, type Lang } from '../lib/routes';
+
+interface Props {
+  lang: Lang;
+  path: string;
+  altUrl: string;
+}
+const { lang, path, altUrl } = Astro.props;
+const links = [
+  { href: '/projects/', label: 'nav.projects' as const },
+  { href: '/myo/', label: 'nav.myo' as const },
+  { href: '/contribute/', label: 'nav.contribute' as const },
+];
+const navLabel = lang === 'fr' ? 'Navigation principale' : 'Main navigation';
+---
+
+<header class="site-header" data-pagefind-ignore>
+  <div class="container bar">
+    <a class="brand" href={localePath(lang, '/')} aria-label={t(lang, 'site.title')}>
+      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+        <rect x="2" y="2" width="30" height="30" rx="10" fill="var(--accent)"></rect>
+        <path
+          d="M10 12v10M14 9v16M18 13v8M22 10v14M26 14v6"
+          stroke="var(--bg)"
+          stroke-width="2.2"
+          stroke-linecap="round"></path>
+      </svg>
+      <span>Awesome Yoto</span>
+    </a>
+    <nav class="desktop-nav" aria-label={navLabel}>
+      <ul>
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={localePath(lang, link.href)}
+                aria-current={path === link.href ? 'page' : undefined}
+              >
+                {t(lang, link.label)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <details class="mobile-menu">
+      <summary>Menu</summary>
+      <nav aria-label={navLabel}>
+        <ul>
+          {
+            links.map((link) => (
+              <li>
+                <a
+                  href={localePath(lang, link.href)}
+                  aria-current={path === link.href ? 'page' : undefined}
+                >
+                  {t(lang, link.label)}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </details>
+    <a
+      class="lang"
+      href={altUrl}
+      hreflang={lang === 'en' ? 'fr' : 'en'}
+      aria-label={lang === 'en' ? 'Version française' : 'English version'}
+    >
+      {lang === 'en' ? 'FR' : 'EN'}
+    </a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    min-height: 72px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-weight: 800;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 1.1rem;
+    white-space: nowrap;
+  }
+  .desktop-nav {
+    margin-inline-start: auto;
+  }
+  .desktop-nav ul {
+    display: flex;
+    gap: var(--space-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .desktop-nav a {
+    color: var(--ink-muted);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .desktop-nav a[aria-current='page'],
+  .desktop-nav a:hover {
+    color: var(--accent);
+  }
+  .mobile-menu {
+    display: none;
+    position: relative;
+    margin-inline-start: auto;
+  }
+  .mobile-menu summary {
+    cursor: pointer;
+    list-style: none;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 0.35rem 0.8rem;
+    font-weight: 800;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+  .mobile-menu[open] summary {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .mobile-menu nav {
+    position: absolute;
+    inset-inline-end: 0;
+    top: calc(100% + var(--space-2));
+    min-width: 12rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+    padding: var(--space-2);
+    z-index: 30;
+  }
+  .mobile-menu ul {
+    display: block;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .mobile-menu a {
+    display: block;
+    padding: 0.45rem 0.65rem;
+    border-radius: var(--radius-sm);
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .mobile-menu a[aria-current='page'],
+  .mobile-menu a:hover {
+    background: var(--surface-2);
+    color: var(--accent);
+  }
+  .lang {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 0.35rem 0.8rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  @media (max-width: 720px) {
+    .bar {
+      gap: var(--space-3);
+    }
+    .desktop-nav {
+      display: none;
+    }
+    .mobile-menu {
+      display: block;
+    }
+  }
+  @media (max-width: 380px) {
+    .brand span {
+      font-size: 1rem;
+    }
+  }
+</style>

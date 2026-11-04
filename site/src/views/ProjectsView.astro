@@ -1,0 +1,72 @@
+---
+import FilterBar from '../components/FilterBar.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import EmptyState from '../components/EmptyState.astro';
+import { catalog } from '../lib/catalog';
+import { t } from '../i18n';
+import { localePath, type Lang } from '../lib/routes';
+import { absoluteUrl } from '../lib/site';
+import { listJsonLd, jsonLdScript } from '../lib/jsonld';
+
+const { lang } = Astro.props as { lang: Lang };
+const order = new Map(catalog.categories.map((category) => [category.slug, category.order]));
+const projects = [...catalog.projects].sort(
+  (a, b) =>
+    (order.get(a.category) ?? 0) - (order.get(b.category) ?? 0) ||
+    a.name.localeCompare(b.name, 'en'),
+);
+const platforms = [...new Set(catalog.projects.flatMap((project) => project.platforms))].sort();
+---
+
+<section class="container page" data-pagefind-ignore>
+  <h1>{lang === 'fr' ? 'Tous les projets' : 'All projects'}</h1>
+  <script
+    type="application/ld+json"
+    set:html={jsonLdScript(listJsonLd(projects, absoluteUrl(lang, '/projects/')))}
+  />
+  <p
+    class="count"
+    data-count
+    data-one={t(lang, 'filter.resultsOne')}
+    data-many={t(lang, 'filter.results')}
+    aria-live="polite"
+  >
+    {projects.length} {t(lang, 'filter.results')}
+  </p>
+  <FilterBar
+    lang={lang}
+    categories={catalog.categories}
+    tags={catalog.tags}
+    platforms={platforms}
+  />
+  <div class="grid" data-grid>
+    {projects.map((project) => <ProjectCard project={project} lang={lang} />)}
+    <EmptyState message={t(lang, 'filter.empty')} />
+  </div>
+  <a class="back" href={localePath(lang, '/')}>{lang === 'fr' ? '← Accueil' : '← Home'}</a>
+</section>
+
+<script>
+  import '../scripts/filters';
+</script>
+
+<style>
+  .page {
+    padding-block: var(--space-8);
+  }
+  .count {
+    color: var(--ink-muted);
+    font-weight: 700;
+  }
+  .grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    margin-top: var(--space-5);
+  }
+  .back {
+    display: inline-block;
+    margin-top: var(--space-6);
+    color: var(--ink-muted);
+  }
+</style>

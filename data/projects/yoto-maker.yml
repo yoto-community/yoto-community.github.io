@@ -1,0 +1,13 @@
+name: yoto-maker
+url: https://github.com/mmackelprang/yoto-maker
+repo: https://github.com/mmackelprang/yoto-maker
+description: Local Windows app that turns YouTube links or audio files into a Yoto card and prints a matching label.
+category: create
+tags: [youtube, printing]
+author: Mark Mackelprang
+license: MIT
+status: active
+official: false
+platforms: [windows, web]
+requires: [yoto-account, yoto-api-key]
+added: 2026-11-03

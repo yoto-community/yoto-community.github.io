@@ -1,0 +1,12 @@
+name: Yoto Icon Search
+url: https://github.com/Schmavery/yoto-icon-search
+repo: https://github.com/Schmavery/yoto-icon-search
+description: Chrome extension that adds a search box to the Yoto icon picker when building a Make Your Own card.
+category: icons
+tags: [pixel-art, web]
+author: Schmavery
+license: Unknown
+status: stale
+official: false
+platforms: [web]
+added: 2026-11-03

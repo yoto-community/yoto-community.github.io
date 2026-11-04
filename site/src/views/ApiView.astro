@@ -1,0 +1,95 @@
+---
+import { t } from '../i18n';
+import { catalog } from '../lib/catalog';
+import { localePath, type Lang } from '../lib/routes';
+const { lang } = Astro.props as { lang: Lang };
+const example = catalog.projects.find((p) => p.slug === 'louis') ?? catalog.projects[0];
+const endpoints = [
+  {
+    path: '/api/catalog.json',
+    text: {
+      en: 'Everything: schemaVersion, generatedAt, categories, tags, collections and projects.',
+      fr: 'Tout : schemaVersion, generatedAt, catégories, tags, collections et projets.',
+    },
+  },
+  {
+    path: '/api/projects.json',
+    text: { en: 'The projects array only.', fr: 'Uniquement le tableau des projets.' },
+  },
+  {
+    path: '/api/categories.json',
+    text: { en: 'The nine categories, ordered.', fr: 'Les neuf catégories, dans l’ordre.' },
+  },
+];
+---
+
+<section class="container page">
+  <h1>{t(lang, 'nav.api')}</h1>
+  <p>
+    {
+      lang === 'fr'
+        ? 'Le catalogue est publié en JSON statique, sans authentification. Les fichiers sont régénérés à chaque déploiement.'
+        : 'The catalogue is published as static JSON with no authentication. Files are regenerated on every deployment.'
+    }
+  </p>
+  <ul class="endpoints">
+    {
+      endpoints.map((endpoint) => (
+        <li>
+          <code>{endpoint.path}</code>
+          <span>{endpoint.text[lang]}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <h2>{lang === 'fr' ? 'Forme d’un projet' : 'Project shape'}</h2>
+  <pre data-pagefind-ignore><code>{JSON.stringify(example, null, 2)}</code></pre>
+  <p class="note">
+    {
+      lang === 'fr'
+        ? 'L’utilisation same-origin est garantie. GitHub Pages renvoie actuellement Access-Control-Allow-Origin: *, donc les requêtes navigateur cross-origin fonctionnent aussi.'
+        : 'Same-origin use is guaranteed. GitHub Pages currently returns Access-Control-Allow-Origin: *, so cross-origin browser fetches also work.'
+    }
+  </p>
+  <a href={localePath(lang, '/')}>← {lang === 'fr' ? 'Accueil' : 'Home'}</a>
+</section>
+
+<style>
+  .page {
+    padding-block: var(--space-8);
+    max-width: 820px;
+  }
+  .endpoints {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .endpoints li {
+    display: grid;
+    gap: 0.2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-4);
+  }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9em;
+  }
+  .endpoints span {
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+  }
+  pre {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-4);
+    overflow-x: auto;
+  }
+  .note {
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+  }
+</style>

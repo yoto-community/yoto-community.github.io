@@ -1,0 +1,13 @@
+name: homebridge-yoto-player
+url: https://github.com/ChrisPatten/homebridge-yoto-player
+repo: https://github.com/ChrisPatten/homebridge-yoto-player
+description: Homebridge plugin that exposes Yoto players to Apple HomeKit with playback, volume and a play switch.
+category: automate
+tags: [home-assistant, api]
+author: ChrisPatten
+license: Apache-2.0
+status: active
+official: false
+platforms: [api]
+requires: [yoto-account, yoto-api-key]
+added: 2026-11-03

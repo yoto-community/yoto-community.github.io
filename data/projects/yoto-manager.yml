@@ -1,0 +1,13 @@
+name: yoto-manager
+url: https://github.com/pg0/yoto-manager
+repo: https://github.com/pg0/yoto-manager
+description: Browser batch editor for MYO playlists with multi-select, bulk renaming, icon assignment and MP3 upload.
+category: create
+tags: [web, api]
+author: pg0
+license: Unknown
+status: active
+official: false
+platforms: [web]
+requires: [yoto-account, yoto-api-key]
+added: 2026-11-03

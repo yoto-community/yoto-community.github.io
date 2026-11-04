@@ -1,0 +1,13 @@
+name: Home Assistant Yoto integration
+url: https://www.home-assistant.io/integrations/yoto/
+description: Control Yoto players and read their state from Home Assistant, without HACS.
+descriptionFr: Contrôlez les lecteurs Yoto et lisez leur état depuis Home Assistant, sans HACS.
+category: automate
+tags: [home-assistant, api]
+author: Home Assistant
+license: Apache-2.0
+status: active
+official: false
+platforms: [home-assistant]
+requires: [yoto-account]
+added: 2026-11-03

@@ -1,0 +1,129 @@
+---
+import { t, type MessageKey } from '../i18n';
+import type { Lang } from '../lib/routes';
+import { humanize } from '../lib/format';
+import type { Category, Status } from '../../../scripts/lib/types';
+
+interface Props {
+  lang: Lang;
+  categories: Category[];
+  tags: string[];
+  platforms: string[];
+}
+const { lang, categories, tags, platforms } = Astro.props;
+const statuses: Status[] = ['active', 'maintained', 'stale', 'archived', 'deprecated'];
+const formLabel = lang === 'fr' ? 'Filtrer les projets' : 'Filter projects';
+---
+
+<form class="filters" data-filters aria-label={formLabel}>
+  <div class="field grow">
+    <label for="filter-q">{t(lang, 'search.label')}</label>
+    <input
+      id="filter-q"
+      type="search"
+      name="q"
+      placeholder={t(lang, 'search.placeholder')}
+      autocomplete="off"
+    />
+  </div>
+  <div class="field">
+    <label for="filter-cat">{t(lang, 'filter.category')}</label>
+    <select id="filter-cat" name="cat">
+      <option value="">{lang === 'fr' ? 'Toutes' : 'All'}</option>
+      {categories.map((category) => <option value={category.slug}>{category.label[lang]}</option>)}
+    </select>
+  </div>
+  <div class="field">
+    <label for="filter-status">{t(lang, 'filter.status')}</label>
+    <select id="filter-status" name="status">
+      <option value="">{lang === 'fr' ? 'Tous' : 'All'}</option>
+      {
+        statuses.map((status) => (
+          <option value={status}>{t(lang, `status.${status}` as MessageKey)}</option>
+        ))
+      }
+    </select>
+  </div>
+  <div class="field">
+    <label for="filter-platform">{t(lang, 'filter.platform')}</label>
+    <select id="filter-platform" name="platform">
+      <option value="">{lang === 'fr' ? 'Toutes' : 'All'}</option>
+      {platforms.map((platform) => <option value={platform}>{humanize(platform)}</option>)}
+    </select>
+  </div>
+  <div class="field">
+    <label for="filter-tag">{t(lang, 'filter.tag')}</label>
+    <select id="filter-tag" name="tag">
+      <option value="">{lang === 'fr' ? 'Tous' : 'All'}</option>
+      {tags.map((tag) => <option value={tag}>{tag}</option>)}
+    </select>
+  </div>
+  <label class="check">
+    <input type="checkbox" name="official" value="1" /> {t(lang, 'filter.official')}
+  </label>
+  <label class="check">
+    <input type="checkbox" name="fr" value="1" /> {t(lang, 'filter.french')}
+  </label>
+  <div class="field">
+    <label for="filter-sort">{t(lang, 'sort.label')}</label>
+    <select id="filter-sort" name="sort">
+      <option value="category">{t(lang, 'sort.category')}</option>
+      <option value="recent">{t(lang, 'sort.recent')}</option>
+      <option value="stars">{t(lang, 'sort.stars')}</option>
+      <option value="alpha">{t(lang, 'sort.alpha')}</option>
+    </select>
+  </div>
+  <button type="reset" class="clear">{t(lang, 'filter.clear')}</button>
+</form>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: var(--space-3);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-4);
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--ink-muted);
+  }
+  .field.grow {
+    flex: 1 1 240px;
+  }
+  input[type='search'],
+  select {
+    font: inherit;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink-muted);
+    padding-bottom: 0.5rem;
+  }
+  .clear {
+    font: inherit;
+    font-weight: 800;
+    padding: 0.55rem 0.9rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+  }
+</style>

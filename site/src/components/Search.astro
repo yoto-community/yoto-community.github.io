@@ -1,0 +1,70 @@
+---
+import { t } from '../i18n';
+import type { Lang } from '../lib/routes';
+const { lang } = Astro.props as { lang: Lang };
+const isProd = import.meta.env.PROD;
+const label = t(lang, 'search.label');
+const placeholder = t(lang, 'search.placeholder');
+---
+
+{
+  isProd && (
+    <div class="search" data-pagefind-ignore>
+      <h2 class="sr-only" id="search-title">
+        {label}
+      </h2>
+      <div id="search" />
+      <noscript>
+        <p class="noscript">
+          {lang === 'fr' ? 'La recherche nécessite JavaScript.' : 'Search requires JavaScript.'}
+        </p>
+      </noscript>
+      <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+      <script is:inline src="/pagefind/pagefind-ui.js" defer />
+      <script is:inline define:vars={{ lang, label, placeholder }}>
+        window.addEventListener('DOMContentLoaded', function () {
+          if (!window.PagefindUI) return;
+          new window.PagefindUI({
+            element: '#search',
+            showSubResults: true,
+            translations: Object.assign(
+              { placeholder: placeholder },
+              lang === 'fr'
+                ? {
+                    zero_results: 'Aucun résultat pour [SEARCH_TERM]',
+                    many_results: '[COUNT] résultats pour [SEARCH_TERM]',
+                    one_result: '1 résultat pour [SEARCH_TERM]',
+                  }
+                : {},
+            ),
+          });
+          var input = document.querySelector('#search input');
+          if (input) input.setAttribute('aria-label', label);
+        });
+      </script>
+    </div>
+  )
+}
+
+<style>
+  .search {
+    margin-block: var(--space-6) var(--space-8);
+    --pagefind-ui-primary: var(--accent);
+    --pagefind-ui-text: var(--ink);
+    --pagefind-ui-background: var(--surface);
+    --pagefind-ui-border: var(--border);
+    --pagefind-ui-tag: var(--surface-2);
+    --pagefind-ui-border-radius: var(--radius);
+    --pagefind-ui-font: var(--font-sans);
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .noscript {
+    color: var(--ink-muted);
+  }
+</style>

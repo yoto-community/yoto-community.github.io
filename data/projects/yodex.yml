@@ -1,0 +1,12 @@
+name: yodex
+url: https://github.com/jordan-wright/yodex
+repo: https://github.com/jordan-wright/yodex
+description: Go CLI that writes and voices a short science podcast episode for children, with optional S3 publishing.
+category: audio
+tags: [podcast, api]
+author: Jordan Wright
+license: Unknown
+status: active
+official: false
+platforms: [cli]
+added: 2026-11-03

@@ -1,0 +1,114 @@
+name: Submit an app
+description: Propose a project for Awesome Yoto.
+title: '[App]: '
+labels: ['app:submission']
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      description: The project name as it should appear in the list.
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      description: Public HTTPS link to the app, guide or repository.
+    validations:
+      required: true
+
+  - type: input
+    id: repository
+    attributes:
+      label: Repository
+      description: Optional GitHub or GitLab URL for the source code.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: One factual sentence, 20-180 characters, in English.
+    validations:
+      required: true
+
+  - type: textarea
+    id: french-description
+    attributes:
+      label: French description
+      description: Optional, 20-180 characters, in French.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - official
+        - create
+        - icons
+        - audio
+        - automate
+        - develop
+        - backup
+        - hardware
+        - learn
+    validations:
+      required: true
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated, lowercase, from data/tags.yml (1 to 8 tags).
+    validations:
+      required: true
+
+  - type: dropdown
+    id: platforms
+    attributes:
+      label: Platforms
+      description: Select every platform the project runs on.
+      multiple: true
+      options:
+        - web
+        - ios
+        - android
+        - macos
+        - windows
+        - linux
+        - cli
+        - home-assistant
+        - hardware
+        - api
+    validations:
+      required: true
+
+  - type: input
+    id: author
+    attributes:
+      label: Author
+      description: Person or organisation to credit.
+    validations:
+      required: true
+
+  - type: input
+    id: license
+    attributes:
+      label: License
+      description: SPDX identifier (MIT, GPL-3.0-only, ...), or Unknown.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: official
+    attributes:
+      label: Official
+      description: Is this built or endorsed by Yoto?
+      options:
+        - 'No'
+        - 'Yes'
+    validations:
+      required: true

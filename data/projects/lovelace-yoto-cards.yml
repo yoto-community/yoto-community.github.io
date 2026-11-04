@@ -1,0 +1,12 @@
+name: Lovelace Yoto Cards
+url: https://github.com/tkamenick/lovelace-yoto-cards
+repo: https://github.com/tkamenick/lovelace-yoto-cards
+description: Five Lovelace cards that show Yoto playback, MYO library contents and listening history.
+category: automate
+tags: [home-assistant]
+author: tkamenick
+license: MIT
+status: active
+official: false
+platforms: [home-assistant]
+added: 2026-11-03

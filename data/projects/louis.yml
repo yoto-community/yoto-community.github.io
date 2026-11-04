@@ -1,0 +1,14 @@
+name: Louis
+url: https://github.com/stuartromanek/louis
+repo: https://github.com/stuartromanek/louis
+description: Turn a YouTube playlist into MYO-ready audio, with automatic splitting and icons.
+descriptionFr: Transforme une playlist YouTube en carte MYO Yoto, avec découpage et icônes.
+category: create
+tags: [youtube, myo]
+author: Stuart Romanek
+license: MIT
+status: active
+official: false
+platforms: [web]
+requires: [yoto-account]
+added: 2026-11-03

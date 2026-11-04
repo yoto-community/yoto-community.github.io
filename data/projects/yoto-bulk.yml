@@ -1,0 +1,13 @@
+name: yoto-bulk
+url: https://github.com/eperdeme/yoto-bulk
+repo: https://github.com/eperdeme/yoto-bulk
+description: Audiobook pipeline that moves BorrowBox loans through Audiobookshelf and publishes books to Yoto.
+category: develop
+tags: [api, web]
+author: eperdeme
+license: Unknown
+status: active
+official: false
+platforms: [web]
+requires: [self-hosted, yoto-account, yoto-api-key]
+added: 2026-11-03

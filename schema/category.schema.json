@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "array",
+  "minItems": 9,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["slug", "label", "description", "icon", "order"],
+    "properties": {
+      "slug": {
+        "type": "string",
+        "enum": [
+          "official",
+          "create",
+          "icons",
+          "audio",
+          "automate",
+          "develop",
+          "backup",
+          "hardware",
+          "learn"
+        ]
+      },
+      "label": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["en", "fr"],
+        "properties": { "en": { "type": "string" }, "fr": { "type": "string" } }
+      },
+      "description": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["en", "fr"],
+        "properties": { "en": { "type": "string" }, "fr": { "type": "string" } }
+      },
+      "icon": { "type": "string" },
+      "order": { "type": "integer", "minimum": 0 }
+    }
+  }
+}

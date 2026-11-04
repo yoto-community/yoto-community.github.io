@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import NotFoundView from '../views/NotFoundView.astro';
+import { t } from '../i18n';
+---
+
+<Base
+  lang="en"
+  title={t('en', 'notfound.title')}
+  description={t('en', 'notfound.text')}
+  path="/404.html"
+>
+  <NotFoundView lang="en" />
+</Base>
