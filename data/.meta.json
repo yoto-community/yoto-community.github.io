@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-03",
+  "updatedAt": "2026-11-05",
   "projects": {
     "yoto-audiobookshelf-bridge": {
       "stars": 16,
@@ -9,7 +9,7 @@
     },
     "audio-yoto-shelf": {
       "stars": 14,
-      "lastCommit": "2026-11-02",
+      "lastCommit": "2026-11-05",
       "archived": false,
       "licenseDetected": "MIT"
     },
@@ -55,8 +55,7 @@
     "open-yoto": {
       "stars": 12,
       "lastCommit": "2026-09-08",
-      "archived": false,
-      "licenseDetected": "NOASSERTION"
+      "archived": false
     },
     "selphyoto": {
       "stars": 1,
@@ -114,7 +113,7 @@
       "archived": false
     },
     "yoto-ha": {
-      "stars": 230,
+      "stars": 232,
       "lastCommit": "2026-11-03",
       "archived": false,
       "licenseDetected": "MIT"
@@ -137,7 +136,7 @@
     },
     "yoto-media-manager": {
       "stars": 1,
-      "lastCommit": "2026-10-28",
+      "lastCommit": "2026-11-03",
       "archived": false,
       "licenseDetected": "GPL-3.0"
     },
@@ -160,12 +159,12 @@
     },
     "yoto-v3-teardown": {
       "stars": 2,
-      "lastCommit": "2026-11-03",
+      "lastCommit": "2026-11-04",
       "archived": false,
       "licenseDetected": "MIT"
     },
     "yoto-api": {
-      "stars": 57,
+      "stars": 58,
       "lastCommit": "2026-11-02",
       "archived": false,
       "licenseDetected": "Apache-2.0"
@@ -258,6 +257,18 @@
       "lastCommit": "2025-10-04",
       "archived": false,
       "licenseDetected": "MIT"
+    },
+    "yoto-tools": {
+      "stars": 7,
+      "lastCommit": "2025-04-30",
+      "archived": false,
+      "licenseDetected": "MIT"
+    },
+    "yotwo": {
+      "stars": 6,
+      "lastCommit": "2026-10-16",
+      "archived": false,
+      "licenseDetected": "GPL-3.0"
     }
   }
 }
