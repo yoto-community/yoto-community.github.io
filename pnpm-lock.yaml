@@ -48,9 +48,6 @@ importers:
       '@fontsource-variable/nunito':
         specifier: ^5.3.0
         version: 5.3.0
-      '@yoto-community/pixel-editor-core':
-        specifier: file:../../icons-catalogue-pixel-editor/packages/pixel-editor-core
-        version: file:../icons-catalogue-pixel-editor/packages/pixel-editor-core
       astro:
         specifier: ^7.4.5
         version: 7.4.5(@types/node@22.20.5)(esbuild@0.28.2)(tsx@4.23.15)(yaml@2.9.1)
@@ -957,9 +954,6 @@ packages:
 
   '@vscode/l10n@0.0.18':
     resolution: {integrity: sha512-KYSIHVmslkaCDyw013pphY+d7x1qV8IZupYfeIfzNA+nsaWHbn5uPuQRvdRFsa9zFzGeudPuoGoZ1Op4jrJXIQ==}
-
-  '@yoto-community/pixel-editor-core@file:../icons-catalogue-pixel-editor/packages/pixel-editor-core':
-    resolution: {directory: ../icons-catalogue-pixel-editor/packages/pixel-editor-core, type: directory}
 
   ajv-draft-04@1.0.0:
     resolution: {integrity: sha512-mv00Te6nmYbRp5DCwclxtt7yV/joXJPGS7nM+97GdxvuttCOfgI3K4U25zboyeX0O+myI8ERluxQe5wljMmVIw==}
@@ -3694,8 +3688,6 @@ snapshots:
       vscode-uri: 3.2.0
 
   '@vscode/l10n@0.0.18': {}
-
-  '@yoto-community/pixel-editor-core@file:../icons-catalogue-pixel-editor/packages/pixel-editor-core': {}
 
   ajv-draft-04@1.0.0(ajv@8.20.0):
     optionalDependencies:
