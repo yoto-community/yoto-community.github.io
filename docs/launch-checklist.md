@@ -35,13 +35,13 @@ site: Pages publishes at `https://yoto-community.github.io/` with `base: '/'` (s
 `awesome-lint` reads GitHub metadata through the API. Until this section is done, its four
 metadata checks fail even though the README is valid.
 
-- [ ] **About → Description:**
-      `Awesome Yoto — a curated list of apps, tools and resources for the Yoto Player.`
-- [ ] **About → Topics:** `awesome`, `awesome-list`, `yoto`, `yoto-player`, `myo`.
-      awesome-lint requires `awesome` and `awesome-list`; `sindresorhus/awesome` requires the
-      `awesome` topic; project-awesome mirrors that list.
-- [ ] Wait until the repository sidebar shows **MIT license**. GitHub detects `LICENSE` after
-      the first push; it can take a minute.
+- [x] **About → Description:**
+      `Awesome Yoto — everything the Yoto community builds, in one place: apps, card makers, icon libraries, integrations and guides for the Yoto Player and MYO cards.`
+- [x] **About → Topics:** `awesome`, `awesome-list`, `yoto`, `yoto-api`, `yoto-myo`,
+      `yoto-player`, `yotoplay`. awesome-lint requires `awesome` and `awesome-list`;
+      `sindresorhus/awesome` requires the `awesome` topic; project-awesome mirrors that list.
+- [x] **About → Website:** `https://yoto-community.github.io/`.
+- [x] **MIT license** is detected by GitHub (shown in the repository sidebar).
 - [ ] **Organization profile → Customize pins:** pin the repository.
 
 ## 3. Make awesome-lint blocking
@@ -49,45 +49,11 @@ metadata checks fail even though the README is valid.
 Order matters: metadata first, then the linter, then remove the escape hatch. Flipping first
 turns every pull request red because of a repository setting.
 
-- [ ] Run the linter against the live repository:
-
-  ```bash
-  pnpm exec awesome-lint README.md
-  ```
-
-  Before the metadata is set it reports exactly these four errors:
-
-  ```
-  The repository should have a description
-  The repository should have "awesome" as a GitHub topic
-  The repository should have "awesome-list" as a GitHub topic
-  License was not detected by GitHub
-  ```
-
-  Everything else (badge, Contents, contribution guidelines, entry format) already passes.
-
-- [ ] Re-run after sections 1–2. When it prints `✔ Linting` and exits 0, remove
-      `continue-on-error: true` from the awesome-lint step in `.github/workflows/ci.yml`.
-      Under `jobs.check.steps`, that file currently has:
-
-  ```yaml
-  # Advisory: awesome-lint requires the published repository to have its
-  # description, topics and license set. Flip continue-on-error off once the
-  # settings documented in docs/launch-checklist.md are applied.
-  - name: awesome-lint (advisory until the repository metadata is set)
-    run: pnpm exec awesome-lint README.md
-    continue-on-error: true
-  ```
-
-  Replace it with:
-
-  ```yaml
-  - name: awesome-lint
-    run: pnpm exec awesome-lint README.md
-  ```
-
-  Delete the three comment lines too: they describe a state that no longer exists.
-
+- [x] Run the linter against the live repository. It now prints `✔ Linting` and exits 0:
+      the description, topics and license documented above are in place.
+- [x] `continue-on-error: true` is gone from the awesome-lint step in
+      `.github/workflows/ci.yml`; it is now a blocking step named `awesome-lint` that runs
+      `pnpm exec awesome-lint README.md`.
 - [ ] Optional hardening: add `env: { github_token: ${{ secrets.GITHUB_TOKEN }} }` to the
       step. awesome-lint reads the lowercase `github_token` variable, and the token avoids the
       unauthenticated 60 requests/hour API limit on shared runners.
@@ -198,7 +164,7 @@ this file when it is made.
 - The Contents section omits `Contributing` and `Footnotes` (both sections are allowed, but must
   not appear in the table of contents).
 
-The `awesome` and `awesome-list` topics are part of section 2 and are not applied yet.
+The `awesome` and `awesome-list` topics are part of section 2 and are applied.
 
 ## 7. Cross-link the two catalogues
 

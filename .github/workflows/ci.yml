@@ -40,12 +40,10 @@ jobs:
       - run: pnpm check:i18n
       - run: pnpm check:budget
 
-      # Advisory: awesome-lint requires the published repository to have its
-      # description, topics and license set. Flip continue-on-error off once the
-      # settings documented in docs/launch-checklist.md are applied.
-      - name: awesome-lint (advisory until the repository metadata is set)
+      # awesome-lint reads the repository description, topics and license from
+      # the GitHub API: docs/launch-checklist.md section 2 documents those settings.
+      - name: awesome-lint
         run: pnpm exec awesome-lint README.md
-        continue-on-error: true
 
       # E2E runs against site/dist, so it must stay after `pnpm build`.
       - run: pnpm --filter site exec playwright install --with-deps chromium
