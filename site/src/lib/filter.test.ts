@@ -64,13 +64,14 @@ const empty: FilterState = {
   tag: '',
   official: false,
   french: false,
+  inactive: false,
   sort: 'category',
 };
 
 describe('parseFilters', () => {
   it('reads every supported parameter', () => {
     const state = parseFilters(
-      '?q=you&cat=create&status=active&platform=web&tag=youtube&official=1&fr=1&sort=stars',
+      '?q=you&cat=create&status=active&platform=web&tag=youtube&official=1&fr=1&inactive=1&sort=stars',
     );
     expect(state).toEqual({
       q: 'you',
@@ -80,6 +81,7 @@ describe('parseFilters', () => {
       tag: 'youtube',
       official: true,
       french: true,
+      inactive: true,
       sort: 'stars',
     });
   });
@@ -100,6 +102,7 @@ describe('serializeFilters', () => {
       q: 'you',
       category: 'create',
       official: true,
+      inactive: true,
       sort: 'recent' as const,
     };
     expect(parseFilters(`?${serializeFilters(state)}`)).toEqual(state);
@@ -114,17 +117,71 @@ describe('filterProjects', () => {
     expect(filterProjects(projects, { ...empty, q: 'officiel' })).toEqual([]);
   });
 
+  it('matches accented text without typing the diacritics', () => {
+    const accented = [
+      {
+        ...projects[2],
+        slug: 'icones',
+        name: 'Icônes',
+        description: 'Icônes 16x16 pour les cartes Yoto.',
+        descriptionFr: 'Icônes 16x16 pour les cartes Yoto.',
+      },
+    ] as Project[];
+
+    expect(filterProjects(accented, { ...empty, q: 'icones' }).map((p) => p.slug)).toEqual([
+      'icones',
+    ]);
+    expect(filterProjects(accented, { ...empty, q: 'ICÔNES' }).map((p) => p.slug)).toEqual([
+      'icones',
+    ]);
+  });
+
   it('combines category, status, platform and tag', () => {
     expect(
       filterProjects(projects, { ...empty, category: 'create', status: 'active' }).map(
         (p) => p.slug,
       ),
     ).toEqual(['louis']);
-    expect(filterProjects(projects, { ...empty, platform: 'cli' }).map((p) => p.slug)).toEqual([
-      'old',
-    ]);
+    expect(
+      filterProjects(projects, { ...empty, platform: 'cli', status: 'stale' }).map((p) => p.slug),
+    ).toEqual(['old']);
     expect(filterProjects(projects, { ...empty, tag: 'youtube' }).map((p) => p.slug)).toEqual([
       'louis',
+    ]);
+  });
+
+  it('hides stale, archived and deprecated projects when no status is selected', () => {
+    const extended = [
+      ...projects,
+      { ...projects[0], slug: 'archived', status: 'archived' },
+      { ...projects[0], slug: 'deprecated', status: 'deprecated' },
+    ] as Project[];
+
+    expect(filterProjects(extended, empty).map((p) => p.slug)).toEqual(['yoto', 'louis']);
+    expect(filterProjects(extended, { ...empty, status: 'stale' }).map((p) => p.slug)).toEqual([
+      'old',
+    ]);
+    expect(filterProjects(extended, { ...empty, status: 'archived' }).map((p) => p.slug)).toEqual([
+      'archived',
+    ]);
+    expect(filterProjects(extended, { ...empty, status: 'deprecated' }).map((p) => p.slug)).toEqual(
+      ['deprecated'],
+    );
+  });
+
+  it('shows inactive projects when the toggle is enabled', () => {
+    const extended = [
+      ...projects,
+      { ...projects[0], slug: 'archived', status: 'archived' },
+      { ...projects[0], slug: 'deprecated', status: 'deprecated' },
+    ] as Project[];
+
+    expect(filterProjects(extended, { ...empty, inactive: true }).map((p) => p.slug)).toEqual([
+      'old',
+      'yoto',
+      'louis',
+      'archived',
+      'deprecated',
     ]);
   });
 
@@ -177,8 +234,8 @@ describe('sortProjects', () => {
   });
 
   it('sorts a filtered subset', () => {
-    const filtered = filterProjects(projects, { ...empty, category: 'create' });
-    expect(sortProjects(filtered, 'alpha').map((p) => p.slug)).toEqual(['louis', 'old']);
-    expect(sortProjects(filtered, 'recent').map((p) => p.slug)).toEqual(['louis', 'old']);
+    const filtered = filterProjects(projects, empty);
+    expect(sortProjects(filtered, 'alpha').map((p) => p.slug)).toEqual(['louis', 'yoto']);
+    expect(sortProjects(filtered, 'recent').map((p) => p.slug)).toEqual(['louis', 'yoto']);
   });
 });

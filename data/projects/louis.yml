@@ -11,4 +11,7 @@ status: active
 official: false
 platforms: [web]
 requires: [yoto-account]
+featured: true
+featuredReason: The smoothest path from a YouTube playlist to a ready-to-link MYO card.
+featuredReasonFr: Le chemin le plus simple d'une playlist YouTube à une carte MYO prête à lier.
 added: 2026-11-03

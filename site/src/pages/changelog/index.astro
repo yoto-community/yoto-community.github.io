@@ -1,0 +1,14 @@
+---
+import Base from '../../layouts/Base.astro';
+import ChangelogView from '../../views/ChangelogView.astro';
+import { t } from '../../i18n';
+---
+
+<Base
+  lang="en"
+  title={t('en', 'changelog.title')}
+  description={t('en', 'changelog.lede')}
+  path="/changelog/"
+>
+  <ChangelogView lang="en" />
+</Base>

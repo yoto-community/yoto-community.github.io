@@ -1,5 +1,6 @@
 ---
 import EmptyState from '../components/EmptyState.astro';
+import InactiveToggle from '../components/InactiveToggle.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { t } from '../i18n';
 import { localePath, type Lang } from '../lib/routes';
@@ -26,15 +27,25 @@ const emptyMessage =
   </nav>
   <h1>{category.label[lang]}</h1>
   <p class="lede">{category.description[lang]}</p>
-  <p class="count">
+  <p
+    class="count"
+    data-count
+    data-one={t(lang, 'filter.resultsOne')}
+    data-many={t(lang, 'filter.results')}
+  >
     {sorted.length}
     {sorted.length === 1 ? t(lang, 'filter.resultsOne') : t(lang, 'filter.results')}
   </p>
-  <div class="grid" data-pagefind-ignore>
+  <InactiveToggle lang={lang} />
+  <div class="grid" data-inactive-grid data-pagefind-ignore>
     {sorted.map((project) => <ProjectCard project={project} lang={lang} />)}
     {sorted.length === 0 && <EmptyState message={emptyMessage} visible />}
   </div>
 </section>
+
+<script>
+  import '../scripts/inactive';
+</script>
 
 <style>
   .page {

@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
@@ -24,6 +26,11 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+
+      # Dependabot keeps versions current; this gate stops a vulnerable
+      # lockfile from reaching main (high and critical only).
+      - name: Audit dependencies
+        run: pnpm audit --audit-level=high
 
       # check:readme must run before build:data: build:data rewrites README.md,
       # so running it first would hide any drift between data/ and the README.
@@ -39,6 +46,7 @@ jobs:
       - run: pnpm check:build
       - run: pnpm check:i18n
       - run: pnpm check:budget
+      - run: pnpm check:internal-links
 
       # awesome-lint reads the repository description, topics and license from
       # the GitHub API: docs/launch-checklist.md section 2 documents those settings.

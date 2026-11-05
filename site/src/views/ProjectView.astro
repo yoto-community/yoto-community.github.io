@@ -4,6 +4,7 @@ import { t, type MessageKey } from '../i18n';
 import { localePath, type Lang } from '../lib/routes';
 import { catalog } from '../lib/catalog';
 import { humanizeList } from '../lib/format';
+import { projectActions } from '../lib/project-actions';
 import { absoluteUrl } from '../lib/site';
 import { projectJsonLd, jsonLdScript } from '../lib/jsonld';
 import type { Project } from '../../../scripts/lib/types';
@@ -35,6 +36,8 @@ const describe = (item: Project) =>
 const needsEnglish = (item: Project) => lang === 'fr' && !item.descriptionFr;
 const warningKey = project.warning ? (`project.warning.${project.warning}` as MessageKey) : null;
 const projectsHref = localePath(lang, '/projects/');
+const actions = projectActions(project);
+const repo = project.repo;
 ---
 
 <article class="container detail">
@@ -60,12 +63,21 @@ const projectsHref = localePath(lang, '/projects/');
       {description}{fallback && <span class="en" title={t(lang, 'project.englishOnly')}>EN</span>}
     </p>
     <div class="actions">
-      <a class="btn primary" href={project.url} rel="noopener" target="_blank">
-        {t(lang, 'project.website')}
-      </a>
       {
-        project.repo && (
-          <a class="btn ghost" href={project.repo} rel="noopener" target="_blank">
+        actions.showWebsite && (
+          <a class="btn primary" href={project.url} rel="noopener" target="_blank">
+            {t(lang, 'project.website')}
+          </a>
+        )
+      }
+      {
+        actions.showRepo && repo && (
+          <a
+            class:list={['btn', actions.primary === 'repo' ? 'primary' : 'ghost']}
+            href={repo}
+            rel="noopener"
+            target="_blank"
+          >
             {t(lang, 'project.repo')}
           </a>
         )

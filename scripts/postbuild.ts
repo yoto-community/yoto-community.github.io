@@ -13,6 +13,12 @@ const catalog = JSON.parse(readFileSync(source, 'utf8')) as {
 };
 writeFileSync(join(apiDir, 'projects.json'), `${JSON.stringify(catalog.projects, null, 2)}\n`);
 writeFileSync(join(apiDir, 'categories.json'), `${JSON.stringify(catalog.categories, null, 2)}\n`);
+
+const changelogSource = join(ROOT, 'site/src/generated/changelog.json');
+if (existsSync(changelogSource)) {
+  copyFileSync(changelogSource, join(apiDir, 'changelog.json'));
+}
+
 console.log('API JSON copied to site/dist/api/.');
 
 // Astro only flattens the root 404/500 routes to <name>.html; a nested status

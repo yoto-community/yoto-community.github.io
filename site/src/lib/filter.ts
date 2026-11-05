@@ -10,10 +10,19 @@ export interface FilterState {
   tag: string;
   official: boolean;
   french: boolean;
+  inactive: boolean;
   sort: Sort;
 }
 
 const SORTS: Sort[] = ['category', 'recent', 'stars', 'alpha'];
+const HIDDEN_BY_DEFAULT = new Set<Project['status']>(['stale', 'archived', 'deprecated']);
+
+function normalize(value: string): string {
+  return value
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase();
+}
 
 export function parseFilters(search: string): FilterState {
   const params = new URLSearchParams(search.startsWith('?') ? search.slice(1) : search);
@@ -26,6 +35,7 @@ export function parseFilters(search: string): FilterState {
     tag: params.get('tag') ?? '',
     official: params.get('official') === '1',
     french: params.get('fr') === '1',
+    inactive: params.get('inactive') === '1',
     sort: sort && SORTS.includes(sort) ? sort : 'category',
   };
 }
@@ -39,15 +49,20 @@ export function serializeFilters(state: FilterState): string {
   if (state.tag) params.set('tag', state.tag);
   if (state.official) params.set('official', '1');
   if (state.french) params.set('fr', '1');
+  if (state.inactive) params.set('inactive', '1');
   if (state.sort !== 'category') params.set('sort', state.sort);
   return params.toString();
 }
 
 export function filterProjects(projects: Project[], state: FilterState): Project[] {
-  const query = state.q.trim().toLowerCase();
+  const query = normalize(state.q.trim());
   return projects.filter((project) => {
     if (state.category && project.category !== state.category) return false;
-    if (state.status && project.status !== state.status) return false;
+    if (state.status) {
+      if (project.status !== state.status) return false;
+    } else if (!state.inactive && HIDDEN_BY_DEFAULT.has(project.status)) {
+      return false;
+    }
     if (
       state.platform &&
       !project.platforms.includes(state.platform as Project['platforms'][number])
@@ -57,9 +72,9 @@ export function filterProjects(projects: Project[], state: FilterState): Project
     if (state.official && !project.official) return false;
     if (state.french && !project.descriptionFr) return false;
     if (query) {
-      const haystack = [project.name, project.description, project.descriptionFr ?? '']
-        .join(' ')
-        .toLowerCase();
+      const haystack = normalize(
+        [project.name, project.description, project.descriptionFr ?? ''].join(' '),
+      );
       if (!haystack.includes(query)) return false;
     }
     return true;

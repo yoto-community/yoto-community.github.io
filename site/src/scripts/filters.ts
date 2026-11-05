@@ -8,7 +8,7 @@ import {
 } from '../lib/filter';
 import type { Project } from '../../../scripts/lib/types';
 
-const MANAGED = ['q', 'cat', 'status', 'platform', 'tag', 'official', 'fr', 'sort'];
+const MANAGED = ['q', 'cat', 'status', 'platform', 'tag', 'official', 'fr', 'inactive', 'sort'];
 const SORTS: Sort[] = ['category', 'recent', 'stars', 'alpha'];
 const EMPTY: FilterState = {
   q: '',
@@ -18,6 +18,7 @@ const EMPTY: FilterState = {
   tag: '',
   official: false,
   french: false,
+  inactive: false,
   sort: 'category',
 };
 
@@ -99,6 +100,7 @@ if (form && grid) {
     setValue('sort', state.sort);
     setChecked('official', state.official);
     setChecked('fr', state.french);
+    setChecked('inactive', state.inactive);
   };
 
   const fieldValue = (name: string) => {
@@ -124,6 +126,7 @@ if (form && grid) {
       tag: fieldValue('tag'),
       official: fieldChecked('official'),
       french: fieldChecked('fr'),
+      inactive: fieldChecked('inactive'),
       sort: SORTS.find((option) => option === sort) ?? 'category',
     };
   };

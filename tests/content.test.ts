@@ -36,4 +36,13 @@ describe('content', () => {
       expect(project.deprecatedBy, project.slug).toBeTruthy();
     }
   });
+
+  it('features editor picks with an English and French reason', () => {
+    const featured = projects.filter((project) => project.featured);
+    expect(featured.length).toBeGreaterThanOrEqual(3);
+    for (const project of featured) {
+      expect(project.featuredReason, project.slug).toBeTruthy();
+      expect(project.featuredReasonFr, project.slug).toBeTruthy();
+    }
+  });
 });

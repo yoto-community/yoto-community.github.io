@@ -12,6 +12,8 @@ const { project, lang } = Astro.props;
 const description =
   lang === 'fr' && project.descriptionFr ? project.descriptionFr : project.description;
 const fallback = lang === 'fr' && !project.descriptionFr;
+const featuredReason =
+  lang === 'fr' && project.featuredReasonFr ? project.featuredReasonFr : project.featuredReason;
 ---
 
 <article
@@ -36,6 +38,7 @@ const fallback = lang === 'fr' && !project.descriptionFr;
   <p class="desc">
     {description}{fallback && <span class="en" title={t(lang, 'project.englishOnly')}>EN</span>}
   </p>
+  {featuredReason && <p class="reason">{featuredReason}</p>}
   <ul class="tags" aria-label={t(lang, 'filter.tag')}>
     {project.tags.map((tag) => <li>{tag}</li>)}
   </ul>
@@ -78,6 +81,12 @@ const fallback = lang === 'fr' && !project.descriptionFr;
     margin: 0;
     color: var(--ink-muted);
     font-size: 0.97rem;
+  }
+  .reason {
+    margin: 0;
+    color: var(--accent-strong);
+    font-size: 0.85rem;
+    font-weight: 700;
   }
   .en {
     margin-inline-start: 0.4rem;

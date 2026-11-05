@@ -1,5 +1,6 @@
 ---
 import Button from '../components/Button.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 import Search from '../components/Search.astro';
 import { catalog } from '../lib/catalog';
 import { t } from '../i18n';
@@ -24,6 +25,12 @@ const catalogues = [
     href: '/podcast-catalogue/',
     localized: false,
   },
+  {
+    title: 'home.catalogues.changelog',
+    text: 'home.catalogues.changelog.text',
+    href: '/changelog/',
+    localized: true,
+  },
 ] as const;
 
 const podcastFrUrl = 'https://yoto-community.github.io/podcast-catalogue/fr/';
@@ -32,6 +39,22 @@ function tileHref(item: (typeof catalogues)[number]): string {
   if (item.href === '/podcast-catalogue/' && lang === 'fr') return podcastFrUrl;
   return item.localized ? localePath(lang, item.href) : item.href;
 }
+
+const pickOrder = new Map(
+  (catalog.collections.find((collection) => collection.slug === 'editors-picks')?.items ?? []).map(
+    (slug, index) => [slug, index],
+  ),
+);
+const featured = catalog.projects
+  .filter((project) => project.featured)
+  .sort(
+    (a, b) =>
+      (pickOrder.get(a.slug) ?? Number.MAX_SAFE_INTEGER) -
+      (pickOrder.get(b.slug) ?? Number.MAX_SAFE_INTEGER),
+  );
+const collections = catalog.collections.filter(
+  (collection) => collection.slug !== 'editors-picks',
+);
 ---
 
 <section class="hero">
@@ -49,6 +72,25 @@ function tileHref(item: (typeof catalogues)[number]): string {
 </section>
 
 <section class="container"><Search lang={lang} /></section>
+
+{
+  featured.length > 0 && (
+    <section class="container featured" aria-labelledby="featured-title">
+      <div class="section-head">
+        <div>
+          <h2 id="featured-title">{t(lang, 'home.featured.title')}</h2>
+          <p>{t(lang, 'home.featured.subtitle')}</p>
+        </div>
+        <a class="more" href={localePath(lang, '/collections/editors-picks/')}>
+          {t(lang, 'home.featured.all')} →
+        </a>
+      </div>
+      <div class="featured-grid">
+        {featured.map((project) => <ProjectCard project={project} lang={lang} />)}
+      </div>
+    </section>
+  )
+}
 
 <section class="container deeper" aria-labelledby="deeper-title">
   <h2 id="deeper-title">{t(lang, 'home.catalogues.title')}</h2>
@@ -68,7 +110,7 @@ function tileHref(item: (typeof catalogues)[number]): string {
   <h2 id="start-here-title">{lang === 'fr' ? 'Commencer ici' : 'Start here'}</h2>
   <ul class="collections">
     {
-      catalog.collections.map((collection) => (
+      collections.map((collection) => (
         <li>
           <a href={localePath(lang, `/collections/${collection.slug}/`)}>
             <strong>{collection.title[lang]}</strong>
@@ -105,6 +147,38 @@ function tileHref(item: (typeof catalogues)[number]): string {
   }
   .deeper {
     padding-block: var(--space-8);
+  }
+  .featured {
+    padding-block: var(--space-8) 0;
+  }
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+  .section-head h2 {
+    margin-bottom: var(--space-1);
+  }
+  .section-head p {
+    margin: 0;
+    color: var(--ink-muted);
+  }
+  .more {
+    color: var(--accent-strong);
+    font-weight: 800;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .more:hover {
+    text-decoration: underline;
+  }
+  .featured-grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    margin-top: var(--space-4);
   }
   .grid {
     display: grid;

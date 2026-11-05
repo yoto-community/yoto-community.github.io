@@ -10,4 +10,7 @@ status: active
 official: false
 platforms: [api]
 requires: [yoto-account, yoto-api-key]
+featured: true
+featuredReason: Lets AI assistants build MYO cards and control players through the Yoto API.
+featuredReasonFr: Permet aux assistants IA de créer des cartes MYO et de piloter les lecteurs via l'API Yoto.
 added: 2026-11-03

@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { ROOT, SITE_GENERATED_DIR } from './lib/config';
 import { buildCatalog } from './lib/catalog';
+import { buildChangelog } from './lib/changelog';
 import { createLoader } from './lib/load';
 import { renderReadme } from './lib/readme';
 
@@ -29,5 +30,12 @@ if (check) {
     join(SITE_GENERATED_DIR, 'catalog.json'),
     `${JSON.stringify(buildCatalog({ categories, projects, tags, collections }), null, 2)}\n`,
   );
-  console.log(`Generated README.md and ${projects.length} projects for the site.`);
+  const changelog = buildChangelog(ROOT, projects);
+  writeFileSync(
+    join(SITE_GENERATED_DIR, 'changelog.json'),
+    `${JSON.stringify(changelog, null, 2)}\n`,
+  );
+  console.log(
+    `Generated README.md, ${projects.length} projects and ${changelog.entries.length} changelog entries for the site.`,
+  );
 }

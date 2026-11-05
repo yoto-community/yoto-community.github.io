@@ -70,7 +70,7 @@ The interface and descriptions are available in French on the [French portal](ht
 
 ## Contributing
 
-Found a project that belongs here? Read [CONTRIBUTING.md](CONTRIBUTING.md) and open a pull request. Entries are validated by CI: schema, duplicates, categories and links.
+Found a project that belongs here? Read [CONTRIBUTING.md](CONTRIBUTING.md) and open a pull request. Entries are validated by CI: schema, duplicates, categories and tags. Links are checked weekly.
 
 Released under the [MIT license](LICENSE). Awesome Yoto is a community project, not affiliated with Yoto.
 `;

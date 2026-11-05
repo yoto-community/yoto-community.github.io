@@ -10,4 +10,7 @@ status: active
 official: false
 platforms: [cli]
 requires: [yoto-account]
+featured: true
+featuredReason: A Python toolbox that covers playlists, icons, covers and audio from one CLI.
+featuredReasonFr: Une boîte à outils Python qui couvre playlists, icônes, pochettes et audio depuis une seule CLI.
 added: 2026-11-03

@@ -14,6 +14,10 @@ const required = [
   'contribute/index.html',
   'categories/official/index.html',
   'collections/start-here/index.html',
+  'changelog/index.html',
+  'fr/changelog/index.html',
+  'feed.xml',
+  'feed.json',
   '404.html',
   'fr/404.html',
   'og.png',
@@ -26,6 +30,7 @@ const required = [
   'api/catalog.json',
   'api/projects.json',
   'api/categories.json',
+  'api/changelog.json',
 ];
 
 const missing = required.filter(
@@ -45,7 +50,11 @@ if (!Array.isArray(projects) || projects.length < 55) {
 const entry = JSON.parse(readFileSync(join(dist, 'pagefind/pagefind-entry.json'), 'utf8')) as {
   languages?: Record<string, { page_count?: number }>;
 };
-const pageCount = Object.values(entry.languages ?? {}).reduce(
+if (!entry.languages?.en || !entry.languages.fr) {
+  console.error('Expected Pagefind indexes for both English and French.');
+  process.exit(1);
+}
+const pageCount = Object.values(entry.languages).reduce(
   (total, language) => total + (language.page_count ?? 0),
   0,
 );
@@ -63,6 +72,33 @@ if (html.includes('UNDEFINED') || html.includes('[object Object]')) {
 const astroDir = join(dist, '_astro');
 if (!existsSync(astroDir)) {
   console.error('Missing build artifact directory: _astro/.');
+  process.exit(1);
+}
+
+const fonts = readdirSync(astroDir).filter((file) => file.endsWith('.woff2'));
+if (fonts.length !== 2) {
+  console.error(
+    `Expected exactly 2 font subsets (latin and latin-ext), found ${fonts.length}: ${fonts.join(', ')}`,
+  );
+  process.exit(1);
+}
+const fontBytes = fonts.reduce((total, file) => total + statSync(join(astroDir, file)).size, 0);
+if (fontBytes > 100 * 1024) {
+  console.error(`Font payload exceeds 100 KB: ${(fontBytes / 1024).toFixed(1)} KB.`);
+  process.exit(1);
+}
+
+const rss = readFileSync(join(dist, 'feed.xml'), 'utf8');
+if (!rss.includes('<rss') || !rss.includes('<item>')) {
+  console.error('feed.xml does not contain a valid RSS channel with items.');
+  process.exit(1);
+}
+const jsonFeed = JSON.parse(readFileSync(join(dist, 'feed.json'), 'utf8')) as {
+  version?: string;
+  items?: unknown[];
+};
+if (jsonFeed.version !== 'https://jsonfeed.org/version/1.1' || !Array.isArray(jsonFeed.items)) {
+  console.error('feed.json is not a valid JSON Feed 1.1 document.');
   process.exit(1);
 }
 

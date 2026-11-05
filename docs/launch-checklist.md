@@ -24,6 +24,7 @@ site: Pages publishes at `https://yoto-community.github.io/` with `base: '/'` (s
   - [ ] `https://yoto-community.github.io/projects/`
   - [ ] `https://yoto-community.github.io/myo/`
   - [ ] `https://yoto-community.github.io/api/` and `https://yoto-community.github.io/api/catalog.json`
+  - [ ] `https://yoto-community.github.io/changelog/` and `https://yoto-community.github.io/feed.xml`
   - [ ] `https://yoto-community.github.io/fr/` and `https://yoto-community.github.io/fr/myo/`
   - [ ] `https://yoto-community.github.io/sitemap-index.xml`
 - [ ] Open a project deep link (`/p/<slug>/`) on a phone to confirm the static routes work
@@ -68,19 +69,29 @@ Use a repository ruleset (Settings → Rules → Rulesets) targeting `main`:
 - [ ] **Require status checks to pass:** `check` (the job from `.github/workflows/ci.yml`).
       Do not require `Deploy`: it runs on push, not on pull requests, and would deadlock merges.
 - [ ] **Block force pushes** and **restrict deletions**.
-- [ ] **Bypass list:** add the **GitHub Actions** app with the "Always" bypass. The nightly
-      `Deploy` run pushes `chore: refresh project metadata [skip ci]` to `main` with
-      `GITHUB_TOKEN`; without the bypass, branch protection rejects that commit.
-- [ ] Optionally require a pull request before merging. If enabled, the GitHub Actions app
-      must bypass that rule as well, otherwise the nightly commit is still rejected.
-- [ ] Verify the bypass the morning after the first 04:00 UTC `Deploy` run: `main` should have
-      a `chore: refresh project metadata [skip ci]` commit and the run should stay green.
-      The commit step uses `continue-on-error: true`, so a missing commit is silent — the site
-      still deploys, but `data/.meta.json` never updates.
+- [ ] **Bypass list:** the GitHub Actions app **cannot** be added. `github-actions[bot]` is not an
+      installable GitHub App, so the bypass picker does not offer it
+      (<https://github.com/orgs/community/discussions/13836>). Add your own account instead (or
+      the `Repository admin` role) if you keep pushing to `main` directly; individual users have
+      been selectable since May 2026.
+- [ ] Accept the consequence for the nightly job: its `chore: refresh project metadata [skip ci]`
+      push is rejected by the required status check. The job runs `pnpm enrich` **before**
+      `pnpm build`, so the deployed site still shows fresh star counts and last-commit dates —
+      only the persisted `data/.meta.json` stays behind, and the commit step is
+      `continue-on-error: true`, so the run stays green. To persist the file, the push needs an
+      identity that can bypass: create a dedicated GitHub App with `Contents: write`, add it to
+      the bypass list, and check out with `actions/create-github-app-token`. Not worth it for v1.
+- [ ] Optionally require a pull request before merging. Every change then lands through a PR;
+      the nightly commit stays rejected either way unless the dedicated-app option is used.
+- [ ] Verify: `curl -s https://api.github.com/repos/yoto-community/yoto-community.github.io/rulesets`
+      lists the ruleset as active, a pull request shows `check` as required, and the first
+      scheduled run after activation stays green (with or without the bot commit, depending on
+      the option chosen above).
 
 For a classic branch protection rule the equivalent is "Require status checks to pass" with
-`check`, plus "Allow specified actors to bypass required pull requests" for the GitHub Actions
-app. Rulesets are preferred because they expose the bypass for required checks directly.
+`check`, plus your own account under "Allow specified actors to bypass required pull requests"
+(the GitHub Actions app is not selectable there either). Rulesets are preferred because they
+expose the bypass for required checks directly.
 
 ## 5. Labels
 
@@ -217,6 +228,10 @@ The color `006D41` is the site accent (`--accent` in `site/src/styles/tokens.css
 the issue and closes it when the dead-link count reaches zero. Fix, replace or deprecate each
 dead link, then run `pnpm validate && pnpm build:data`. Reproduce locally with `pnpm check:links`
 (it writes `link-report.md` and `.dead-count`).
+
+**Weekly — dependency updates.** Review the Dependabot pull requests (npm/pnpm workspace and
+GitHub Actions, grouped for minor and patch updates). CI runs
+`pnpm audit --audit-level=high`; run `pnpm verify` locally before merging a major upgrade.
 
 **Monthly — stale review.** Review status suggestions from `pnpm enrich`
 (`GITHUB_TOKEN=$(gh auth token) pnpm enrich` locally). It prints `maintained` after 183 days and

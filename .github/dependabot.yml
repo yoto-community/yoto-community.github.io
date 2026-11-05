@@ -1,0 +1,48 @@
+version: 2
+
+updates:
+  # pnpm workspace: the lockfile lives at the repository root and covers both
+  # the root tooling package and site/.
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: monday
+      time: '06:00'
+      timezone: UTC
+    open-pull-requests-limit: 10
+    groups:
+      npm-minor-patch:
+        patterns:
+          - '*'
+        update-types:
+          - minor
+          - patch
+    ignore:
+      # @astrojs/check only supports TypeScript 5 and 6 for now.
+      - dependency-name: typescript
+        update-types:
+          - version-update:semver-major
+      # Keep the Node types aligned with the Node version used in CI.
+      - dependency-name: '@types/node'
+        update-types:
+          - version-update:semver-major
+    commit-message:
+      prefix: 'chore(deps)'
+      prefix-development: 'chore(deps-dev)'
+      include: scope
+
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: monday
+      time: '06:00'
+      timezone: UTC
+    open-pull-requests-limit: 5
+    groups:
+      github-actions:
+        patterns:
+          - '*'
+    commit-message:
+      prefix: 'chore(ci)'

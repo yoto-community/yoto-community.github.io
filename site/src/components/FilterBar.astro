@@ -64,6 +64,9 @@ const formLabel = lang === 'fr' ? 'Filtrer les projets' : 'Filter projects';
   <label class="check">
     <input type="checkbox" name="fr" value="1" /> {t(lang, 'filter.french')}
   </label>
+  <label class="check">
+    <input type="checkbox" name="inactive" value="1" /> {t(lang, 'filter.showInactive')}
+  </label>
   <div class="field">
     <label for="filter-sort">{t(lang, 'sort.label')}</label>
     <select id="filter-sort" name="sort">
@@ -75,6 +78,7 @@ const formLabel = lang === 'fr' ? 'Filtrer les projets' : 'Filter projects';
   </div>
   <button type="reset" class="clear">{t(lang, 'filter.clear')}</button>
 </form>
+<p class="note">{t(lang, 'filter.inactiveNote')}</p>
 
 <style>
   .filters {
@@ -125,5 +129,10 @@ const formLabel = lang === 'fr' ? 'Filtrer les projets' : 'Filter projects';
     background: transparent;
     color: var(--ink);
     cursor: pointer;
+  }
+  .note {
+    margin: var(--space-2) 0 0;
+    color: var(--ink-muted);
+    font-size: 0.82rem;
   }
 </style>

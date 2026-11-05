@@ -48,6 +48,7 @@ export interface ProjectFile {
   deprecatedBy?: string;
   featured?: boolean;
   featuredReason?: string;
+  featuredReasonFr?: string;
   added: string;
 }
 export interface ProjectMeta {
@@ -59,4 +60,16 @@ export interface ProjectMeta {
 export interface Project extends ProjectFile {
   slug: string;
   meta?: ProjectMeta;
+}
+export type ChangelogArea = 'categories' | 'tags' | 'collections';
+export interface ChangelogEntry {
+  id: string;
+  date: string;
+  title: string;
+  projects: string[];
+  areas: ChangelogArea[];
+}
+export interface Changelog {
+  generatedAt: string;
+  entries: ChangelogEntry[];
 }

@@ -1,0 +1,33 @@
+---
+import { t } from '../i18n';
+import type { Lang } from '../lib/routes';
+const { lang } = Astro.props as { lang: Lang };
+---
+
+<div class="inactive-control" data-inactive-control hidden>
+  <label class="check">
+    <input type="checkbox" data-inactive-toggle />
+    {t(lang, 'filter.showInactive')}
+  </label>
+  <p class="note">{t(lang, 'filter.inactiveNote')}</p>
+</div>
+
+<style>
+  .inactive-control {
+    margin-top: var(--space-3);
+  }
+  .check {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink-muted);
+    cursor: pointer;
+  }
+  .note {
+    margin: var(--space-1) 0 0;
+    color: var(--ink-muted);
+    font-size: 0.82rem;
+  }
+</style>
