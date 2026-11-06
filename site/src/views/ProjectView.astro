@@ -1,5 +1,6 @@
 ---
 import StatusBadge from '../components/StatusBadge.astro';
+import ToolkitButton from '../components/ToolkitButton.astro';
 import { t, type MessageKey } from '../i18n';
 import { localePath, type Lang } from '../lib/routes';
 import { catalog } from '../lib/catalog';
@@ -82,6 +83,7 @@ const repo = project.repo;
           </a>
         )
       }
+      <ToolkitButton lang={lang} type="project" id={project.slug} title={project.name} />
     </div>
   </header>
   {warningKey && <p class="warning">{t(lang, warningKey)}</p>}

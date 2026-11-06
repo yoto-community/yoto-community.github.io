@@ -51,3 +51,46 @@
     --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 45%);
   }
 }
+
+/* Préférence partagée entre les sites (`yoto-community:prefs:v1`).
+   Le thème explicite doit gagner sur la préférence système, d'où les deux
+   blocs après la media query : `light` neutralise un système sombre. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #101512;
+  --surface: #171d19;
+  --surface-2: #202721;
+  --ink: #edefe9;
+  --ink-muted: #a7b2aa;
+  --border: #313a33;
+  --accent: #5bc98f;
+  --accent-strong: #7adfa6;
+  --accent-soft: #1b3326;
+  --accent-2: #f08aa6;
+  --accent-2-soft: #3a1f28;
+  --warn: #e0b25c;
+  --warn-soft: #3a2f16;
+  --danger: #f19494;
+  --danger-soft: #3b2020;
+  --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 12px 32px rgb(0 0 0 / 45%);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f7f3e9;
+  --surface: #fffdf7;
+  --surface-2: #efe9da;
+  --ink: #1f2a24;
+  --ink-muted: #5a665f;
+  --border: #ded6c4;
+  --accent: #006d41;
+  --accent-strong: #00512f;
+  --accent-soft: #e3f0e7;
+  --accent-2: #af294e;
+  --accent-2-soft: #f6e3e9;
+  --warn: #7e5700;
+  --warn-soft: #f7edd3;
+  --danger: #a12626;
+  --danger-soft: #f7e3e3;
+  --shadow: 0 1px 2px rgb(31 42 36 / 6%), 0 12px 32px rgb(31 42 36 / 8%);
+}

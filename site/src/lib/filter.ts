@@ -11,6 +11,7 @@ export interface FilterState {
   official: boolean;
   french: boolean;
   inactive: boolean;
+  toolkit: boolean;
   sort: Sort;
 }
 
@@ -36,6 +37,7 @@ export function parseFilters(search: string): FilterState {
     official: params.get('official') === '1',
     french: params.get('fr') === '1',
     inactive: params.get('inactive') === '1',
+    toolkit: params.get('toolkit') === '1',
     sort: sort && SORTS.includes(sort) ? sort : 'category',
   };
 }
@@ -50,13 +52,20 @@ export function serializeFilters(state: FilterState): string {
   if (state.official) params.set('official', '1');
   if (state.french) params.set('fr', '1');
   if (state.inactive) params.set('inactive', '1');
+  if (state.toolkit) params.set('toolkit', '1');
   if (state.sort !== 'category') params.set('sort', state.sort);
   return params.toString();
 }
 
-export function filterProjects(projects: Project[], state: FilterState): Project[] {
+export function filterProjects(
+  projects: Project[],
+  state: FilterState,
+  toolkitIds?: ReadonlySet<string>,
+): Project[] {
   const query = normalize(state.q.trim());
+  const toolkit = state.toolkit ? (toolkitIds ?? new Set<string>()) : null;
   return projects.filter((project) => {
+    if (toolkit && !toolkit.has(project.slug)) return false;
     if (state.category && project.category !== state.category) return false;
     if (state.status) {
       if (project.status !== state.status) return false;

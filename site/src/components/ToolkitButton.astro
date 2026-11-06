@@ -1,0 +1,89 @@
+---
+import { t } from '../i18n';
+import type { Lang } from '../lib/routes';
+import type { ToolkitItemType } from '../lib/toolkit';
+
+interface Props {
+  lang: Lang;
+  type: ToolkitItemType;
+  id: string;
+  title: string;
+  compact?: boolean;
+}
+const { lang, type, id, title, compact = false } = Astro.props;
+const addLabel = t(lang, 'toolkit.add');
+const removeLabel = t(lang, 'toolkit.remove');
+const addAria = `${addLabel} — ${title}`;
+const removeAria = `${removeLabel} — ${title}`;
+---
+
+<button
+  type="button"
+  class:list={['toolkit-toggle', { compact }]}
+  data-toolkit-toggle
+  data-toolkit-type={type}
+  data-toolkit-id={id}
+  data-toolkit-title={title}
+  data-label-add={addLabel}
+  data-label-remove={removeLabel}
+  data-aria-add={addAria}
+  data-aria-remove={removeAria}
+  aria-pressed="false"
+  aria-label={addAria}
+  title={addLabel}
+>
+  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+    <path
+      d="M12 20.4 4.3 12.7a5 5 0 0 1 7.1-7.1l.6.6.6-.6a5 5 0 0 1 7.1 7.1Z"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linejoin="round"
+    ></path>
+  </svg>
+  {!compact && <span data-toolkit-text>{addLabel}</span>}
+</button>
+
+<style>
+  .toolkit-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--ink-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 0.45rem 0.8rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .toolkit-toggle:hover {
+    color: var(--accent-strong);
+    border-color: var(--accent);
+  }
+  .toolkit-toggle[aria-pressed='true'] {
+    color: var(--accent-strong);
+    background: var(--accent-soft);
+    border-color: var(--accent);
+  }
+  .toolkit-toggle[aria-pressed='true'] svg path {
+    fill: currentColor;
+  }
+  .toolkit-toggle.compact {
+    padding: 0.35rem;
+    width: 2rem;
+    height: 2rem;
+  }
+  .toolkit-toggle:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>
+
+<script>
+  import '../scripts/toolkit';
+</script>

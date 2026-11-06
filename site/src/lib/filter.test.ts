@@ -65,13 +65,14 @@ const empty: FilterState = {
   official: false,
   french: false,
   inactive: false,
+  toolkit: false,
   sort: 'category',
 };
 
 describe('parseFilters', () => {
   it('reads every supported parameter', () => {
     const state = parseFilters(
-      '?q=you&cat=create&status=active&platform=web&tag=youtube&official=1&fr=1&inactive=1&sort=stars',
+      '?q=you&cat=create&status=active&platform=web&tag=youtube&official=1&fr=1&inactive=1&toolkit=1&sort=stars',
     );
     expect(state).toEqual({
       q: 'you',
@@ -82,6 +83,7 @@ describe('parseFilters', () => {
       official: true,
       french: true,
       inactive: true,
+      toolkit: true,
       sort: 'stars',
     });
   });
@@ -103,6 +105,7 @@ describe('serializeFilters', () => {
       category: 'create',
       official: true,
       inactive: true,
+      toolkit: true,
       sort: 'recent' as const,
     };
     expect(parseFilters(`?${serializeFilters(state)}`)).toEqual(state);
@@ -192,6 +195,16 @@ describe('filterProjects', () => {
     expect(filterProjects(projects, { ...empty, french: true }).map((p) => p.slug)).toEqual([
       'louis',
     ]);
+  });
+
+  it('restricts results to the toolkit project ids when asked', () => {
+    expect(
+      filterProjects(projects, { ...empty, toolkit: true }, new Set(['louis'])).map((p) => p.slug),
+    ).toEqual(['louis']);
+    expect(filterProjects(projects, { ...empty, toolkit: true }, new Set())).toEqual([]);
+    expect(filterProjects(projects, { ...empty, toolkit: false }, new Set(['louis']))).toHaveLength(
+      2,
+    );
   });
 
   it('combines category, status and tag', () => {

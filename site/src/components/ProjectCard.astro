@@ -1,5 +1,6 @@
 ---
 import StatusBadge from './StatusBadge.astro';
+import ToolkitButton from './ToolkitButton.astro';
 import { t } from '../i18n';
 import { localePath, type Lang } from '../lib/routes';
 import type { Project } from '../../../scripts/lib/types';
@@ -33,7 +34,10 @@ const featuredReason =
 >
   <div class="top">
     <h2><a href={localePath(lang, `/p/${project.slug}/`)}>{project.name}</a></h2>
-    <StatusBadge status={project.status} lang={lang} />
+    <div class="top-actions">
+      <StatusBadge status={project.status} lang={lang} />
+      <ToolkitButton lang={lang} type="project" id={project.slug} title={project.name} compact />
+    </div>
   </div>
   <p class="desc">
     {description}{fallback && <span class="en" title={t(lang, 'project.englishOnly')}>EN</span>}
@@ -65,6 +69,12 @@ const featuredReason =
     align-items: flex-start;
     justify-content: space-between;
     gap: var(--space-3);
+  }
+  .top-actions {
+    display: flex;
+    align-items: center;
+    flex: none;
+    gap: var(--space-2);
   }
   h2 {
     margin: 0;

@@ -6,9 +6,21 @@ import {
   type FilterState,
   type Sort,
 } from '../lib/filter';
+import { LEGACY_TOOLKIT_KEYS, TOOLKIT_EVENT, TOOLKIT_KEY, readToolkit } from '../lib/toolkit';
 import type { Project } from '../../../scripts/lib/types';
 
-const MANAGED = ['q', 'cat', 'status', 'platform', 'tag', 'official', 'fr', 'inactive', 'sort'];
+const MANAGED = [
+  'q',
+  'cat',
+  'status',
+  'platform',
+  'tag',
+  'official',
+  'fr',
+  'inactive',
+  'toolkit',
+  'sort',
+];
 const SORTS: Sort[] = ['category', 'recent', 'stars', 'alpha'];
 const EMPTY: FilterState = {
   q: '',
@@ -19,6 +31,7 @@ const EMPTY: FilterState = {
   official: false,
   french: false,
   inactive: false,
+  toolkit: false,
   sort: 'category',
 };
 
@@ -60,8 +73,15 @@ if (form && grid) {
     );
   };
 
+  const toolkitIds = () =>
+    new Set(
+      readToolkit()
+        .items.filter((item) => item.type === 'project')
+        .map((item) => item.id),
+    );
+
   const apply = () => {
-    const visible = sortProjects(filterProjects(projects, state), state.sort);
+    const visible = sortProjects(filterProjects(projects, state, toolkitIds()), state.sort);
     const slugs = new Set(visible.map((project) => project.slug));
     for (const card of cards) card.hidden = !slugs.has(card.dataset.slug ?? '');
     for (const project of visible) {
@@ -101,6 +121,7 @@ if (form && grid) {
     setChecked('official', state.official);
     setChecked('fr', state.french);
     setChecked('inactive', state.inactive);
+    setChecked('toolkit', state.toolkit);
   };
 
   const fieldValue = (name: string) => {
@@ -127,6 +148,7 @@ if (form && grid) {
       official: fieldChecked('official'),
       french: fieldChecked('fr'),
       inactive: fieldChecked('inactive'),
+      toolkit: fieldChecked('toolkit'),
       sort: SORTS.find((option) => option === sort) ?? 'category',
     };
   };
@@ -142,6 +164,19 @@ if (form && grid) {
       sync();
       apply();
     });
+  });
+
+  window.addEventListener(TOOLKIT_EVENT, () => {
+    if (state.toolkit) apply();
+  });
+
+  window.addEventListener('storage', (event) => {
+    if (
+      event.key === TOOLKIT_KEY ||
+      (event.key !== null && LEGACY_TOOLKIT_KEYS.some((legacy) => legacy.key === event.key))
+    ) {
+      if (state.toolkit) apply();
+    }
   });
 
   sync();

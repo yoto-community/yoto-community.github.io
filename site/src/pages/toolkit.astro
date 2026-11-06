@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import ToolkitView from '../views/ToolkitView.astro';
+import { t } from '../i18n';
+---
+
+<Base
+  lang="en"
+  title={t('en', 'toolkit.title')}
+  description={t('en', 'toolkit.lede')}
+  path="/toolkit/"
+>
+  <ToolkitView lang="en" />
+</Base>

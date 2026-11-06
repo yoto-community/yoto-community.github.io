@@ -1,0 +1,263 @@
+---
+import { t } from '../i18n';
+import type { Lang } from '../lib/routes';
+import type { ToolkitItemType } from '../lib/toolkit';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const groups: {
+  type: ToolkitItemType;
+  label: string;
+  browse?: string;
+  browseLabel?: string;
+}[] = [
+  { type: 'project', label: t(lang, 'toolkit.projects') },
+  {
+    type: 'icon',
+    label: t(lang, 'toolkit.icons'),
+    browse: 'https://yoto-community.github.io/icons-catalogue/',
+    browseLabel: t(lang, 'toolkit.browseIcons'),
+  },
+  {
+    type: 'podcast',
+    label: t(lang, 'toolkit.podcasts'),
+    browse: 'https://yoto-community.github.io/podcast-catalogue/',
+    browseLabel: t(lang, 'toolkit.browsePodcasts'),
+  },
+];
+const noScript =
+  lang === 'fr'
+    ? 'La trousse est rangée dans votre navigateur : JavaScript est nécessaire pour l’afficher.'
+    : 'The toolkit is stored in your browser: JavaScript is needed to display it.';
+---
+
+<section class="container page" data-toolkit-page data-pagefind-ignore>
+  <header class="head">
+    <p class="eyebrow">{lang === 'fr' ? 'Trousse partagée' : 'Shared toolkit'}</p>
+    <h1>{t(lang, 'toolkit.title')}</h1>
+    <p class="lede">{t(lang, 'toolkit.lede')}</p>
+  </header>
+
+  <div class="toolbar">
+    <button class="action primary" type="button" data-toolkit-export>
+      {t(lang, 'toolkit.export')}
+    </button>
+    <label class="action ghost file">
+      {t(lang, 'toolkit.import')}
+      <input type="file" accept="application/json,.json" data-toolkit-import />
+    </label>
+    <button class="action ghost" type="button" data-toolkit-print>
+      {t(lang, 'toolkit.print')}
+    </button>
+  </div>
+  <p class="hint">{t(lang, 'toolkit.importHint')}</p>
+  <p class="status" data-toolkit-status role="status" aria-live="polite" hidden></p>
+  <p class="empty" data-toolkit-empty>
+    {t(lang, 'toolkit.empty')}
+  </p>
+  <noscript>
+    <p class="hint">{noScript}</p>
+  </noscript>
+
+  <div class="groups">
+    {groups.map((group) => (
+      <section class="group" data-toolkit-group={group.type} hidden>
+        <div class="group-head">
+          <h2>{group.label}</h2>
+          {group.browse && (
+            <a href={group.browse} target="_blank" rel="noopener noreferrer">
+              {group.browseLabel}
+              <span aria-hidden="true">↗</span>
+            </a>
+          )}
+        </div>
+        <ul class="items" data-toolkit-items={group.type} />
+      </section>
+    ))}
+  </div>
+</section>
+
+<style>
+  .page {
+    padding-block: var(--space-8) var(--space-12);
+    max-width: 900px;
+  }
+  .head {
+    max-width: 65ch;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: var(--space-2);
+  }
+  .lede {
+    color: var(--ink-muted);
+    font-size: 1.1rem;
+  }
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+  .action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font: inherit;
+    font-weight: 800;
+    padding: 0.65rem 1rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .primary {
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .primary:hover {
+    background: var(--accent-strong);
+  }
+  .ghost {
+    background: var(--surface);
+    border-color: var(--border);
+    color: var(--ink);
+  }
+  .ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent-strong);
+  }
+  .file {
+    position: relative;
+  }
+  .file input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .file:focus-within {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .hint {
+    color: var(--ink-muted);
+    font-size: 0.85rem;
+    margin: var(--space-2) 0;
+  }
+  .status {
+    color: var(--accent-strong);
+    font-weight: 700;
+  }
+  .status[data-state='error'] {
+    color: var(--danger);
+  }
+  .empty {
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+    color: var(--ink-muted);
+  }
+  .groups {
+    display: grid;
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+  }
+  .group-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--space-2);
+  }
+  .group-head h2 {
+    margin: 0;
+  }
+  .group-head a {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-strong);
+    text-decoration: none;
+  }
+  .group-head a:hover {
+    text-decoration: underline;
+  }
+  .items {
+    list-style: none;
+    margin: var(--space-3) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .items :global(li) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3) var(--space-4);
+  }
+  .items :global(a) {
+    color: var(--ink);
+    font-weight: 800;
+  }
+  .items :global(.toolkit-item-title) {
+    font-weight: 800;
+  }
+  .items :global(.toolkit-item-meta) {
+    display: block;
+    color: var(--ink-muted);
+    font-size: 0.78rem;
+  }
+  .items :global(.toolkit-remove) {
+    flex: none;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--ink-muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 0.3rem 0.65rem;
+    cursor: pointer;
+  }
+  .items :global(.toolkit-remove:hover) {
+    color: var(--danger);
+    border-color: var(--danger);
+  }
+  @media print {
+    .eyebrow,
+    .toolbar,
+    .hint,
+    .status,
+    .group-head a {
+      display: none;
+    }
+    .page {
+      padding: 0;
+    }
+    .items :global(li) {
+      break-inside: avoid;
+    }
+  }
+</style>
+
+<script>
+  import '../scripts/toolkit';
+</script>

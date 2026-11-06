@@ -16,6 +16,7 @@ const links = [
 /** Outils intégrés au portail, accessibles depuis le menu « Outils ». */
 const toolsLinks = [
   { href: localePath(lang, '/chooser/'), label: t(lang, 'nav.chooser'), prefix: '/chooser/' },
+  { href: localePath(lang, '/toolkit/'), label: t(lang, 'nav.toolkit'), prefix: '/toolkit/' },
   { href: localePath(lang, '/editor/'), label: t(lang, 'nav.editor'), prefix: '/editor/' },
 ];
 const toolsLabel = t(lang, 'nav.tools');
@@ -243,6 +244,7 @@ const newTabLabel = t(lang, 'nav.newTab');
       class="lang"
       href={altUrl}
       hreflang={lang === 'en' ? 'fr' : 'en'}
+      data-locale-switch={lang === 'en' ? 'fr' : 'en'}
       aria-label={lang === 'en' ? 'Version française' : 'English version'}
     >
       {lang === 'en' ? 'FR' : 'EN'}

@@ -27,6 +27,7 @@ const fullTitle =
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
+    <script is:inline src="/scripts/shared-prefs.js" defer></script>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="en" href={new URL(localePath('en', path), Astro.site).href} />
