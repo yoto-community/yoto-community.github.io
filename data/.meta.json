@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-05",
+  "updatedAt": "2026-11-06",
   "projects": {
     "yoto-audiobookshelf-bridge": {
       "stars": 16,
@@ -159,13 +159,13 @@
     },
     "yoto-v3-teardown": {
       "stars": 2,
-      "lastCommit": "2026-11-04",
+      "lastCommit": "2026-11-05",
       "archived": false,
       "licenseDetected": "MIT"
     },
     "yoto-api": {
       "stars": 58,
-      "lastCommit": "2026-11-02",
+      "lastCommit": "2026-11-05",
       "archived": false,
       "licenseDetected": "Apache-2.0"
     },
