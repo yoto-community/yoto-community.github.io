@@ -30,7 +30,7 @@ export function paperSizeMm(paper: Paper) {
 
 export const MM_PER_INCH = 25.4;
 export const CARD_WIDTH_MM = 3.375 * MM_PER_INCH; // 85.725 mm
-export const CARD_HEIGHT_MM = 2.125 * MM_PER_INCH; // 53.975 mm
+export const CARD_HEIGHT_MM = Math.round(2.125 * MM_PER_INCH * 1000) / 1000; // 53.975 mm
 
 export interface LabelSheetPreset {
   id: string;
@@ -72,7 +72,8 @@ export const LABEL_PRESETS: readonly LabelSheetPreset[] = [
 ];
 
 export function presetById(id: string | null | undefined): LabelSheetPreset | undefined {
-  return LABEL_PRESETS.find((preset) => preset.id === id);
+  const preset = LABEL_PRESETS.find((candidate) => candidate.id === id);
+  return preset ? { ...preset, config: { ...preset.config } } : undefined;
 }
 
 export function countLabels(config: LabelSheetConfig): number {
@@ -93,7 +94,7 @@ export type SheetValidationError =
 export function validateSheetConfig(config: LabelSheetConfig): SheetValidationError[] {
   const errors: SheetValidationError[] = [];
 
-  if (!(config.paper in PAPER_MM)) errors.push('paper');
+  if (!Object.hasOwn(PAPER_MM, config.paper)) errors.push('paper');
   if (!Number.isInteger(config.columns) || config.columns < 1 || config.columns > 10) {
     errors.push('columns');
   }
