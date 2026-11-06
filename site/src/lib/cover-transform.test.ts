@@ -2,11 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { panBy, transformStyle, zoomAtPoint } from './cover-transform';
 
 describe('zoomAtPoint', () => {
-  it('keeps the pan unchanged when zooming at the centre', () => {
-    const next = zoomAtPoint({ zoom: 1, panX: 0.2, panY: -0.1 }, 0.5, 0.5, -120);
-    expect(next.zoom).toBeCloseTo(1.1, 5);
-    expect(next.panX).toBeCloseTo(0.2, 5);
-    expect(next.panY).toBeCloseTo(-0.1, 5);
+  it('keeps the content point under the cursor anchored', () => {
+    const next = zoomAtPoint({ zoom: 1.5, panX: 0.2, panY: -0.1 }, 0.3, 0.7, -120);
+    const vx = (0.3 - 0.5 - 0.2) / 1.5;
+    const vy = (0.7 - 0.5 + 0.1) / 1.5;
+    expect(next.zoom).toBeCloseTo(1.65, 5);
+    expect(next.panX + next.zoom * vx).toBeCloseTo(0.3 - 0.5, 5);
+    expect(next.panY + next.zoom * vy).toBeCloseTo(0.7 - 0.5, 5);
   });
 
   it('moves the pan when zooming away from the centre', () => {
