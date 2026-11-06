@@ -64,6 +64,39 @@ test('hides the section when there is no favourite icon', async ({ page }) => {
   await expect(page.locator('[data-myo-favorites]')).toBeHidden();
 });
 
+test('falls back to the catalogue favourites when the toolkit only holds projects', async ({
+  page,
+}) => {
+  await page.addInitScript(
+    ({ key, legacyKey }) => {
+      localStorage.setItem(
+        key,
+        JSON.stringify({
+          version: 1,
+          items: [{ type: 'project', id: 'louis', title: 'Louis', addedAt: '2026-11-06' }],
+        }),
+      );
+      localStorage.setItem(legacyKey, JSON.stringify(['legacy-icon']));
+    },
+    { key: TOOLKIT_KEY, legacyKey: 'yoto-icons-favorites' },
+  );
+
+  await page.route(META_PATTERN, async (route) => {
+    const id = new URL(route.request().url()).pathname.split('/').pop()?.replace('.json', '') ?? '';
+    await route.fulfill({ json: iconMeta(id) });
+  });
+
+  await page.goto('/myo/#step-3');
+
+  const section = page.locator('[data-myo-favorites]');
+  const tiles = section.locator('[data-myo-favorites-grid] > li');
+
+  await expect(section).toBeVisible();
+  await expect(tiles).toHaveCount(1);
+  await expect(tiles.first()).toContainText('Title legacy-icon');
+  await expect(section.locator('[data-myo-favorites-all]')).toContainText('1');
+});
+
 test('keeps a catalogue link when a lookup fails', async ({ page }) => {
   await page.addInitScript(
     ({ key }) => {

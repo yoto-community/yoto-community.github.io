@@ -7,6 +7,7 @@ import {
   LEGACY_TOOLKIT_KEYS,
   TOOLKIT_EVENT,
   TOOLKIT_KEY,
+  legacyToolkit,
   readToolkit,
   type ToolkitItem,
 } from '../lib/toolkit';
@@ -128,8 +129,15 @@ if (section) {
 
   async function refresh(): Promise<void> {
     const toolkit = readToolkit();
-    const iconCount = toolkit.items.filter((item) => item.type === 'icon').length;
-    const items = recentFavoriteIcons(toolkit.items);
+    // Le catalogue reste propriétaire de la liste d'icônes. Tant que la
+    // trousse n'a pas reçu de slice `icon` (cas d'un toolkit créé par le
+    // portail pour un projet avant l'ajout de favoris), les anciens favoris
+    // du catalogue sont la seule source.
+    const source = toolkit.items.some((item) => item.type === 'icon')
+      ? toolkit.items
+      : legacyToolkit().items;
+    const iconCount = source.filter((item) => item.type === 'icon').length;
+    const items = recentFavoriteIcons(source);
 
     if (items.length === 0) {
       hideSection();
