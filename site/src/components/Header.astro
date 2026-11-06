@@ -11,8 +11,14 @@ const { lang, path, altUrl } = Astro.props;
 const links = [
   { href: '/projects/', label: 'nav.projects' as const },
   { href: '/myo/', label: 'nav.myo' as const },
-  { href: '/chooser/', label: 'nav.chooser' as const },
 ];
+
+/** Outils intégrés au portail, accessibles depuis le menu « Outils ». */
+const toolsLinks = [
+  { href: localePath(lang, '/chooser/'), label: t(lang, 'nav.chooser'), prefix: '/chooser/' },
+  { href: localePath(lang, '/editor/'), label: t(lang, 'nav.editor'), prefix: '/editor/' },
+];
+const toolsLabel = t(lang, 'nav.tools');
 
 /** Liens partagés par tous les sites de la communauté Yoto. */
 const contributeLink = {
@@ -66,6 +72,43 @@ const newTabLabel = t(lang, 'nav.newTab');
             </li>
           ))
         }
+        <li class="nav-group">
+          <details data-nav-group>
+            <summary class="nav-group__summary">
+              {toolsLabel}
+              <svg
+                class="nav-group__caret"
+                viewBox="0 0 24 24"
+                width="14"
+                height="14"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M6 9l6 6 6-6"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
+            </summary>
+            <ul class="nav-panel">
+              {
+                toolsLinks.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      aria-current={path === link.prefix ? 'page' : undefined}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </details>
+        </li>
         <li class="nav-group">
           <details data-nav-group>
             <summary class="nav-group__summary">
@@ -141,6 +184,23 @@ const newTabLabel = t(lang, 'nav.newTab');
               </li>
             ))
           }
+          <li class="mobile-group">
+            <span class="mobile-group__label">{toolsLabel}</span>
+            <ul>
+              {
+                toolsLinks.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      aria-current={path === link.prefix ? 'page' : undefined}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </li>
           <li class="mobile-group">
             <span class="mobile-group__label">{communityLabel}</span>
             <ul>

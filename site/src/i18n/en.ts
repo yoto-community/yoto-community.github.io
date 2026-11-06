@@ -4,6 +4,8 @@ export const en = {
   'site.description': 'A curated list of apps, tools and resources for the Yoto Player.',
   'nav.projects': 'Projects',
   'nav.myo': 'MYO guide',
+  'nav.editor': 'Icon editor',
+  'nav.tools': 'Tools',
   'nav.contribute': 'Contribute',
   'nav.community': 'Community',
   'nav.podcasts': 'Podcasts catalogue',

@@ -7,6 +7,8 @@ export const fr: Record<MessageKey, string> = {
     'Une sélection d’applications, d’outils et de ressources pour le lecteur Yoto.',
   'nav.projects': 'Projets',
   'nav.myo': 'Parcours MYO',
+  'nav.editor': 'Éditeur d’icône',
+  'nav.tools': 'Outils',
   'nav.contribute': 'Contribuer',
   'nav.community': 'Communauté',
   'nav.podcasts': 'Catalogue de podcasts',
