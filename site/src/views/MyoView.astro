@@ -34,6 +34,15 @@ const steps = [
   },
   {
     n: 4,
+    title: { en: 'Create the cover', fr: 'Créer la jaquette' },
+    body: {
+      en: 'The cover is the artwork shown in the app and on the player. Export 638 × 1011 px portrait — the card ratio — as JPEG or PNG, and keep the title about 40 px from the edges. The same image can serve as the printed label.',
+      fr: 'La jaquette (cover) est l’image affichée dans l’app et sur le lecteur. Exportez en 638 × 1011 px portrait — le ratio de la carte — en JPEG ou PNG, et gardez le titre à environ 40 px des bords. La même image peut servir pour le label imprimé.',
+    },
+    tools: ['myo-studio', 'yoto-card-kit', 'yoto-up'],
+  },
+  {
+    n: 5,
     title: { en: 'Create the card', fr: 'Créer la carte' },
     body: {
       en: 'Upload the tracks and the icon in the Yoto app, or use a MYO tool. Link a blank NFC card when the physical card matters.',
@@ -42,11 +51,11 @@ const steps = [
     tools: ['yoto-app', 'yoto-manager', 'custom-yoto-cards'],
   },
   {
-    n: 5,
+    n: 6,
     title: { en: 'Print the label', fr: 'Imprimer le label' },
     body: {
-      en: 'Print a label with the same icon and the child’s name. Laminate it or use a sticker sheet so it survives small hands.',
-      fr: 'Imprimez un label avec la même icône et le prénom de l’enfant. Plastifiez-le ou utilisez une planche d’autocollants.',
+      en: 'Print a label with the same cover art and the child’s name. Laminate it or use a sticker sheet so it survives small hands.',
+      fr: 'Imprimez un label avec la même jaquette et le prénom de l’enfant. Plastifiez-le ou utilisez une planche d’autocollants.',
     },
     tools: ['selphyoto', 'yotolabels'],
   },
@@ -61,8 +70,8 @@ const bySlug = new Map(catalog.projects.map((project) => [project.slug, project]
   <p class="lede">
     {
       lang === 'fr'
-        ? 'Cinq étapes, du fichier audio brut au label imprimé. Chaque étape indique un outil recommandé et une alternative.'
-        : 'Five steps, from a raw audio file to a printed label. Each step names one recommended tool and an alternative.'
+        ? 'Six étapes, du fichier audio brut au label imprimé. Chaque étape indique un outil recommandé et une alternative.'
+        : 'Six steps, from a raw audio file to a printed label. Each step names one recommended tool and an alternative.'
     }
   </p>
   <ol class="steps">

@@ -20,7 +20,7 @@
 
 ## Start here
 
-- [Build your first MYO card](https://yoto-community.github.io/myo/) - The five-step guide from audio to printed label.
+- [Build your first MYO card](https://yoto-community.github.io/myo/) - The six-step guide from audio to printed label.
 - [Browse all projects](https://yoto-community.github.io/projects/) - Filter by category, status, platform and language.
 - [Read the API documentation](https://yoto-community.github.io/api/) - The static JSON behind the portal.
 
@@ -38,6 +38,7 @@
 - [Custom Yoto Cards](https://github.com/davidcjw/custom-yoto-cards) - Guide and zero-dependency Node script for putting custom audio on generic Yoto cards.
 - [Louis](https://github.com/stuartromanek/louis) - Turn a YouTube playlist into MYO-ready audio, with automatic splitting and icons.
 - [MYO Card Provisioner](https://github.com/NitsujY/yoto-myo-card-provisioner) - Single-page tool that generates a Yoto MYO URL and writes it to a blank NFC card over Web NFC.
+- [MYO Studio](https://chromewebstore.google.com/detail/myo-studio/olloopaapdodegpcacjmgdjaphggfgoj) - Chrome extension that adds track tools, cover art suggestions and printing helpers to the Yoto MYO editor.
 - [Yoto Card Copier](https://github.com/DovieW/yoto-card-copier) - Offline Android app that copies a linked MYO playlist from a genuine card onto a blank MIFARE tag.
 - [Yoto Card Kit](https://github.com/eddowding/yoto-card-kit) - Claude Code skill that turns a YouTube link or audio file into numbered tracks, icons and card art.
 - [Yoto Card Studio](https://github.com/gvinko/yoto-card-studio) - Installable web app that chapters audio, edits 16x16 icons and uploads MYO cards through the Yoto API.

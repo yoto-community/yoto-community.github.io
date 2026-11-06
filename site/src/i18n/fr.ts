@@ -30,7 +30,7 @@ export const fr: Record<MessageKey, string> = {
   'home.catalogues.podcasts': 'Catalogue de podcasts',
   'home.catalogues.podcasts.text': 'Des flux pour enfants, classés par âge et par langue.',
   'home.catalogues.myo': 'Parcours MYO',
-  'home.catalogues.myo.text': 'De l’audio brut à la carte imprimée, en cinq étapes.',
+  'home.catalogues.myo.text': 'De l’audio brut à la carte imprimée, en six étapes.',
   'home.catalogues.changelog': 'Journal des changements',
   'home.catalogues.changelog.text': 'Suivez les projets ajoutés et mis à jour.',
   'search.label': 'Rechercher',

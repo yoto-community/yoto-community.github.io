@@ -58,7 +58,7 @@ ${contents}
 
 ## Start here
 
-- [Build your first MYO card](https://yoto-community.github.io/myo/) - The five-step guide from audio to printed label.
+- [Build your first MYO card](https://yoto-community.github.io/myo/) - The six-step guide from audio to printed label.
 - [Browse all projects](https://yoto-community.github.io/projects/) - Filter by category, status, platform and language.
 - [Read the API documentation](https://yoto-community.github.io/api/) - The static JSON behind the portal.
 

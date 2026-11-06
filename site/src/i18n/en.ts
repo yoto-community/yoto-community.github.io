@@ -27,7 +27,7 @@ export const en = {
   'home.catalogues.podcasts': 'Podcast catalogue',
   'home.catalogues.podcasts.text': 'Child-safe feeds sorted by age and language.',
   'home.catalogues.myo': 'MYO guide',
-  'home.catalogues.myo.text': 'From raw audio to a printed card, in five steps.',
+  'home.catalogues.myo.text': 'From raw audio to a printed card, in six steps.',
   'home.catalogues.changelog': 'Changelog',
   'home.catalogues.changelog.text': 'Follow new and updated projects.',
   'search.label': 'Search',
