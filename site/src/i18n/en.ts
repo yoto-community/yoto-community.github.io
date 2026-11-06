@@ -84,6 +84,27 @@ export const en = {
   'notfound.title': 'Page not found',
   'notfound.text': 'The page you are looking for does not exist.',
   'notfound.back': 'Back to the projects',
+  'nav.chooser': 'Find a tool',
+  'chooser.title': 'Which tool is right for me?',
+  'chooser.lede':
+    'Answer three questions and get one recommended tool plus two alternatives. No account, no tracking.',
+  'chooser.goal.legend': 'What do you want to do?',
+  'chooser.platform.legend': 'Which device will you use?',
+  'chooser.level.legend': 'How comfortable are you with installing things?',
+  'chooser.submit': 'See my result',
+  'chooser.results.title': 'Your result',
+  'chooser.results.best': 'Best match',
+  'chooser.results.alt': 'Alternative',
+  'chooser.results.empty':
+    'No tool matches all three answers. Try “No preference”, or browse all projects.',
+  'chooser.results.seeProject': 'View the project',
+  'chooser.results.myo': 'MYO guide',
+  'chooser.results.seeFilters': 'See matching projects',
+  'chooser.results.countOne': 'result',
+  'chooser.results.countMany': 'results',
+  'chooser.browse.title': 'All card-making tools',
+  'chooser.browse.goals': 'Browse by goal',
+  'chooser.browse.all': 'Browse every project',
 } as const;
 
 export type MessageKey = keyof typeof en;

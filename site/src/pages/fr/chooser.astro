@@ -1,0 +1,14 @@
+---
+import Base from '../../layouts/Base.astro';
+import ChooserView from '../../views/ChooserView.astro';
+import { t } from '../../i18n';
+---
+
+<Base
+  lang="fr"
+  title={t('fr', 'chooser.title')}
+  description={t('fr', 'chooser.lede')}
+  path="/chooser/"
+>
+  <ChooserView lang="fr" />
+</Base>

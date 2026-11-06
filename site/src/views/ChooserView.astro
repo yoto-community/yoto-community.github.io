@@ -1,0 +1,323 @@
+---
+import { catalog } from '../lib/catalog';
+import { t, type MessageKey } from '../i18n';
+import { localePath, type Lang } from '../lib/routes';
+import { GOALS, LEVELS, PLATFORMS, goalFilterHref } from '../lib/chooser';
+
+const { lang } = Astro.props as { lang: Lang };
+const projectsBase = localePath(lang, '/projects/');
+const creationTools = catalog.projects.filter(
+  (project) => project.category === 'create' && !['archived', 'deprecated'].includes(project.status),
+);
+const clientProjects = catalog.projects
+  .filter((project) => !['archived', 'deprecated'].includes(project.status))
+  .map((project) => ({
+    slug: project.slug,
+    name: project.name,
+    description:
+      lang === 'fr' && project.descriptionFr ? project.descriptionFr : project.description,
+    category: project.category,
+    tags: project.tags,
+    platforms: project.platforms,
+    requires: project.requires ?? [],
+    warning: project.warning,
+    status: project.status,
+    statusLabel: t(lang, `status.${project.status}` as MessageKey),
+    official: project.official,
+    meta: { stars: project.meta?.stars ?? 0 },
+  }));
+const clientData = JSON.stringify(clientProjects).replace(/</g, '\\u003c');
+---
+
+<section class="container page">
+  <p class="eyebrow">{t(lang, 'nav.chooser')}</p>
+  <h1>{t(lang, 'chooser.title')}</h1>
+  <p class="lede">{t(lang, 'chooser.lede')}</p>
+
+  <form class="chooser" data-chooser method="get" action={localePath(lang, '/chooser/')}>
+    <fieldset class="question">
+      <legend>{t(lang, 'chooser.goal.legend')}</legend>
+      <div class="options">
+        {
+          GOALS.map((goal) => (
+            <label class="option" for={`goal-${goal.id}`}>
+              <input id={`goal-${goal.id}`} type="radio" name="goal" value={goal.id} required />
+              <span>{goal.label[lang]}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset class="question">
+      <legend>{t(lang, 'chooser.platform.legend')}</legend>
+      <div class="options">
+        {
+          PLATFORMS.map((platform) => (
+            <label class="option" for={`platform-${platform.id}`}>
+              <input
+                id={`platform-${platform.id}`}
+                type="radio"
+                name="platform"
+                value={platform.id}
+                required
+              />
+              <span>{platform.label[lang]}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <fieldset class="question">
+      <legend>{t(lang, 'chooser.level.legend')}</legend>
+      <div class="options">
+        {
+          LEVELS.map((level) => (
+            <label class="option" for={`level-${level.id}`}>
+              <input
+                id={`level-${level.id}`}
+                type="radio"
+                name="level"
+                value={level.id}
+                required
+              />
+              <span>{level.label[lang]}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <button class="submit" type="submit">{t(lang, 'chooser.submit')}</button>
+  </form>
+
+  <p class="status-line" data-results-status aria-live="polite"></p>
+
+  <section class="results" data-results-region aria-labelledby="chooser-results-title" hidden>
+    <h2 id="chooser-results-title" tabindex="-1" data-results-title>
+      {t(lang, 'chooser.results.title')}
+    </h2>
+    <p data-results-empty hidden>{t(lang, 'chooser.results.empty')}</p>
+    <ol class="result-list" data-results hidden></ol>
+  </section>
+
+  <section class="fallback" aria-labelledby="creation-title">
+    <h2 id="creation-title">{t(lang, 'chooser.browse.title')}</h2>
+    <ul class="tool-list" data-creation-tools>
+      {
+        creationTools.map((project) => (
+          <li>
+            <a href={localePath(lang, `/p/${project.slug}/`)}>{project.name}</a>
+          </li>
+        ))
+      }
+    </ul>
+    <h3>{t(lang, 'chooser.browse.goals')}</h3>
+    <ul class="goal-links">
+      {
+        GOALS.map((goal) => (
+          <li>
+            <a href={goalFilterHref(goal.id, projectsBase)}>{goal.label[lang]}</a>
+          </li>
+        ))
+      }
+    </ul>
+    <p>
+      <a class="all" href={projectsBase}>{t(lang, 'chooser.browse.all')} →</a>
+    </p>
+  </section>
+</section>
+
+<template
+  data-result-template
+  data-label-best={t(lang, 'chooser.results.best')}
+  data-label-alt={t(lang, 'chooser.results.alt')}
+  data-label-project={t(lang, 'chooser.results.seeProject')}
+  data-label-myo={t(lang, 'chooser.results.myo')}
+  data-label-filters={t(lang, 'chooser.results.seeFilters')}
+  data-label-count-one={t(lang, 'chooser.results.countOne')}
+  data-label-count-many={t(lang, 'chooser.results.countMany')}
+>
+  <li class="result">
+    <p class="rank"><span data-rank></span> <span class="status" data-status hidden></span></p>
+    <h3><a data-link></a></h3>
+    <p data-description></p>
+    <ul class="reasons" data-reasons></ul>
+    <p class="links">
+      <a data-link-project></a>
+      <a data-link-myo hidden></a>
+      <a data-link-filters></a>
+    </p>
+  </li>
+</template>
+
+<script
+  type="application/json"
+  id="chooser-data"
+  set:html={clientData}
+  data-projects-base={projectsBase}
+  data-myo-base={localePath(lang, '/myo/')}
+/>
+
+<script>
+  import '../scripts/chooser';
+</script>
+
+<style>
+  .page {
+    padding-block: var(--space-8);
+    max-width: 960px;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .lede {
+    color: var(--ink-muted);
+    font-size: 1.15rem;
+    max-width: 62ch;
+  }
+  .chooser {
+    display: grid;
+    gap: var(--space-5);
+    margin-block: var(--space-6);
+  }
+  .question {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    padding: var(--space-5);
+  }
+  legend {
+    font-weight: 800;
+    padding-inline: var(--space-2);
+  }
+  .options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+  .option {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    padding: 0.5rem 0.85rem;
+    cursor: pointer;
+  }
+  .option:has(input:checked) {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .option input {
+    accent-color: var(--accent);
+  }
+  .submit {
+    justify-self: start;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: var(--accent);
+    color: var(--bg);
+    font: inherit;
+    font-weight: 800;
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+  }
+  .status-line {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .results {
+    margin-block: var(--space-8);
+    background: var(--surface-2);
+    border-radius: var(--radius);
+    padding: var(--space-6);
+  }
+  .result-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .result {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-5);
+  }
+  .result h3 {
+    margin: var(--space-1) 0;
+  }
+  .result h3 a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .result h3 a:hover {
+    color: var(--accent-strong);
+  }
+  .rank {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    color: var(--accent-strong);
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .status {
+    color: var(--warn);
+    text-transform: none;
+  }
+  .reasons {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-3) 0;
+    display: grid;
+    gap: var(--space-1);
+    color: var(--ink-muted);
+    font-size: 0.92rem;
+  }
+  .reasons li::before {
+    content: '✓ ';
+    color: var(--accent-strong);
+    font-weight: 800;
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  .fallback {
+    margin-block: var(--space-8);
+  }
+  .tool-list,
+  .goal-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    list-style: none;
+    padding: 0;
+  }
+  .all {
+    font-weight: 800;
+  }
+</style>

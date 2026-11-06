@@ -44,6 +44,13 @@ for (const path of walk(assetsDir).filter(isScriptFile)) {
 const distFiles = new Set(walk(dist));
 const pages = [...distFiles].filter((file) => file.endsWith('.html'));
 
+// Feature scripts with their own tighter budget. Keys are paths relative to site/dist.
+const PAGE_SCRIPT_LIMITS = new Map<string, number>([
+  ['chooser/index.html', 6 * 1024],
+  ['fr/chooser/index.html', 6 * 1024],
+]);
+const pageScripts = new Map<string, Entry[]>();
+
 if (pages.length === 0) {
   console.error('No HTML pages found in site/dist: refusing to report a JavaScript budget.');
   process.exit(1);
@@ -68,6 +75,7 @@ const localScript = (page: string, src: string): string | undefined => {
 
 for (const page of pages) {
   const html = readFileSync(page, 'utf8');
+  const scripts: Entry[] = [];
   for (const match of html.matchAll(scriptPattern)) {
     const attributes = match[1] ?? '';
     const body = match[2] ?? '';
@@ -77,18 +85,22 @@ for (const page of pages) {
       // Pagefind is excluded by the budget; every other local script counts once.
       if (/(?:^|\/)pagefind\//.test(src)) continue;
       const file = localScript(page, src);
-      if (!file || counted.has(file)) continue;
+      if (!file) continue;
+      const size = gzipSize(readFileSync(file));
+      scripts.push({ file: `${relative(root, file)} (script src)`, size });
+      if (counted.has(file)) continue;
       counted.add(file);
-      linked.push({
-        file: `${relative(root, file)} (script src)`,
-        size: gzipSize(readFileSync(file)),
-      });
+      linked.push({ file: `${relative(root, file)} (script src)`, size });
       continue;
     }
 
     if (!body.trim() || !isJavaScript(attributes)) continue;
-    inline.push({ file: `${relative(root, page)} (inline script)`, size: gzipSize(body) });
+    const size = gzipSize(body);
+    const entry = { file: `${relative(root, page)} (inline script)`, size };
+    scripts.push(entry);
+    inline.push(entry);
   }
+  pageScripts.set(relative(dist, page).split(sep).join('/'), scripts);
 }
 
 const all = [...bundles, ...linked, ...inline];
@@ -113,3 +125,19 @@ if (linked.length > 0) {
 console.log(
   `  ${kb(sum(inline))} KB gzip — ${inline.length} inline script(s) in ${pages.length} pages`,
 );
+
+for (const [page, limit] of PAGE_SCRIPT_LIMITS) {
+  const scripts = pageScripts.get(page);
+  if (!scripts) continue;
+  const pageTotal = sum(scripts);
+  if (pageTotal > limit) {
+    console.error(
+      `Page script budget exceeded: ${page} ${kb(pageTotal)} KB > ${limit / 1024} KB gzip.`,
+    );
+    for (const entry of scripts) console.error(`  ${kb(entry.size).padStart(6)} KB  ${entry.file}`);
+    process.exit(1);
+  }
+  console.log(
+    `Page script budget OK: ${page} ${kb(pageTotal)} KB gzip (limit ${limit / 1024} KB).`,
+  );
+}

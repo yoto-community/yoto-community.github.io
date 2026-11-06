@@ -77,7 +77,7 @@ const bySlug = new Map(catalog.projects.map((project) => [project.slug, project]
   <ol class="steps">
     {
       steps.map((step) => (
-        <li>
+        <li id={`step-${step.n}`}>
           <span class="num" aria-hidden="true">
             {step.n}
           </span>
@@ -135,6 +135,9 @@ const bySlug = new Map(catalog.projects.map((project) => [project.slug, project]
   </p>
   <a href={localePath(lang, '/projects/')}
     >{lang === 'fr' ? 'Voir tous les outils' : 'See all tools'} →</a
+  >
+  <a class="chooser-link" href={localePath(lang, '/chooser/')}
+    >{lang === 'fr' ? 'Trouver l’outil qui me convient' : 'Find the right tool for me'} →</a
   >
 </section>
 
@@ -233,5 +236,12 @@ const bySlug = new Map(catalog.projects.map((project) => [project.slug, project]
   }
   .btn:hover {
     background: var(--accent-strong);
+  }
+  .chooser-link {
+    margin-inline-start: var(--space-4);
+    font-weight: 800;
+  }
+  .steps > li[id^='step-'] {
+    scroll-margin-top: 5.5rem;
   }
 </style>

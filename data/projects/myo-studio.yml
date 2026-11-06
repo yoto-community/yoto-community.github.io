@@ -1,8 +1,7 @@
 name: MYO Studio
 url: https://chromewebstore.google.com/detail/myo-studio/olloopaapdodegpcacjmgdjaphggfgoj
-description:
-  en: Chrome extension that adds track tools, cover art suggestions and printing helpers to the Yoto MYO editor.
-  fr: Extension Chrome qui ajoute des outils de pistes, des suggestions de jaquettes et des aides à l'impression à l'éditeur MYO Yoto.
+description: Chrome extension that adds track tools, cover art suggestions and printing helpers to the Yoto MYO editor.
+descriptionFr: Extension Chrome qui ajoute des outils de pistes, des suggestions de jaquettes et des aides à l'impression à l'éditeur MYO Yoto.
 category: create
 tags: [myo, web]
 author: Ashworth Digital Ltd

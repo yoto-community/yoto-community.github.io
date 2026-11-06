@@ -12,6 +12,8 @@ const paths = [
   '/fr/editor/',
   '/changelog/',
   '/fr/changelog/',
+  '/chooser/',
+  '/fr/chooser/',
 ];
 
 for (const path of paths) {
