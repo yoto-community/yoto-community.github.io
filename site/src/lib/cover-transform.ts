@@ -17,12 +17,10 @@ export function zoomAtPoint(
   if (newZoom === oldZoom) return { ...state, zoom: newZoom };
 
   const ratio = newZoom / oldZoom;
-  const shiftX = (ux - 0.5) * (1 - ratio);
-  const shiftY = (uy - 0.5) * (1 - ratio);
   return {
     zoom: newZoom,
-    panX: clampPan(state.panX + shiftX),
-    panY: clampPan(state.panY + shiftY),
+    panX: clampPan(ux - 0.5 - (ux - 0.5 - state.panX) * ratio),
+    panY: clampPan(uy - 0.5 - (uy - 0.5 - state.panY) * ratio),
   };
 }
 
