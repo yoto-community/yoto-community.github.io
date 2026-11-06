@@ -1,5 +1,17 @@
 import { describe, expect, it } from 'vitest';
-import { labelPositions, paperSizeMm, type LabelSheetConfig } from './label-sheet';
+import {
+  CARD_HEIGHT_MM,
+  CARD_WIDTH_MM,
+  LABEL_PRESETS,
+  cardZoneWidthMm,
+  countLabels,
+  labelPositions,
+  paperSizeMm,
+  presetById,
+  trimWidthMm,
+  validateSheetConfig,
+  type LabelSheetConfig,
+} from './label-sheet';
 
 const config: LabelSheetConfig = {
   paper: 'a4',
@@ -42,17 +54,6 @@ describe('labelPositions', () => {
   });
 });
 
-import {
-  CARD_HEIGHT_MM,
-  CARD_WIDTH_MM,
-  LABEL_PRESETS,
-  cardZoneWidthMm,
-  countLabels,
-  presetById,
-  trimWidthMm,
-  validateSheetConfig,
-} from './label-sheet';
-
 describe('presets', () => {
   it('ships the TownStix US-10 geometry exactly', () => {
     const preset = presetById('townstix-us10');
@@ -79,15 +80,35 @@ describe('presets', () => {
   it('reserves a 3.375 inch card zone and a trim strip', () => {
     const us10 = presetById('townstix-us10')!.config;
     expect(CARD_WIDTH_MM).toBeCloseTo(85.725, 3);
-    expect(CARD_HEIGHT_MM).toBeCloseTo(53.975, 3);
+    expect(CARD_HEIGHT_MM).toBe(53.975);
     expect(cardZoneWidthMm(us10)).toBeCloseTo(85.725, 3);
     expect(trimWidthMm(us10)).toBeCloseTo(15.875, 3);
+  });
+
+  it('leaves a 14.275 mm title strip on the A4 preset', () => {
+    expect(trimWidthMm(presetById('a4-2x5')!.config)).toBeCloseTo(14.275, 3);
   });
 
   it('never lets the card zone exceed a narrow label', () => {
     const narrow = { ...presetById('a4-2x5')!.config, labelWidthMm: 70 };
     expect(cardZoneWidthMm(narrow)).toBe(70);
     expect(trimWidthMm(narrow)).toBe(0);
+  });
+
+  it('returns undefined for an unknown preset id', () => {
+    expect(presetById('unknown')).toBeUndefined();
+    expect(presetById(null)).toBeUndefined();
+  });
+
+  it('returns copied presets that cannot mutate the shipped ones', () => {
+    const first = presetById('a4-2x5')!;
+    first.config.labelWidthMm = 999;
+    first.name = 'mutated';
+
+    const second = presetById('a4-2x5')!;
+    expect(second.config.labelWidthMm).toBe(100);
+    expect(second.name).toBe('A4, 2 × 5 (100 × 55 mm)');
+    expect(LABEL_PRESETS.find((preset) => preset.id === 'a4-2x5')?.config.labelWidthMm).toBe(100);
   });
 });
 
@@ -106,6 +127,14 @@ describe('validateSheetConfig', () => {
     expect(validateSheetConfig({ ...base, columns: 0 })).toContain('columns');
     expect(validateSheetConfig({ ...base, rows: 2.5 })).toContain('rows');
     expect(validateSheetConfig({ ...base, labelWidthMm: 5 })).toContain('label-width');
+    expect(validateSheetConfig({ ...base, labelHeightMm: 5 })).toContain('label-height');
     expect(validateSheetConfig({ ...base, gapXMm: -1 })).toContain('margin');
+  });
+
+  it('rejects unknown papers, including inherited prototype keys', () => {
+    expect(validateSheetConfig({ ...base, paper: 'tabloid' as never })).toContain('paper');
+    expect(validateSheetConfig({ ...base, paper: 'toString' as never })).toContain('paper');
+    expect(validateSheetConfig({ ...base, paper: 'constructor' as never })).toContain('paper');
+    expect(validateSheetConfig({ ...base, paper: 'valueOf' as never })).toContain('paper');
   });
 });
