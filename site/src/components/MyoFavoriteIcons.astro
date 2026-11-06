@@ -1,0 +1,140 @@
+---
+/**
+ * Icônes favorites de la trousse partagée, proposées à l'étape « Choisir
+ * l'icône » du parcours MYO.
+ *
+ * Le composant porte le balisage ; la lecture de la trousse, les lookups
+ * `icons/{id}.json` et le rendu vivent dans `scripts/myo-favorites.ts`.
+ */
+import { t } from '../i18n';
+import type { Lang } from '../lib/routes';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const favouritesUrl = 'https://yoto-community.github.io/icons-catalogue/favorites';
+---
+
+<section
+  class="myo-favorites"
+  data-myo-favorites
+  data-favourites-url={favouritesUrl}
+  data-label-see-all={t(lang, 'myo.favorites.seeAll')}
+  data-label-download={t(lang, 'myo.favorites.download')}
+  data-label-open={t(lang, 'myo.favorites.open')}
+  data-label-unavailable={t(lang, 'myo.favorites.unavailable')}
+  hidden
+>
+  <div class="myo-favorites-head">
+    <h3>{t(lang, 'myo.favorites.title')}</h3>
+    <a class="myo-favorites-all" data-myo-favorites-all href={favouritesUrl}>
+      {t(lang, 'myo.favorites.seeAll')}
+    </a>
+  </div>
+  <p class="myo-favorites-hint">{t(lang, 'myo.favorites.hint')}</p>
+  <ul class="myo-favorites-grid" data-myo-favorites-grid></ul>
+  <p class="myo-favorites-status" role="status" aria-live="polite" data-myo-favorites-status></p>
+</section>
+
+<style is:global>
+  .myo-favorites {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+  }
+  .myo-favorites-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+  .myo-favorites-head h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .myo-favorites-all {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--accent-strong);
+    text-decoration: none;
+  }
+  .myo-favorites-all:hover {
+    text-decoration: underline;
+  }
+  .myo-favorites-hint {
+    margin: var(--space-2) 0 var(--space-3);
+    color: var(--ink-muted);
+    font-size: 0.85rem;
+  }
+  .myo-favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .myo-favorite {
+    display: grid;
+    justify-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 0.35rem;
+    color: var(--ink);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+  }
+  .myo-favorite:hover {
+    border-color: var(--accent);
+  }
+  .myo-favorite:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .myo-favorite-thumb {
+    display: grid;
+    place-items: center;
+    inline-size: 48px;
+    block-size: 48px;
+    background-color: var(--surface);
+    background-image: repeating-conic-gradient(var(--surface-2) 0% 25%, var(--surface) 0% 50%);
+    background-size: 12px 12px;
+    border-radius: 6px;
+  }
+  .myo-favorite-thumb.is-empty {
+    background-image: none;
+    border: 1px dashed var(--border);
+  }
+  .myo-favorite-thumb img {
+    inline-size: 48px;
+    block-size: 48px;
+    image-rendering: pixelated;
+  }
+  .myo-favorite-name {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    overflow-wrap: anywhere;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .myo-favorites-status {
+    margin: var(--space-3) 0 0;
+    color: var(--ink-muted);
+    font-size: 0.85rem;
+  }
+  .myo-favorites-status:empty {
+    display: none;
+  }
+</style>
+
+<script>
+  import '../scripts/myo-favorites';
+</script>

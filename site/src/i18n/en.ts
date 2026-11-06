@@ -112,6 +112,13 @@ export const en = {
     'Your browser is blocking local storage. Changes will not be saved.',
   'toolkit.browseIcons': 'Browse the icon catalogue',
   'toolkit.browsePodcasts': 'Browse the podcast catalogue',
+  'myo.favorites.title': 'Your favourite icons',
+  'myo.favorites.hint': 'Tap the heart on an icon in the catalogue to find it here.',
+  'myo.favorites.seeAll': 'See all my favourites',
+  'myo.favorites.download': 'Download',
+  'myo.favorites.open': 'View in the catalogue',
+  'myo.favorites.unavailable':
+    'Thumbnails could not be loaded right now. Open the catalogue to see your favourites.',
   'chooser.title': 'Which tool is right for me?',
   'chooser.lede':
     'Answer three questions and get one recommended tool plus two alternatives. No account, no tracking.',

@@ -1,4 +1,5 @@
 ---
+import MyoFavoriteIcons from '../components/MyoFavoriteIcons.astro';
 import { catalog } from '../lib/catalog';
 import { t, type MessageKey } from '../i18n';
 import { localePath, type Lang } from '../lib/routes';
@@ -124,11 +125,14 @@ const bySlug = new Map(catalog.projects.map((project) => [project.slug, project]
               })}
             </ul>
             {step.n === 3 && (
-              <p class="step-cta">
-                <a class="btn" href={localePath(lang, '/editor/')}>
-                  {lang === 'fr' ? 'Créer mon icône 16 × 16' : 'Create my 16 × 16 icon'}
-                </a>
-              </p>
+              <>
+                <MyoFavoriteIcons lang={lang} />
+                <p class="step-cta">
+                  <a class="btn" href={localePath(lang, '/editor/')}>
+                    {lang === 'fr' ? 'Créer mon icône 16 × 16' : 'Create my 16 × 16 icon'}
+                  </a>
+                </p>
+              </>
             )}
           </div>
         </li>

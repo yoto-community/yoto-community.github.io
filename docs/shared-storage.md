@@ -66,7 +66,9 @@ ne doivent **jamais** être supprimées par les autres sites.
 - `type` : `project`, `icon` ou `podcast`. Les valeurs inconnues sont ignorées.
 - `id` : identifiant stable dans le site source.
   - `project` : le slug de la fiche (`louis`, `yoto-card-studio`).
-  - `icon` : l’identifiant du catalogue d’icônes.
+  - `icon` : l’identifiant du catalogue d’icônes. La trousse ne stocke pas
+    d’URL d’image : le portail résout l’identifiant via
+    `icons-catalogue/icons/{id}.json`, publié par le catalogue.
   - `podcast` : le slug du podcast dans le catalogue.
 - `title` : libellé lisible au moment de l’ajout. Il évite d’avoir à joindre le
   site source pour afficher la trousse. Si le titre manque, le lecteur retombe

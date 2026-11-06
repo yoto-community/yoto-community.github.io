@@ -118,6 +118,13 @@ export const fr: Record<MessageKey, string> = {
     'Votre navigateur bloque le stockage local. Les modifications ne seront pas enregistrées.',
   'toolkit.browseIcons': 'Parcourir le catalogue d’icônes',
   'toolkit.browsePodcasts': 'Parcourir le catalogue de podcasts',
+  'myo.favorites.title': 'Vos icônes favorites',
+  'myo.favorites.hint': 'Touchez le cœur d’une icône dans le catalogue pour la retrouver ici.',
+  'myo.favorites.seeAll': 'Voir tous mes favoris',
+  'myo.favorites.download': 'Télécharger',
+  'myo.favorites.open': 'Voir dans le catalogue',
+  'myo.favorites.unavailable':
+    'Impossible de charger les vignettes pour le moment. Ouvrez le catalogue pour voir vos favoris.',
   'chooser.title': 'Quel outil pour moi ?',
   'chooser.lede':
     'Répondez à trois questions et obtenez un outil recommandé plus deux alternatives. Sans compte ni suivi.',
