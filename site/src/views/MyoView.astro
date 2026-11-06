@@ -105,6 +105,13 @@ const bySlug = new Map(catalog.projects.map((project) => [project.slug, project]
                 );
               })}
             </ul>
+            {step.n === 3 && (
+              <p class="step-cta">
+                <a class="btn" href={localePath(lang, '/editor/')}>
+                  {lang === 'fr' ? 'Créer mon icône 16 × 16' : 'Create my 16 × 16 icon'}
+                </a>
+              </p>
+            )}
           </div>
         </li>
       ))
@@ -202,5 +209,20 @@ const bySlug = new Map(catalog.projects.map((project) => [project.slug, project]
   }
   .tip {
     color: var(--ink-muted);
+  }
+  .step-cta {
+    margin: var(--space-4) 0 0;
+  }
+  .btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    font-weight: 800;
+    color: var(--bg);
+    background: var(--accent);
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+  }
+  .btn:hover {
+    background: var(--accent-strong);
   }
 </style>

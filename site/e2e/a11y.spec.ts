@@ -8,6 +8,8 @@ const paths = [
   '/fr/',
   '/fr/projects/',
   '/myo/',
+  '/editor/',
+  '/fr/editor/',
   '/changelog/',
   '/fr/changelog/',
 ];

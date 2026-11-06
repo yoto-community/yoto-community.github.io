@@ -15,6 +15,15 @@ Every entry needs a `name`, an `https://` `url`, a `description` between 20 and 
 
 Node.js 22.23.4 or newer is required (see `.nvmrc`), together with pnpm 10.
 
+The site depends on `@yoto-community/pixel-editor-core`, published on GitHub Packages. Register a `read:packages` token in your **user** npm config once; nothing is committed to the repository:
+
+```bash
+gh auth refresh -s read:packages
+echo "//npm.pkg.github.com/:_authToken=$(gh auth token)" >> ~/.npmrc
+```
+
+A classic PAT with the `read:packages` scope works too, in place of `$(gh auth token)`.
+
 ```bash
 pnpm install
 pnpm validate      # schema, duplicates, categories and tags

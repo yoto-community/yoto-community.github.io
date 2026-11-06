@@ -1,10 +1,22 @@
 version: 2
 
+registries:
+  # @yoto-community/* lives on GitHub Packages. Dependabot reads this token
+  # from the *Dependabot* secret store (Settings → Secrets and variables →
+  # Dependabot), not from Actions secrets, and it cannot use GITHUB_TOKEN:
+  # provide a PAT with the `read:packages` scope.
+  github-packages:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: ${{ secrets.PACKAGES_TOKEN }}
+
 updates:
   # pnpm workspace: the lockfile lives at the repository root and covers both
   # the root tooling package and site/.
   - package-ecosystem: npm
     directory: '/'
+    registries:
+      - github-packages
     schedule:
       interval: weekly
       day: monday

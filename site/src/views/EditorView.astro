@@ -1,0 +1,68 @@
+---
+import IconEditor from '../components/IconEditor.astro';
+import { localePath, type Lang } from '../lib/routes';
+
+const { lang } = Astro.props as { lang: Lang };
+
+const copy =
+  lang === 'fr'
+    ? {
+        eyebrow: 'Outil',
+        title: 'Icône de piste 16 × 16',
+        lede: 'Dessinez l’icône d’une piste, ou partez d’une image. Tout se passe dans votre navigateur : le PNG 16 × 16 est téléchargé, rien n’est envoyé.',
+        note: 'Dans l’app Yoto, l’icône d’une piste s’affiche en tout petit sur l’écran du lecteur. Un fond transparent et quelques formes simples restent lisibles.',
+        search: 'Vous cherchez plutôt une icône existante ?',
+        searchLink: 'Parcourir le catalogue d’icônes',
+        back: 'Retour au parcours MYO',
+      }
+    : {
+        eyebrow: 'Tool',
+        title: '16 × 16 track icon',
+        lede: 'Draw a track icon, or start from an image. Everything happens in your browser: the 16 × 16 PNG is downloaded, nothing is uploaded.',
+        note: 'In the Yoto app, a track icon appears very small on the player screen. A transparent background and a few simple shapes stay readable.',
+        search: 'Looking for an existing icon instead?',
+        searchLink: 'Browse the icon catalogue',
+        back: 'Back to the MYO guide',
+      };
+---
+
+<section class="container page">
+  <p class="eyebrow">{copy.eyebrow}</p>
+  <h1>{copy.title}</h1>
+  <p class="lede">{copy.lede}</p>
+
+  <IconEditor lang={lang} />
+
+  <p class="note">{copy.note}</p>
+
+  <p>
+    {copy.search}
+    <a href="https://yoto-community.github.io/icons-catalogue/"> {copy.searchLink} </a>.
+  </p>
+  <a href={localePath(lang, '/myo/')}>{copy.back} →</a>
+</section>
+
+<style>
+  .page {
+    padding-block: var(--space-8);
+    max-width: 980px;
+  }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .lede {
+    color: var(--ink-muted);
+    font-size: 1.15rem;
+    max-width: 62ch;
+  }
+  .note {
+    margin-top: var(--space-6);
+    max-width: 62ch;
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+  }
+</style>

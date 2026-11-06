@@ -8,6 +8,8 @@ on:
 permissions:
   contents: read
   issues: write
+  # Required to read @yoto-community/* from GitHub Packages.
+  packages: read
 
 concurrency:
   group: link-health
@@ -23,7 +25,11 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
+          registry-url: https://npm.pkg.github.com
+          scope: '@yoto-community'
       - run: pnpm install --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: pnpm check:links
 
       - name: Publish the report

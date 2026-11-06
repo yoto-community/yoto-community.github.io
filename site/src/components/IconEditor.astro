@@ -1,0 +1,454 @@
+---
+/**
+ * Éditeur d'icônes de piste 16×16.
+ *
+ * Le composant ne porte que le balisage et les textes : la logique (grille,
+ * historique, PNG, brouillon, contrôles) vit dans `pixel-editor-core` et le
+ * contrôleur `scripts/icon-editor.ts`.
+ *
+ * Les libellés sont passés au script par `data-copy` : ils restent bilingues
+ * sans que le script ait à connaître le dictionnaire i18n du site.
+ */
+import type { EditorCopy } from '../scripts/icon-editor';
+import type { Lang } from '../lib/routes';
+
+/** Yoto icons are 16×16; kept local so the page never loads the core in SSR. */
+const GRID_SIZE = 16;
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const copy: EditorCopy =
+  lang === 'fr'
+    ? {
+        toolsAria: 'Outils de dessin',
+        tools: { pencil: 'Crayon', eraser: 'Gomme', fill: 'Remplir', picker: 'Pipette' },
+        gridAria: 'Grille d’icône 16 × 16',
+        cellAria: 'Ligne {row}, colonne {col}, {color}',
+        empty: 'vide',
+        paletteAria: 'Couleurs rapides',
+        customColor: 'Couleur personnalisée',
+        undo: 'Annuler',
+        redo: 'Rétablir',
+        clear: 'Effacer',
+        actionsAria: 'Actions d’édition',
+        import: 'Importer une image',
+        importHint:
+          'PNG, JPEG, WebP ou GIF. L’image est réduite en 16 × 16 dans votre navigateur — rien n’est envoyé.',
+        importError: 'Cette image n’a pas pu être lue.',
+        download: 'Télécharger le PNG',
+        previewReal: 'Aperçu à taille réelle',
+        previewLarge: 'Aperçu agrandi',
+        checksAria: 'Contrôles Yoto',
+        checkEmpty: 'L’icône est vide.',
+        checkBlack: 'Le noir pur disparaît sur le fond du lecteur.',
+        checkColors: 'Trop de couleurs : l’icône devient illisible en petit.',
+        checkOk: 'Prête pour une piste.',
+        saved: 'Brouillon enregistré dans ce navigateur.',
+      }
+    : {
+        toolsAria: 'Drawing tools',
+        tools: { pencil: 'Pencil', eraser: 'Eraser', fill: 'Fill', picker: 'Picker' },
+        gridAria: '16 by 16 icon grid',
+        cellAria: 'Row {row}, column {col}, {color}',
+        empty: 'empty',
+        paletteAria: 'Quick colours',
+        customColor: 'Custom colour',
+        undo: 'Undo',
+        redo: 'Redo',
+        clear: 'Clear',
+        actionsAria: 'Editing actions',
+        import: 'Import an image',
+        importHint:
+          'PNG, JPEG, WebP or GIF. The image is reduced to 16 × 16 in your browser — nothing is uploaded.',
+        importError: 'This image could not be read.',
+        download: 'Download the PNG',
+        previewReal: 'Real-size preview',
+        previewLarge: 'Enlarged preview',
+        checksAria: 'Yoto checks',
+        checkEmpty: 'The icon is empty.',
+        checkBlack: 'Pure black disappears on the player background.',
+        checkColors: 'Too many colours: the icon becomes hard to read at small size.',
+        checkOk: 'Ready for a track.',
+        saved: 'Draft saved in this browser.',
+      };
+
+const tools = [
+  { tool: 'pencil', icon: '✏️' },
+  { tool: 'eraser', icon: '🧽' },
+  { tool: 'fill', icon: '🪣' },
+  { tool: 'picker', icon: '💧' },
+] as const;
+
+/** Pixel transparent 1×1 : évite une icône cassée avant le premier rendu. */
+const BLANK =
+  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+---
+
+<div class="icon-editor" data-icon-editor data-copy={JSON.stringify(copy)}>
+  <div class="ie-toolbar" role="toolbar" aria-label={copy.toolsAria}>
+    {
+      tools.map(({ tool, icon }) => (
+        <button
+          type="button"
+          class:list={['ie-tool', { 'is-active': tool === 'pencil' }]}
+          data-tool={tool}
+          aria-pressed={tool === 'pencil' ? 'true' : 'false'}
+        >
+          <span aria-hidden="true">{icon}</span>
+          <span>{copy.tools[tool]}</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="ie-body">
+    <div class="ie-canvas">
+      <div
+        class="ie-grid"
+        role="grid"
+        aria-label={copy.gridAria}
+        aria-rowcount={GRID_SIZE}
+        aria-colcount={GRID_SIZE}
+        data-grid
+      >
+      </div>
+    </div>
+
+    <div class="ie-side">
+      <div class="ie-previews">
+        <figure>
+          <img data-preview-real src={BLANK} alt={copy.previewReal} width="16" height="16" />
+          <figcaption>{copy.previewReal}</figcaption>
+        </figure>
+        <figure>
+          <img data-preview-large src={BLANK} alt={copy.previewLarge} width="128" height="128" />
+          <figcaption>{copy.previewLarge}</figcaption>
+        </figure>
+      </div>
+
+      <div class="ie-palette" role="group" aria-label={copy.paletteAria} data-palette></div>
+
+      <label class="ie-custom">
+        <span>{copy.customColor}</span>
+        <input type="color" value="#000000" data-color />
+      </label>
+
+      <div class="ie-actions" role="group" aria-label={copy.actionsAria}>
+        <button type="button" class="ie-button" data-undo>{copy.undo}</button>
+        <button type="button" class="ie-button" data-redo>{copy.redo}</button>
+        <button type="button" class="ie-button" data-clear>{copy.clear}</button>
+      </div>
+
+      <div class="ie-import">
+        <label class="ie-file">
+          <span>{copy.import}</span>
+          <input
+            type="file"
+            accept="image/png,image/jpeg,image/webp,image/gif"
+            data-file
+          />
+        </label>
+        <p class="ie-hint">{copy.importHint}</p>
+        <p class="ie-error" role="alert" data-import-error></p>
+      </div>
+
+      <button type="button" class="ie-button ie-button-primary" data-download>
+        {copy.download}
+      </button>
+
+      <p class="ie-saved" aria-live="polite" data-saved></p>
+    </div>
+  </div>
+
+  <div class="ie-review">
+    <h2>{copy.checksAria}</h2>
+    <ul class="ie-checks" aria-live="polite" data-checks></ul>
+  </div>
+</div>
+
+<style is:global>
+  .icon-editor {
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .icon-editor .ie-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .icon-editor .ie-tool,
+  .icon-editor .ie-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.9rem;
+    font: inherit;
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+  }
+
+  .icon-editor .ie-tool:hover,
+  .icon-editor .ie-button:hover {
+    border-color: var(--accent);
+  }
+
+  .icon-editor .ie-tool:focus-visible,
+  .icon-editor .ie-button:focus-visible,
+  .icon-editor .ie-swatch:focus-visible,
+  .icon-editor .ie-file input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .icon-editor .ie-tool.is-active,
+  .icon-editor .ie-button-primary {
+    color: var(--bg);
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .icon-editor .ie-body {
+    display: grid;
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .icon-editor .ie-grid {
+    --ie-cell: clamp(15px, 5.4vw, 26px);
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(16, var(--ie-cell));
+    grid-auto-rows: var(--ie-cell);
+    width: max-content;
+    padding: 4px;
+    background-color: var(--surface);
+    background-image: repeating-conic-gradient(var(--surface-2) 0% 25%, var(--surface) 0% 50%);
+    background-size: 16px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    touch-action: none;
+    user-select: none;
+  }
+
+  /* Quadrillage discret, au-dessus des pixels, sans capter les clics. */
+  .icon-editor .ie-grid::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background-image:
+      linear-gradient(to right, rgb(127 127 127 / 25%) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(127 127 127 / 25%) 1px, transparent 1px);
+    background-size: var(--ie-cell) var(--ie-cell);
+    pointer-events: none;
+  }
+
+  .icon-editor .ie-row {
+    display: contents;
+  }
+
+  .icon-editor .ie-cell {
+    background: transparent;
+  }
+
+  .icon-editor .ie-cell:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+    z-index: 1;
+  }
+
+  .icon-editor .ie-grid[data-tool='fill'] .ie-cell {
+    cursor: copy;
+  }
+
+  .icon-editor .ie-side {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+    justify-items: start;
+  }
+
+  .icon-editor .ie-previews {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    align-items: end;
+  }
+
+  .icon-editor .ie-previews figure {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: center;
+    margin: 0;
+  }
+
+  .icon-editor .ie-previews img {
+    image-rendering: pixelated;
+    background-color: var(--surface);
+    background-image: repeating-conic-gradient(var(--surface-2) 0% 25%, var(--surface) 0% 50%);
+    background-size: 8px 8px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  .icon-editor .ie-previews figcaption {
+    max-width: 14ch;
+    font-size: 0.75rem;
+    text-align: center;
+    color: var(--ink-muted);
+  }
+
+  .icon-editor .ie-palette {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 6px;
+    width: min(100%, 320px);
+  }
+
+  .icon-editor .ie-swatch {
+    aspect-ratio: 1;
+    width: 100%;
+    padding: 0;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .icon-editor .ie-swatch.is-active {
+    border-color: var(--ink);
+    box-shadow:
+      0 0 0 2px var(--surface),
+      0 0 0 4px var(--accent);
+  }
+
+  .icon-editor .ie-custom {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-weight: 700;
+  }
+
+  .icon-editor .ie-custom input {
+    inline-size: 3rem;
+    block-size: 2.2rem;
+    padding: 0;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .icon-editor .ie-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .icon-editor .ie-import {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .icon-editor .ie-file {
+    display: grid;
+    gap: var(--space-2);
+    font-weight: 700;
+  }
+
+  .icon-editor .ie-file input {
+    max-width: 100%;
+    font: inherit;
+    font-weight: 400;
+  }
+
+  .icon-editor .ie-hint {
+    margin: 0;
+    max-width: 46ch;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+  }
+
+  .icon-editor .ie-error {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--danger);
+  }
+
+  .icon-editor .ie-error:empty {
+    display: none;
+  }
+
+  .icon-editor .ie-saved {
+    min-height: 1.2em;
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+  }
+
+  .icon-editor .ie-review h2 {
+    margin: 0 0 var(--space-2);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .icon-editor .ie-checks {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .icon-editor .ie-checks li {
+    display: flex;
+    gap: var(--space-2);
+    align-items: start;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .icon-editor .ie-checks li::before {
+    content: '';
+    flex: none;
+    inline-size: 0.6rem;
+    block-size: 0.6rem;
+    margin-top: 0.35rem;
+    background: currentColor;
+    border-radius: 50%;
+  }
+
+  .icon-editor .ie-checks .is-ok {
+    color: var(--accent);
+  }
+
+  .icon-editor .ie-checks .is-warn {
+    color: var(--warn);
+  }
+
+  @media (max-width: 720px) {
+    .icon-editor .ie-body {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { mountIconEditor } from '../scripts/icon-editor';
+
+  document
+    .querySelectorAll<HTMLElement>('[data-icon-editor]')
+    .forEach((element) => mountIconEditor(element));
+</script>
