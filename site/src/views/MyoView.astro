@@ -61,6 +61,8 @@ const steps = [
   },
 ] as const;
 
+const optionalSteps = new Set([2, 6]);
+
 const bySlug = new Map(catalog.projects.map((project) => [project.slug, project]));
 ---
 
@@ -70,8 +72,8 @@ const bySlug = new Map(catalog.projects.map((project) => [project.slug, project]
   <p class="lede">
     {
       lang === 'fr'
-        ? 'Six étapes, du fichier audio brut au label imprimé. Chaque étape indique un outil recommandé et une alternative.'
-        : 'Six steps, from a raw audio file to a printed label. Each step names one recommended tool and an alternative.'
+        ? 'Six étapes, du fichier audio brut au label imprimé — dont deux optionnelles. Chaque étape indique un outil recommandé et une alternative.'
+        : 'Six steps, from a raw audio file to a printed label — two of them optional. Each step names one recommended tool and an alternative.'
     }
   </p>
   <ol class="steps">
@@ -83,8 +85,15 @@ const bySlug = new Map(catalog.projects.map((project) => [project.slug, project]
           </span>
           <div>
             <h2>
-              <span class="sr-only">{lang === 'fr' ? `Étape ${step.n} : ` : `Step ${step.n}: `}</span>
+              <span class="sr-only">
+                {lang === 'fr'
+                  ? `Étape ${step.n}${optionalSteps.has(step.n) ? ' (optionnelle)' : ''} : `
+                  : `Step ${step.n}${optionalSteps.has(step.n) ? ' (optional)' : ''}: `}
+              </span>
               {step.title[lang]}
+              {optionalSteps.has(step.n) && (
+                <span class="badge" aria-hidden="true">{lang === 'fr' ? 'Optionnelle' : 'Optional'}</span>
+              )}
             </h2>
             <p>{step.body[lang]}</p>
             <ul class="tools">
@@ -188,6 +197,21 @@ const bySlug = new Map(catalog.projects.map((project) => [project.slug, project]
   h2 {
     margin-bottom: var(--space-2);
     font-size: 1.35rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    border-radius: var(--radius-pill);
+    padding: 0.15rem 0.6rem;
   }
   .sr-only {
     position: absolute;
