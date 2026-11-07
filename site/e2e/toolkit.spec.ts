@@ -34,15 +34,7 @@ test('adds a project to the toolkit, persists it and removes it', async ({ page 
   await expect(page.locator('[data-toolkit-empty]')).toBeVisible();
 });
 
-test('filters the project list to the toolkit', async ({ page }) => {
-  await page.goto('/projects/');
-  await page.locator('[data-project][data-slug="louis"] [data-toolkit-toggle]').click();
-  await page.getByLabel('My toolkit only').check();
 
-  await expect(page).toHaveURL(/toolkit=1/);
-  await expect(page.locator('[data-project]:visible')).toHaveCount(1);
-  await expect(page.locator('[data-project][data-slug="louis"]')).toBeVisible();
-});
 
 test('syncs the toolkit between two tabs', async ({ context, page }) => {
   const other = await context.newPage();

@@ -40,6 +40,7 @@ const warningKey = project.warning ? (`project.warning.${project.warning}` as Me
 const projectsHref = localePath(lang, '/projects/');
 const actions = projectActions(project);
 const repo = project.repo;
+const authorGithubUrl = project.author ? `https://github.com/${project.author}` : null;
 ---
 
 <article class="container detail">
@@ -99,11 +100,26 @@ const repo = project.repo;
         )
       }
       <ToolkitButton lang={lang} type="project" id={project.slug} title={project.name} />
+      {project.repo && (
+        <details>
+          <summary>{t(lang, 'project.moreDetails')}</summary>
+          <div class="readme-preview-detail">
+            <p>{t(lang, 'project.loadingReadme')}</p>
+          </div>
+        </details>
+      )}
     </div>
   </header>
   {warningKey && <p class="warning">{t(lang, warningKey)}</p>}
   <dl class="meta">
-    <div><dt>{t(lang, 'project.author')}</dt><dd>{project.author}</dd></div>
+    <div>
+    <dt>{t(lang, 'project.author')}</dt>
+    <dd>
+      <a href={authorGithubUrl} rel="noopener" target="_blank">
+        {t(lang, 'project.author')} {project.author}
+      </a>
+    </dd>
+  </div>
     <div><dt>{t(lang, 'project.license')}</dt><dd>{project.license}</dd></div>
     <div>
       <dt>{t(lang, 'project.platforms')}</dt>
@@ -177,6 +193,34 @@ const repo = project.repo;
     </a>
   </p>
 </article>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    const detailsElements = document.querySelectorAll('article .readme-preview-detail details');
+    detailsElements.forEach((details) => {
+      details.addEventListener('toggle', async function () {
+        if (details.open) {
+          const article = details.closest('article');
+          const repo = article.dataset.repo;
+          const author = article.dataset.author;
+          if (!repo || !author) return;
+          const preview = details.querySelector('.readme-preview-detail');
+          if (!preview) return;
+          preview.innerHTML = '<p>' + '{t(lang, \"project.loadingReadme\")}' + '</p>';
+          try {
+            const response = await fetch(`/api/readme?repo=${encodeURIComponent(repo)}&author=${encodeURIComponent(author)}`);
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            const content = data.content ? Buffer.from(data.content, 'base64').toString('utf-8') : '';
+            preview.textContent = content ? content.replace(/\n/g, '<br>') : '';
+          } catch (error) {
+            if (preview) preview.textContent = 'Error loading README';
+          }
+        }
+      });
+    });
+  });
+</script>
 
 <style>
   .detail {
