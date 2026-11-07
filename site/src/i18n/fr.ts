@@ -18,6 +18,7 @@ export const fr: Record<MessageKey, string> = {
   'nav.about': 'À propos',
   'nav.api': 'API',
   'nav.changelog': 'Journal',
+  'nav.services': 'Services Yoto',
   'home.hero.title': 'Tout ce que la communauté Yoto construit, au même endroit',
   'home.hero.subtitle':
     'Applications, créateurs de cartes, icônes, intégrations et guides — vérifiés, classés et maintenus à jour.',

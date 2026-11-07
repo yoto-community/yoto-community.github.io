@@ -15,6 +15,7 @@ export const en = {
   'nav.about': 'About',
   'nav.api': 'API',
   'nav.changelog': 'Changelog',
+  'nav.services': 'Yoto Services',
   'home.hero.title': 'Everything the Yoto community builds, in one place',
   'home.hero.subtitle':
     'Apps, card makers, icon libraries, integrations and guides — checked, categorized and kept honest.',
