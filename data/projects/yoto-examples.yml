@@ -2,6 +2,7 @@ name: Yoto Examples
 url: https://github.com/yotoplay/examples
 repo: https://github.com/yotoplay/examples
 description: Sample apps for the Yoto API in React, Next.js, Node.js, vanilla JavaScript and MQTT.
+descriptionFr: Applications d'exemple pour l'API Yoto en React, Next.js, Node.js, JavaScript natif et MQTT.
 category: official
 tags: [api, web]
 author: Yoto

@@ -2,6 +2,7 @@ name: open-yoto
 url: https://github.com/tensorfish/open-yoto
 repo: https://github.com/tensorfish/open-yoto
 description: Independent replacement firmware for the Yoto Mini that plays SD-card audio with NFC cards.
+descriptionFr: Firmware alternatif indépendant pour la Yoto Mini, qui lit l'audio d'une carte SD avec des puces NFC.
 category: hardware
 tags: [hardware, experimental]
 author: tensorfish

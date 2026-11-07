@@ -1,0 +1,46 @@
+name: Translate a project
+description: Propose a French description for a project that only has an English one.
+title: '[Translation]: '
+labels: ['translation']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci ! Une fiche traduite aide les parents francophones à choisir le bon outil.
+        Lisez `docs/translation-glossary.md` avant de proposer votre phrase : le ton et le
+        vocabulaire y sont fixés.
+
+  - type: input
+    id: slug
+    attributes:
+      label: Project slug
+      description: The YAML file name under data/projects/, without the .yml extension.
+      placeholder: yoto-cli
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Project name
+      description: Optional, only to make the issue easier to find.
+      placeholder: yoto-cli
+
+  - type: textarea
+    id: french-description
+    attributes:
+      label: French description
+      description: One factual sentence, 20 to 180 characters, ending with a period.
+      placeholder: Outil en ligne de commande pour gérer les playlists et les pistes Yoto.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: The description matches what the project actually does, not what its name suggests.
+          required: true
+        - label: The text is 20 to 180 characters, ends with a period, and contains no marketing superlative.
+          required: true

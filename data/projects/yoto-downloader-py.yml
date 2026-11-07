@@ -2,6 +2,7 @@ name: yoto-downloader-py
 url: https://github.com/calamonkey/yoto-downloader-py
 repo: https://github.com/calamonkey/yoto-downloader-py
 description: Python script that downloads the audio tracks behind a Yoto share link, sorted by author and title.
+descriptionFr: Script Python qui télécharge les pistes audio derrière un lien de partage Yoto, classées par auteur et titre.
 category: backup
 tags: [cli, api]
 author: calamonkey

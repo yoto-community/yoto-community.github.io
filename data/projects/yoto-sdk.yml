@@ -2,6 +2,7 @@ name: Yoto TypeScript SDK
 url: https://github.com/yotoplay/yoto-sdk
 repo: https://github.com/yotoplay/yoto-sdk
 description: TypeScript SDK for Yoto's public API, covering content, devices, media, icons and family library.
+descriptionFr: SDK TypeScript pour l'API publique Yoto, qui couvre le contenu, les lecteurs, les médias, les icônes et la bibliothèque familiale.
 category: official
 tags: [api, oauth]
 author: Yoto

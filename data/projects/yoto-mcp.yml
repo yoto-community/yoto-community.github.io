@@ -2,6 +2,7 @@ name: yoto-mcp
 url: https://github.com/tmcinerney/yoto-mcp
 repo: https://github.com/tmcinerney/yoto-mcp
 description: MCP server that lets AI assistants manage MYO cards, upload audio and control Yoto devices.
+descriptionFr: Serveur MCP qui permet à un assistant IA de gérer des cartes MYO, d'envoyer de l'audio et de piloter les lecteurs.
 category: develop
 tags: [mcp, api]
 author: tmcinerney

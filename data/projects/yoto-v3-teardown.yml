@@ -2,6 +2,7 @@ name: Yoto V3 Teardown
 url: https://github.com/iamearlgrey/yoto-v3-teardown
 repo: https://github.com/iamearlgrey/yoto-v3-teardown
 description: Teardown notes, board maps and an Arduino speaker test for the third-generation Yoto Player.
+descriptionFr: Notes de démontage, plans de carte et test de haut-parleur Arduino pour la Yoto Player de troisième génération.
 category: hardware
 tags: [hardware, experimental]
 author: iamearlgrey

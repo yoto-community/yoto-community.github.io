@@ -2,6 +2,7 @@ name: Custom Yoto Cards
 url: https://github.com/davidcjw/custom-yoto-cards
 repo: https://github.com/davidcjw/custom-yoto-cards
 description: Guide and zero-dependency Node script for putting custom audio on generic Yoto cards.
+descriptionFr: Guide et script Node sans dépendance pour placer son propre audio sur des cartes Yoto génériques.
 category: create
 tags: [nfc, mobile]
 author: davidcjw

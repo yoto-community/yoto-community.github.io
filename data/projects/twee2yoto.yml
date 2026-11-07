@@ -2,6 +2,7 @@ name: twee2yoto
 url: https://github.com/yotoplay/twee2yoto
 repo: https://github.com/yotoplay/twee2yoto
 description: TypeScript library that converts Twine stories into Yoto JSON for interactive audio cards.
+descriptionFr: Bibliothèque TypeScript qui convertit des histoires Twine en JSON Yoto pour des cartes audio interactives.
 category: official
 tags: [api, cli]
 author: Yoto

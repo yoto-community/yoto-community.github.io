@@ -2,6 +2,7 @@ name: yoto-backup
 url: https://github.com/seripap/yoto-backup
 repo: https://github.com/seripap/yoto-backup
 description: Node.js script that downloads a card's artwork, metadata and tracks from its share URL.
+descriptionFr: Script Node.js qui télécharge la jaquette, les métadonnées et les pistes d'une carte depuis son lien de partage.
 category: backup
 tags: [cli, api]
 author: seripap

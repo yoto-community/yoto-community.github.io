@@ -6,10 +6,14 @@ Thanks for helping parents and makers get more out of the Yoto Player. This list
 
 Two ways to get an entry in:
 
-1. **Open an issue.** Use the "Submit an app" issue form with the name, URL, category and a one-sentence description. The submission workflow turns it into a pull request, which a maintainer reviews.
+1. **Open an issue.** Use the "Submit an app" issue form with the name, URL, category and a one-sentence description in English and in French. The submission workflow turns it into a pull request, which a maintainer reviews.
 2. **Open a pull request.** Add one YAML file under `data/projects/`, named after the project slug (`louis.yml`, `yoto-sdk.yml`). Copy an existing file as a template and check it against `schema/project.schema.json`.
 
-Every entry needs a `name`, an `https://` `url`, a `description` between 20 and 180 characters, a `category` slug from `data/categories.yml`, one to eight `tags`, an `author`, a `license`, a `status`, at least one platform, and the `added` date in `YYYY-MM-DD` form. Set `descriptionFr` when you can write French. If you mark an entry `deprecated`, also provide `deprecatedBy`.
+Every entry needs a `name`, an `https://` `url`, a `description` between 20 and 180 characters, a `category` slug from `data/categories.yml`, one to eight `tags`, an `author`, a `license`, a `status`, at least one platform, and the `added` date in `YYYY-MM-DD` form. `descriptionFr` is required too: one French sentence of 20 to 180 characters, written with the [translation glossary](docs/translation-glossary.md); `pnpm check:fr` fails without it. If you mark an entry `deprecated`, also provide `deprecatedBy`.
+
+## Propose a translation
+
+Every entry ships a French description. If one is missing, the French project page links to the "Translate a project" issue form, which is prefilled with the slug. A maintainer can also translate the YAML directly. The glossary fixes the vocabulary, and `pnpm check:fr` checks both coverage and length.
 
 ## Run the checks locally
 
@@ -27,6 +31,7 @@ A classic PAT with the `read:packages` scope works too, in place of `$(gh auth t
 ```bash
 pnpm install
 pnpm validate      # schema, duplicates, categories and tags
+pnpm check:fr      # French description coverage and length
 pnpm build:data    # regenerate README.md and the site catalog
 pnpm verify        # the full gate that CI runs
 pnpm audit --audit-level=high  # dependency vulnerabilities

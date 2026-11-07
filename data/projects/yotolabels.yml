@@ -2,6 +2,7 @@ name: yotolabels
 url: https://github.com/michel2323/yotolabels
 repo: https://github.com/michel2323/yotolabels
 description: Native Windows app that prints ten Yoto card labels per Letter sheet on TownStix US-10 label paper.
+descriptionFr: Application Windows native qui imprime dix étiquettes Yoto par feuille Letter sur papier TownStix US-10.
 category: icons
 tags: [printing, windows]
 author: michel2323

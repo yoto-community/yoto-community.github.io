@@ -41,6 +41,7 @@ jobs:
       # check:readme must run before build:data: build:data rewrites README.md,
       # so running it first would hide any drift between data/ and the README.
       - run: pnpm validate
+      - run: pnpm check:fr
       - run: pnpm check:readme
       - run: pnpm build:data
 

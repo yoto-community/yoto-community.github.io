@@ -100,4 +100,9 @@ describe('projectFromIssue', () => {
       projectFromIssue({ ...parseIssueForm(body), category: 'nope' }, '2026-11-03'),
     ).toThrow('unknown category');
   });
+
+  it('rejects a submission without a French description', () => {
+    const fields = { ...parseIssueForm(body), 'french description': '' };
+    expect(() => projectFromIssue(fields, '2026-11-03')).toThrow('french description is required');
+  });
 });

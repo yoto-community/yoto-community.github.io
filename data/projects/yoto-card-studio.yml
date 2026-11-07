@@ -2,6 +2,7 @@ name: Yoto Card Studio
 url: https://github.com/gvinko/yoto-card-studio
 repo: https://github.com/gvinko/yoto-card-studio
 description: Installable web app that chapters audio, edits 16x16 icons and uploads MYO cards through the Yoto API.
+descriptionFr: Application web installable qui découpe l'audio en chapitres, édite les icônes 16x16 et crée des cartes MYO via l'API Yoto.
 category: create
 tags: [web, nfc]
 author: gvinko

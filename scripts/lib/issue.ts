@@ -69,13 +69,16 @@ export function projectFromIssue(
 
   const repository = fields.repository?.trim() ?? '';
   const descriptionFr = fields['french description']?.trim() ?? '';
+  // Every entry ships a French description (pnpm check:fr enforces it), so the
+  // submission workflow refuses to open a pull request without one.
+  if (!descriptionFr) throw new Error('french description is required');
 
   const data = {
     name,
     url: fields.url?.trim() ?? '',
     ...(repository ? { repo: repository } : {}),
     description: fields.description?.trim() ?? '',
-    ...(descriptionFr ? { descriptionFr } : {}),
+    descriptionFr,
     category,
     tags: list(fields.tags),
     author: fields.author?.trim() || 'Unknown',

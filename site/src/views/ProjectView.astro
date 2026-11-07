@@ -4,6 +4,7 @@ import ToolkitButton from '../components/ToolkitButton.astro';
 import { t, type MessageKey } from '../i18n';
 import { localePath, type Lang } from '../lib/routes';
 import { catalog } from '../lib/catalog';
+import { editProjectUrl, translateProjectUrl } from '../lib/contribute-links';
 import { humanizeList } from '../lib/format';
 import { projectActions } from '../lib/project-actions';
 import { absoluteUrl } from '../lib/site';
@@ -63,6 +64,20 @@ const repo = project.repo;
     <p class="lede">
       {description}{fallback && <span class="en" title={t(lang, 'project.englishOnly')}>EN</span>}
     </p>
+    {
+      fallback && (
+        <p class="untranslated">
+          {t(lang, 'project.untranslated')}{' '}
+          <a
+            href={translateProjectUrl(project.slug, project.name)}
+            rel="noopener"
+            target="_blank"
+          >
+            {t(lang, 'project.translate')}
+          </a>
+        </p>
+      )
+    }
     <div class="actions">
       {
         actions.showWebsite && (
@@ -156,6 +171,11 @@ const repo = project.repo;
       </section>
     )
   }
+  <p class="improve" data-pagefind-ignore>
+    <a href={editProjectUrl(project.slug)} rel="noopener" target="_blank">
+      {t(lang, 'project.edit')}
+    </a>
+  </p>
 </article>
 
 <style>
@@ -194,6 +214,17 @@ const repo = project.repo;
     border-radius: 4px;
     padding: 0 0.25rem;
     vertical-align: middle;
+  }
+  .untranslated {
+    margin-top: var(--space-2);
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+  }
+  .improve {
+    margin-top: var(--space-6);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
   }
   .actions {
     display: flex;

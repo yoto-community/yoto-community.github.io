@@ -2,6 +2,7 @@ name: yoto-smart-stream
 url: https://github.com/earchibald/yoto-smart-stream
 repo: https://github.com/earchibald/yoto-smart-stream
 description: Self-hosted Python service that streams audio to Yoto devices and reacts to MQTT events.
+descriptionFr: Service Python auto-hébergé qui diffuse de l'audio vers les lecteurs Yoto et réagit aux événements MQTT.
 category: audio
 tags: [api, self-hosted]
 author: earchibald

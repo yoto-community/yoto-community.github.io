@@ -95,18 +95,21 @@ expose the bypass for required checks directly.
 
 ## 5. Labels
 
-Create both labels up front so their colors and descriptions are stable. Each workflow creates
+Create all three labels up front so their colors and descriptions are stable. Each workflow creates
 its label if missing, but these commands set the intended values.
 
 ```bash
 gh label create link-health --color B45309 --description "Dead links report" --force
 gh label create app:submission --color 0E8A16 --description "App submitted through the issue form" --force
+gh label create translation --color 1D76DB --description "French translation proposal" --force
 ```
 
 - [ ] `link-health` — amber `#B45309`; opened, updated and auto-closed by
       `.github/workflows/link-health.yml` every Monday at 06:00 UTC.
 - [ ] `app:submission` — green `#0E8A16`; applied by the issue form and the only label that
       triggers `.github/workflows/issue-to-pr.yml`.
+- [ ] `translation` — blue `#1D76DB`; applied by `translate-project.yml` and by nothing else, so
+      it never starts the submission workflow.
 
 ## 6. Submit to the aggregators
 

@@ -2,6 +2,7 @@ name: Yoto Browser Player
 url: https://github.com/afsenovilla/Yoto-Audio-Player-Browser-Extension
 repo: https://github.com/afsenovilla/Yoto-Audio-Player-Browser-Extension
 description: Browser extension that plays and downloads the tracks, icons and cover art behind a Yoto card link.
+descriptionFr: Extension de navigateur qui lit et télécharge les pistes, icônes et jaquettes derrière un lien de carte Yoto.
 category: audio
 tags: [web, api]
 author: afsenovilla

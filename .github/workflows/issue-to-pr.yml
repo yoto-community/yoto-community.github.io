@@ -49,6 +49,7 @@ jobs:
       - name: Regenerate the README and validate
         run: |
           pnpm validate
+          pnpm check:fr
           pnpm build:data
 
       - name: Ensure the submission label exists

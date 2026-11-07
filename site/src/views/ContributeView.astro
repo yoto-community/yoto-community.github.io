@@ -14,7 +14,7 @@ const repo = 'https://github.com/yoto-community/yoto-community.github.io';
         : 'The repository is the only source of truth: edit data/, never the README or the site.'
     }
   </p>
-  <h2>{lang === 'fr' ? 'Trois façons de contribuer' : 'Three ways to contribute'}</h2>
+  <h2>{lang === 'fr' ? 'Quatre façons de contribuer' : 'Four ways to contribute'}</h2>
   <ol>
     <li>
       <strong>{lang === 'fr' ? 'Formulaire' : 'Form'}</strong> —
@@ -31,6 +31,16 @@ const repo = 'https://github.com/yoto-community/yoto-community.github.io';
       }
     </li>
     <li>
+      <strong>{lang === 'fr' ? 'Traduction' : 'Translation'}</strong> —
+      <a href={`${repo}/issues/new?template=translate-project.yml`}>
+        {
+          lang === 'fr'
+            ? 'proposer une description en français'
+            : 'propose a French description'
+        }
+      </a>.
+    </li>
+    <li>
       <strong>{lang === 'fr' ? 'Signaler' : 'Report'}</strong> —
       <a href={`${repo}/issues/new?labels=link-health&title=Dead+link`}
         >{lang === 'fr' ? 'un lien mort' : 'a dead link'}</a
@@ -40,13 +50,14 @@ const repo = 'https://github.com/yoto-community/yoto-community.github.io';
   <h2>{lang === 'fr' ? 'Vérifier en local' : 'Check locally'}</h2>
   <pre><code>pnpm install
 pnpm validate
+pnpm check:fr
 pnpm build:data
 pnpm verify</code></pre>
   <p>
     {
       lang === 'fr'
-        ? 'La CI rejette toute PR si le schéma, les doublons, les catégories ou le README généré sont invalides.'
-        : 'CI blocks any PR with an invalid schema, duplicate, unknown category, or stale generated README.'
+        ? 'La CI rejette toute PR si le schéma, les doublons, les catégories, la couverture française ou le README généré sont invalides.'
+        : 'CI blocks any PR with an invalid schema, duplicate, unknown category, missing French description, or stale generated README.'
     }
   </p>
   <a href={localePath(lang, '/projects/')}>{t(lang, 'nav.projects')} →</a>

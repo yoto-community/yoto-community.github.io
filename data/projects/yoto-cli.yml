@@ -2,6 +2,7 @@ name: yoto-cli
 url: https://github.com/TheBestMoshe/yoto-cli
 repo: https://github.com/TheBestMoshe/yoto-cli
 description: Command-line tool to manage Yoto playlists, tracks, icons and devices from a terminal.
+descriptionFr: Outil en ligne de commande pour gérer depuis un terminal les playlists, pistes, icônes et lecteurs Yoto.
 category: develop
 tags: [cli, api]
 author: TheBestMoshe

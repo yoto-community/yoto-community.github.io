@@ -2,6 +2,7 @@ name: Yoto-Music
 url: https://github.com/blast-hardcheese/Yoto-Music
 repo: https://github.com/blast-hardcheese/Yoto-Music
 description: Shell scripts that collect copied YouTube links on macOS and sync the resulting audio to a Yoto card.
+descriptionFr: Scripts shell macOS qui rassemblent des liens YouTube copiés et synchronisent l'audio obtenu sur une carte Yoto.
 category: create
 tags: [cli, youtube]
 author: blast-hardcheese

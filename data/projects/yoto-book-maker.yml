@@ -2,6 +2,7 @@ name: YotoBookMaker
 url: https://github.com/bbenkle/YotoBookMaker
 repo: https://github.com/bbenkle/YotoBookMaker
 description: Native macOS app that splits audiobooks into chapters, adds icons and uploads them to Yoto.
+descriptionFr: Application macOS native qui découpe un livre audio en chapitres, ajoute des icônes et l'envoie sur Yoto.
 category: create
 tags: [audiobook, macos]
 author: bbenkle

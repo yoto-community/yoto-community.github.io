@@ -70,6 +70,9 @@ export const fr: Record<MessageKey, string> = {
   'project.stars': 'Étoiles',
   'project.related': 'Projets proches',
   'project.englishOnly': 'Anglais uniquement',
+  'project.untranslated': 'Cette fiche n’a pas encore de description en français.',
+  'project.edit': 'Modifier sur GitHub',
+  'project.translate': 'Proposer une traduction',
   'project.warning.legal-backup':
     'À utiliser uniquement avec des cartes et des audios que vous possédez.',
   'project.warning.unofficial-api':

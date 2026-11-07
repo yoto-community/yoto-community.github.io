@@ -27,8 +27,12 @@ describe('content', () => {
     }
   });
 
-  it('provides at least ten French descriptions', () => {
-    expect(projects.filter((project) => project.descriptionFr).length).toBeGreaterThanOrEqual(10);
+  it('provides a French description for every project', () => {
+    for (const project of projects) {
+      expect(project.descriptionFr, project.slug).toBeTruthy();
+      expect(project.descriptionFr?.trim().length, project.slug).toBeGreaterThanOrEqual(20);
+      expect(project.descriptionFr?.trim().length, project.slug).toBeLessThanOrEqual(180);
+    }
   });
 
   it('marks deprecated projects with a replacement', () => {

@@ -37,9 +37,9 @@ body:
     id: french-description
     attributes:
       label: French description
-      description: Optional, 20-180 characters, in French.
+      description: One factual sentence, 20-180 characters, in French. See docs/translation-glossary.md.
     validations:
-      required: false
+      required: true
 
   - type: dropdown
     id: category

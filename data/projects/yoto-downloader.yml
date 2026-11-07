@@ -2,7 +2,7 @@ name: yoto-downloader
 url: https://github.com/baruch-moskovits/yoto-downloader
 repo: https://github.com/baruch-moskovits/yoto-downloader
 description: Download the audio of cards you own for offline backup and migration.
-descriptionFr: Téléchargez l'audio des cartes que vous possédez pour une sauvegarde hors ligne.
+descriptionFr: Télécharge l'audio des cartes que vous possédez, pour une sauvegarde hors ligne.
 category: backup
 tags: [web, api]
 author: Baruch Moskovits
