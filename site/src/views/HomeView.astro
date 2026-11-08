@@ -3,6 +3,7 @@ import Button from '../components/Button.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import Search from '../components/Search.astro';
 import { catalog } from '../lib/catalog';
+import { ecosystem } from '../lib/ecosystem';
 import { t } from '../i18n';
 import { localePath, type Lang } from '../lib/routes';
 const { lang } = Astro.props as { lang: Lang };
@@ -72,6 +73,23 @@ const collections = catalog.collections.filter(
       >
     </div>
   </div>
+</section>
+
+<!-- Ecosystem stats banner -->
+<section class="container ecosystem-banner" aria-labelledby="eco-title">
+  <h2 id="eco-title">{t(lang, 'home.ecosystem.title')}</h2>
+  <div class="grid">
+    <div class="tile">
+      <p>{t(lang, 'home.ecosystem.icon-label', String(ecosystem.icons?.total ?? 0))}</p>
+    </div>
+    <div class="tile">
+      <p>{t(lang, 'home.ecosystem.podcast-label', String(ecosystem.podcasts?.total ?? 0))}</p>
+    </div>
+    <div class="tile">
+      <p>{catalog.projects.length} projet{ catalog.projects.length > 1 ? 's' : '' }</p>
+    </div>
+  </div>
+  <p class="updated">Dernière mise à jour: {ecosystem.icons?.updatedAt ? new Date(ecosystem.icons.updatedAt).toLocaleDateString('fr-FR') : '—'}</p>
 </section>
 
 <section class="container"><Search lang={lang} /></section>

@@ -8,8 +8,9 @@ export function translate(dict: Record<string, string>, key: MessageKey): string
   return dict[key] || en[key];
 }
 
-export function t(lang: Lang, key: MessageKey): string {
-  return translate(dictionaries[lang], key);
+export function t(lang: Lang, key: MessageKey, ...args: string[]): string {
+  const translated = translate(dictionaries[lang], key);
+  return args.length > 0 ? translated.replace('{0}', args[0]) : translated;
 }
 
 export { en, fr };
