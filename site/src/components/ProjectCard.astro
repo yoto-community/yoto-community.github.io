@@ -1,6 +1,5 @@
 ---
 import StatusBadge from './StatusBadge.astro';
-import ToolkitButton from './ToolkitButton.astro';
 import { t } from '../i18n';
 import { localePath, type Lang } from '../lib/routes';
 import type { Project } from '../../../scripts/lib/types';
@@ -38,13 +37,12 @@ const authorGithubUrl = project.author ? `https://github.com/${project.author}` 
     {authorGithubUrl && (
       <div class="author-link">
         <a href={authorGithubUrl} rel="noopener" target="_blank">
-          {t(lang, 'project.author')} {project.author}
+          {project.author}
         </a>
       </div>
     )}
     <div class="top-actions">
       <StatusBadge status={project.status} lang={lang} />
-      <ToolkitButton lang={lang} type="project" id={project.slug} title={project.name} compact />
     </div>
   </div>
   <p class="desc">
