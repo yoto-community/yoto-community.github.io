@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "dev:poll": "CHOKIDAR_USEPOLLING=true astro dev --force",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",

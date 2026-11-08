@@ -10,7 +10,7 @@
     "validate": "tsx scripts/validate.ts",
     "build:data": "tsx scripts/build.ts",
     "build": "pnpm build:data && pnpm --filter site build && tsx scripts/postbuild.ts && pagefind --site site/dist",
-    "dev": "pnpm build:data && pnpm --filter site dev",
+    "dev": "pnpm build:data && pnpm --filter site dev:poll",
     "check:readme": "tsx scripts/build.ts --check",
     "check:fr": "tsx scripts/check-translations.ts",
     "check": "pnpm validate && pnpm check:fr && pnpm check:readme && pnpm build:data && pnpm --filter site check && pnpm check:types",
