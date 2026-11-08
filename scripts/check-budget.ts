@@ -5,7 +5,9 @@ import { gzipSync } from 'node:zlib';
 const root = process.cwd();
 const dist = join(root, 'site/dist');
 const assetsDir = join(dist, '_astro');
-const limit = 30 * 1024;
+// 30 KB covered the site before the project README preview; rendering Markdown
+// with `marked` adds ~13 KB gzip, so the ceiling moved to 40 KB.
+const limit = 40 * 1024;
 
 if (!existsSync(assetsDir)) {
   console.error(
