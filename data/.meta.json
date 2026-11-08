@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-07",
+  "updatedAt": "2026-11-08",
   "projects": {
     "yoto-audiobookshelf-bridge": {
       "stars": 16,
@@ -32,7 +32,7 @@
     },
     "louis": {
       "stars": 57,
-      "lastCommit": "2026-09-30",
+      "lastCommit": "2026-11-07",
       "archived": false,
       "licenseDetected": "MIT"
     },
@@ -225,7 +225,7 @@
     },
     "yoto-smart-stream": {
       "stars": 10,
-      "lastCommit": "2026-09-26",
+      "lastCommit": "2026-11-08",
       "archived": false
     },
     "yoto-up": {
