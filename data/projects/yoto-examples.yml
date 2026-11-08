@@ -6,6 +6,7 @@ descriptionFr: Applications d'exemple pour l'API Yoto en React, Next.js, Node.js
 category: official
 tags: [api, web]
 author: Yoto
+authorGithub: yotoplay
 license: Unknown
 status: active
 official: true

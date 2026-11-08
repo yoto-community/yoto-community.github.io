@@ -5,7 +5,8 @@ description: Custom firmware that turns a second-generation Yoto Player into an 
 descriptionFr: Firmware personnalisé qui transforme une Yoto Player de deuxième génération en client Audiobookshelf.
 category: hardware
 tags: [hardware, audiobook]
-author: tomekent
+author: Tom Kent
+authorGithub: tomekent
 license: GPL-3.0
 status: active
 official: false

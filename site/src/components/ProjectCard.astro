@@ -14,7 +14,7 @@ const description =
 const fallback = lang === 'fr' && !project.descriptionFr;
 const featuredReason =
   lang === 'fr' && project.featuredReasonFr ? project.featuredReasonFr : project.featuredReason;
-const authorGithubUrl = project.author ? `https://github.com/${project.author}` : null;
+const authorGithubUrl = project.authorGithub ? `https://github.com/${project.authorGithub}` : null;
 ---
 
 <article
@@ -34,13 +34,15 @@ const authorGithubUrl = project.author ? `https://github.com/${project.author}` 
 >
   <div class="top">
     <h2><a href={localePath(lang, `/p/${project.slug}/`)}>{project.name}</a></h2>
-    {authorGithubUrl && (
-      <div class="author-link">
+    <div class="author-link">
+      {authorGithubUrl ? (
         <a href={authorGithubUrl} rel="noopener" target="_blank">
           {project.author}
         </a>
-      </div>
-    )}
+      ) : (
+        <span>{project.author}</span>
+      )}
+    </div>
     <div class="top-actions">
       <StatusBadge status={project.status} lang={lang} />
     </div>

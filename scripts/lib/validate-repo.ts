@@ -52,6 +52,18 @@ function isPrivateHost(host: string): boolean {
   );
 }
 
+function githubOwner(value: string | undefined): string | null {
+  if (!value) return null;
+  try {
+    const url = new URL(value);
+    if (url.hostname !== 'github.com' && url.hostname !== 'www.github.com') return null;
+    const [owner] = url.pathname.split('/').filter(Boolean);
+    return owner ?? null;
+  } catch {
+    return null;
+  }
+}
+
 function safeNormalize(value: string): string | null {
   try {
     return normalizeUrl(value);
@@ -117,6 +129,23 @@ export function validateRepository(input: RepositoryInput): Map<string, string[]
       add(entry.slug, 'slug must be kebab-case');
     }
     if (data.added > input.today) add(entry.slug, 'added date is in the future');
+
+    // `authorGithub` drives the GitHub link, so it must point at the account
+    // that owns the repository. Without it, cards link to a broken profile.
+    const repoOwner = githubOwner(data.repo);
+    if (repoOwner && !data.authorGithub) {
+      add(entry.slug, 'GitHub repository requires authorGithub');
+    }
+    if (
+      repoOwner &&
+      data.authorGithub &&
+      repoOwner.toLowerCase() !== data.authorGithub.toLowerCase()
+    ) {
+      add(
+        entry.slug,
+        `authorGithub "${data.authorGithub}" does not match the repository owner "${repoOwner}"`,
+      );
+    }
 
     const nameKey = data.name.trim().toLowerCase();
     const owner = names.get(nameKey);

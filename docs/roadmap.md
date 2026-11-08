@@ -626,7 +626,7 @@ seront retouchées en vague 2 (guides, alternatives), autant ne pas traduire deu
 **Fichiers (portail)**
 
 - Créer : `docs/shared-storage.md`, `site/src/lib/toolkit.ts`,
-  `site/src/lib/toolkit.test.ts`, `site/src/components/ToolkitButton.astro`,
+  `site/src/lib/toolkit.test.ts`,
   `site/src/views/ToolkitView.astro`, `site/src/pages/toolkit.astro`,
   `site/src/pages/fr/toolkit.astro`, `site/src/scripts/toolkit.ts`.
 - Modifier : `site/src/components/ProjectCard.astro`,

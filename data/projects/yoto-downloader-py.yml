@@ -6,6 +6,7 @@ descriptionFr: Script Python qui télécharge les pistes audio derrière un lien
 category: backup
 tags: [cli, api]
 author: calamonkey
+authorGithub: calamonkey
 license: Unknown
 status: active
 official: false

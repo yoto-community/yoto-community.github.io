@@ -6,6 +6,7 @@ descriptionFr: Service Python auto-hébergé qui diffuse de l'audio vers les lec
 category: audio
 tags: [api, self-hosted]
 author: earchibald
+authorGithub: earchibald
 license: MIT
 status: active
 official: false

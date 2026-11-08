@@ -5,7 +5,8 @@ description: Audiobook pipeline that moves BorrowBox loans through Audiobookshel
 descriptionFr: Chaîne de traitement qui fait passer des emprunts BorrowBox par Audiobookshelf jusqu'à Yoto.
 category: develop
 tags: [api, web]
-author: eperdeme
+author: Nathan Flynn
+authorGithub: eperdeme
 license: Unknown
 status: active
 official: false

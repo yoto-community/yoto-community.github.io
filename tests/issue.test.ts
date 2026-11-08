@@ -33,6 +33,14 @@ web
 
 No
 
+### Author
+
+Stuart Romanek
+
+### GitHub username
+
+stuartromanek
+
 ### French description
 
 Transforme une playlist YouTube en carte MYO Yoto.`;
@@ -82,6 +90,18 @@ describe('projectFromIssue', () => {
     const { data } = projectFromIssue(parseIssueForm(body), '2026-11-03');
     expect(data.repo).toBe('https://github.com/stuartromanek/louis');
     expect(data.descriptionFr).toBe('Transforme une playlist YouTube en carte MYO Yoto.');
+  });
+
+  it('maps the GitHub username to authorGithub', () => {
+    const { data } = projectFromIssue(parseIssueForm(body), '2026-11-03');
+    expect(data.author).toBe('Stuart Romanek');
+    expect(data.authorGithub).toBe('stuartromanek');
+  });
+
+  it('omits authorGithub when the form leaves it empty', () => {
+    const fields = { ...parseIssueForm(body), 'github username': '' };
+    const { data } = projectFromIssue(fields, '2026-11-03');
+    expect(data).not.toHaveProperty('authorGithub');
   });
 
   it('splits tags and platforms on commas and newlines', () => {

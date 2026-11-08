@@ -6,6 +6,7 @@ descriptionFr: Bibliothèque CircuitPython qui expose les fonctions matérielles
 category: hardware
 tags: [hardware, api]
 author: Adafruit
+authorGithub: adafruit
 license: MIT
 status: maintained
 official: false

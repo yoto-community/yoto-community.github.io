@@ -31,6 +31,10 @@
       "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }
     },
     "author": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "authorGithub": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$"
+    },
     "license": { "type": "string", "minLength": 1, "maxLength": 40 },
     "status": { "enum": ["active", "maintained", "stale", "archived", "deprecated"] },
     "official": { "type": "boolean" },

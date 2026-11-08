@@ -6,6 +6,7 @@ descriptionFr: Outil en ligne de commande Go qui écrit et narre un court podcas
 category: audio
 tags: [podcast, api]
 author: Jordan Wright
+authorGithub: jordan-wright
 license: Unknown
 status: active
 official: false

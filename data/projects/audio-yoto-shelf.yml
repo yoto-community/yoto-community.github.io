@@ -5,7 +5,8 @@ description: Self-hosted app that transfers Audiobookshelf books to Yoto MYO car
 descriptionFr: Application auto-hébergée qui transfère les livres Audiobookshelf vers des cartes MYO, avec icônes de chapitres.
 category: audio
 tags: [audiobook, self-hosted]
-author: Matt O'Keefe
+author: "Matt O'Keefe"
+authorGithub: O-Mutt
 license: MIT
 status: active
 official: false

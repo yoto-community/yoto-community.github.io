@@ -5,7 +5,8 @@ description: Claude Code skill that turns a YouTube link or audio file into numb
 descriptionFr: Compétence Claude Code qui transforme un lien YouTube ou un fichier audio en pistes numérotées, icônes et jaquette.
 category: create
 tags: [cli, audiobook]
-author: eddowding
+author: Ed Dowding
+authorGithub: eddowding
 license: MIT
 status: active
 official: false

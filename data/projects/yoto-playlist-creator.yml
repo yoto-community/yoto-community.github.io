@@ -6,6 +6,7 @@ descriptionFr: Application web qui recherche sur YouTube, télécharge l'audio a
 category: create
 tags: [youtube, web]
 author: cjlm
+authorGithub: cjlm
 license: MIT
 status: maintained
 official: false

@@ -5,7 +5,8 @@ description: Guide and zero-dependency Node script for putting custom audio on g
 descriptionFr: Guide et script Node sans dépendance pour placer son propre audio sur des cartes Yoto génériques.
 category: create
 tags: [nfc, mobile]
-author: davidcjw
+author: David Chong
+authorGithub: davidcjw
 license: MIT
 status: active
 official: false

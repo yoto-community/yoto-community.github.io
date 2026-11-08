@@ -6,6 +6,7 @@ descriptionFr: Télécharge l'audio des cartes que vous possédez, pour une sauv
 category: backup
 tags: [web, api]
 author: Baruch Moskovits
+authorGithub: baruch-moskovits
 license: Unknown
 status: stale
 official: false

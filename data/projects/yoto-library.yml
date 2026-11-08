@@ -5,7 +5,8 @@ description: Python CLI that mirrors CYO playlists as folders on disk and syncs 
 descriptionFr: Outil Python qui copie les playlists MYO en dossiers locaux et les synchronise dans les deux sens avec l'API Yoto.
 category: backup
 tags: [cli, self-hosted]
-author: steverice
+author: Steve Rice
+authorGithub: steverice
 license: MIT
 status: active
 official: false

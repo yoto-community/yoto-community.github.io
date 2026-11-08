@@ -6,6 +6,7 @@ descriptionFr: Application macOS native qui découpe un livre audio en chapitres
 category: create
 tags: [audiobook, macos]
 author: bbenkle
+authorGithub: bbenkle
 license: MIT
 status: active
 official: false

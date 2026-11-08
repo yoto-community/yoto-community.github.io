@@ -5,7 +5,8 @@ description: Browser app that lays out and prints precisely sized Yoto card labe
 descriptionFr: Application web pour composer et imprimer des étiquettes de cartes Yoto au format exact sur une Canon Selphy.
 category: icons
 tags: [printing, pixel-art]
-author: m600x
+author: Anthony Lao
+authorGithub: m600x
 license: Unknown
 status: maintained
 official: false

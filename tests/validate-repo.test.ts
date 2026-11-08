@@ -4,10 +4,12 @@ import { validateRepository, type RepositoryInput } from '../scripts/lib/validat
 const base = {
   name: 'Louis',
   url: 'https://github.com/stuartromanek/louis',
+  repo: 'https://github.com/stuartromanek/louis',
   description: 'Turn a YouTube playlist into a Yoto MYO card.',
   category: 'create',
   tags: ['youtube'],
   author: 'Stuart Romanek',
+  authorGithub: 'stuartromanek',
   license: 'MIT',
   status: 'active' as const,
   official: false,
@@ -77,6 +79,36 @@ describe('validateRepository', () => {
       input({ projects: [{ slug: 'louis', data: { ...base, added: '2027-01-01' } }] }),
     );
     expect(errors.get('louis')?.join(' ')).toContain('added date is in the future');
+  });
+
+  it('requires authorGithub for a GitHub repository', () => {
+    const { authorGithub: _ignored, ...withoutGithub } = base;
+    const errors = validateRepository(
+      input({ projects: [{ slug: 'louis', data: withoutGithub }] }),
+    );
+    expect(errors.get('louis')?.join(' ')).toContain('GitHub repository requires authorGithub');
+  });
+
+  it('rejects an authorGithub that does not own the repository', () => {
+    const errors = validateRepository(
+      input({ projects: [{ slug: 'louis', data: { ...base, authorGithub: 'someone-else' } }] }),
+    );
+    expect(errors.get('louis')?.join(' ')).toContain('does not match the repository owner');
+  });
+
+  it('accepts a non-GitHub project without authorGithub', () => {
+    const { authorGithub: _ignored, repo: _repo, ...withoutGithub } = base;
+    const errors = validateRepository(
+      input({
+        projects: [
+          {
+            slug: 'louis',
+            data: { ...withoutGithub, url: 'https://example.com/louis' },
+          },
+        ],
+      }),
+    );
+    expect(errors.size).toBe(0);
   });
 
   it('rejects a collection referencing an unknown project', () => {

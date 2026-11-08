@@ -6,6 +6,7 @@ descriptionFr: Bibliothèque TypeScript qui convertit des histoires Twine en JSO
 category: official
 tags: [api, cli]
 author: Yoto
+authorGithub: yotoplay
 license: MIT
 status: maintained
 official: true

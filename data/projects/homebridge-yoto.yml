@@ -5,7 +5,8 @@ description: Homebridge plugin that exposes Yoto players to Apple HomeKit with p
 descriptionFr: Plugin Homebridge qui expose les lecteurs Yoto à Apple HomeKit, avec lecture, volume et interrupteur.
 category: automate
 tags: [home-assistant, api]
-author: ChrisPatten
+author: Chris Patten
+authorGithub: ChrisPatten
 license: Apache-2.0
 status: active
 official: false

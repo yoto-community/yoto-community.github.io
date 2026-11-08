@@ -6,6 +6,7 @@ descriptionFr: Serveur MCP pour Warp qui envoie de l'audio et crée des cartes M
 category: develop
 tags: [mcp, api]
 author: bperkinspdx
+authorGithub: bperkinspdx
 license: MIT
 status: maintained
 official: false

@@ -5,7 +5,8 @@ description: Node.js client for the Yoto API with token refresh, MQTT device sta
 descriptionFr: Client Node.js pour l'API Yoto avec renouvellement de jeton, état des lecteurs par MQTT et types TypeScript.
 category: develop
 tags: [api, oauth]
-author: bcomnes
+author: Bret Comnes
+authorGithub: bcomnes
 license: MIT
 status: maintained
 official: false

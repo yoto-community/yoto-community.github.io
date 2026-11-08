@@ -5,7 +5,8 @@ description: Browser batch editor for MYO playlists with multi-select, bulk rena
 descriptionFr: Éditeur web par lots pour les playlists MYO, avec sélection multiple, renommage, icônes et envoi de MP3.
 category: create
 tags: [web, api]
-author: pg0
+author: Patrick Gawron
+authorGithub: pg0
 license: Unknown
 status: active
 official: false

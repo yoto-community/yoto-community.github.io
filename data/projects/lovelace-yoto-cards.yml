@@ -5,7 +5,8 @@ description: Five Lovelace cards that show Yoto playback, MYO library contents a
 descriptionFr: Cinq cartes Lovelace pour afficher la lecture Yoto, le contenu de la bibliothèque MYO et l'historique.
 category: automate
 tags: [home-assistant]
-author: tkamenick
+author: Tony Kamenick
+authorGithub: tkamenick
 license: MIT
 status: active
 official: false

@@ -5,7 +5,8 @@ description: Native Windows app that prints ten Yoto card labels per Letter shee
 descriptionFr: Application Windows native qui imprime dix étiquettes Yoto par feuille Letter sur papier TownStix US-10.
 category: icons
 tags: [printing, windows]
-author: michel2323
+author: Michel Schanen
+authorGithub: michel2323
 license: MIT
 status: active
 official: false

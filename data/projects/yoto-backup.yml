@@ -5,7 +5,8 @@ description: Node.js script that downloads a card's artwork, metadata and tracks
 descriptionFr: Script Node.js qui télécharge la jaquette, les métadonnées et les pistes d'une carte depuis son lien de partage.
 category: backup
 tags: [cli, api]
-author: seripap
+author: Daniel Seripap
+authorGithub: seripap
 license: Unknown
 status: stale
 official: false

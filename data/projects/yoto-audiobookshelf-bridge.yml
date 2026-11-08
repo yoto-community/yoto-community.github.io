@@ -5,7 +5,8 @@ description: Docker service that streams Audiobookshelf books to Yoto players an
 descriptionFr: Service Docker qui diffuse les livres Audiobookshelf vers les lecteurs Yoto et garde la progression.
 category: audio
 tags: [audiobook, self-hosted]
-author: mylacc
+author: Tom Schneider
+authorGithub: mylacc
 license: MIT
 status: active
 official: false

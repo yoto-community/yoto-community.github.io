@@ -14,6 +14,7 @@ const LABELS = [
   'platforms',
   'official',
   'author',
+  'github username',
   'license',
 ];
 
@@ -82,6 +83,9 @@ export function projectFromIssue(
     category,
     tags: list(fields.tags),
     author: fields.author?.trim() || 'Unknown',
+    ...(fields['github username']?.trim()
+      ? { authorGithub: fields['github username'].trim() }
+      : {}),
     license: fields.license?.trim() || 'Unknown',
     status: 'active',
     official: /^yes$/i.test(fields.official?.trim() ?? ''),

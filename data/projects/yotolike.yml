@@ -5,7 +5,8 @@ description: DIY Raspberry Pi music box for kids that plays audio from RFID card
 descriptionFr: Boîte à musique Raspberry Pi pour enfants qui lit l'audio de cartes RFID, inspirée du lecteur Yoto.
 category: hardware
 tags: [hardware, nfc]
-author: JpTiger
+author: Joel R. Putnam
+authorGithub: JpTiger
 license: MIT
 status: stale
 official: false

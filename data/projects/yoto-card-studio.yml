@@ -6,6 +6,7 @@ descriptionFr: Application web installable qui découpe l'audio en chapitres, é
 category: create
 tags: [web, nfc]
 author: gvinko
+authorGithub: gvinko
 license: Unknown
 status: active
 official: false

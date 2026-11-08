@@ -5,7 +5,8 @@ description: Single-page tool that generates a Yoto MYO URL and writes it to a b
 descriptionFr: Page unique qui génère une URL MYO Yoto et l'écrit sur une carte NFC vierge via Web NFC.
 category: create
 tags: [nfc, web]
-author: NitsujY
+author: Justin Yu
+authorGithub: NitsujY
 license: Unknown
 status: active
 official: false

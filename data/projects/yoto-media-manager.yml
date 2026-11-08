@@ -5,7 +5,8 @@ description: Desktop app that imports audio from files or YouTube links, trims i
 descriptionFr: Application de bureau qui importe l'audio depuis un fichier ou YouTube, le découpe et l'ajoute à une playlist Yoto.
 category: create
 tags: [desktop, youtube]
-author: damione1
+author: Damien Goehrig
+authorGithub: damione1
 license: GPL-3.0-or-later
 status: active
 official: false

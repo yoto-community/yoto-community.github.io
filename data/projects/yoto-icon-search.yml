@@ -5,7 +5,8 @@ description: Chrome extension that adds a search box to the Yoto icon picker whe
 descriptionFr: Extension Chrome qui ajoute un champ de recherche au sélecteur d'icônes Yoto lors de la création d'une carte MYO.
 category: icons
 tags: [pixel-art, web]
-author: Schmavery
+author: Avery Morin
+authorGithub: Schmavery
 license: Unknown
 status: stale
 official: false

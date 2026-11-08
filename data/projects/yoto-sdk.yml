@@ -6,6 +6,7 @@ descriptionFr: SDK TypeScript pour l'API publique Yoto, qui couvre le contenu, l
 category: official
 tags: [api, oauth]
 author: Yoto
+authorGithub: yotoplay
 license: MIT
 status: active
 official: true

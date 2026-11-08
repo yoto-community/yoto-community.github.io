@@ -6,6 +6,7 @@ descriptionFr: Bibliothèque Python asynchrone pour l'API Yoto, avec contrôle d
 category: develop
 tags: [api, mqtt]
 author: cdnninja
+authorGithub: cdnninja
 license: Apache-2.0
 status: active
 official: false

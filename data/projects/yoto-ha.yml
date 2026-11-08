@@ -6,6 +6,7 @@ descriptionFr: Intégration Home Assistant personnalisée pour les lecteurs Yoto
 category: automate
 tags: [home-assistant, mqtt]
 author: cdnninja
+authorGithub: cdnninja
 license: MIT
 status: deprecated
 deprecatedBy: Home Assistant core Yoto integration

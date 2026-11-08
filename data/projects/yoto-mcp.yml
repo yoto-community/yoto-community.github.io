@@ -5,7 +5,8 @@ description: MCP server that lets AI assistants manage MYO cards, upload audio a
 descriptionFr: Serveur MCP qui permet à un assistant IA de gérer des cartes MYO, d'envoyer de l'audio et de piloter les lecteurs.
 category: develop
 tags: [mcp, api]
-author: tmcinerney
+author: Travers McInerney
+authorGithub: tmcinerney
 license: MIT
 status: active
 official: false

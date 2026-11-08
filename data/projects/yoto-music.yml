@@ -5,7 +5,8 @@ description: Shell scripts that collect copied YouTube links on macOS and sync t
 descriptionFr: Scripts shell macOS qui rassemblent des liens YouTube copiés et synchronisent l'audio obtenu sur une carte Yoto.
 category: create
 tags: [cli, youtube]
-author: blast-hardcheese
+author: Devon Stewart
+authorGithub: blast-hardcheese
 license: Unknown
 status: stale
 official: false

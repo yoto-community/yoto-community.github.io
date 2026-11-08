@@ -6,6 +6,7 @@ descriptionFr: Firmware alternatif indépendant pour la Yoto Mini, qui lit l'aud
 category: hardware
 tags: [hardware, experimental]
 author: tensorfish
+authorGithub: tensorfish
 license: MIT
 status: active
 official: false

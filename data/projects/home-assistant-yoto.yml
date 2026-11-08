@@ -5,6 +5,7 @@ descriptionFr: Contrôlez les lecteurs Yoto et lisez leur état depuis Home Assi
 category: automate
 tags: [home-assistant, api]
 author: Home Assistant
+authorGithub: home-assistant
 license: Apache-2.0
 status: active
 official: false

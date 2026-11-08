@@ -5,7 +5,8 @@ description: Command-line tool to manage Yoto playlists, tracks, icons and devic
 descriptionFr: Outil en ligne de commande pour gérer depuis un terminal les playlists, pistes, icônes et lecteurs Yoto.
 category: develop
 tags: [cli, api]
-author: TheBestMoshe
+author: Moshe Grunwald
+authorGithub: TheBestMoshe
 license: MIT
 status: maintained
 official: false

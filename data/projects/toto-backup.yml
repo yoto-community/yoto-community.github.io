@@ -5,7 +5,8 @@ description: Python command-line tool that saves a Yoto card's tracks, icons and
 descriptionFr: Outil en ligne de commande qui enregistre les pistes, icônes et jaquettes d'une carte Yoto dans un dossier local.
 category: backup
 tags: [cli, api]
-author: ldesgrange
+author: Laurent Desgrange
+authorGithub: ldesgrange
 license: MPL-2.0
 status: active
 official: false

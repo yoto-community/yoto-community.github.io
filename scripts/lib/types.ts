@@ -39,6 +39,7 @@ export interface ProjectFile {
   category: string;
   tags: string[];
   author: string;
+  authorGithub?: string;
   license: string;
   status: Status;
   official: boolean;

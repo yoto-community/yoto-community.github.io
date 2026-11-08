@@ -6,6 +6,7 @@ descriptionFr: Extension Chrome qui enregistre en local l'audio, les icônes et 
 category: backup
 tags: [api, experimental]
 author: trywait
+authorGithub: trywait
 license: MIT
 status: active
 official: false

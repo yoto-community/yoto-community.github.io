@@ -90,9 +90,17 @@ body:
     id: author
     attributes:
       label: Author
-      description: Person or organisation to credit.
+      description: Person or organisation to credit, shown on the site.
     validations:
       required: true
+
+  - type: input
+    id: author-github
+    attributes:
+      label: GitHub username
+      description: Account that owns the repository (for example yotoplay). Required when the project is on GitHub.
+    validations:
+      required: false
 
   - type: input
     id: license

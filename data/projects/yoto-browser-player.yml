@@ -5,7 +5,8 @@ description: Browser extension that plays and downloads the tracks, icons and co
 descriptionFr: Extension de navigateur qui lit et télécharge les pistes, icônes et jaquettes derrière un lien de carte Yoto.
 category: audio
 tags: [web, api]
-author: afsenovilla
+author: Alberto Fernández
+authorGithub: afsenovilla
 license: MIT
 status: active
 official: false

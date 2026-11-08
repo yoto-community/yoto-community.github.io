@@ -5,7 +5,8 @@ description: Python tool that extracts a card's JSON, audio and images, embeds m
 descriptionFr: Outil Python qui extrait le JSON, l'audio et les images d'une carte, intègre les métadonnées et assemble le résultat.
 category: develop
 tags: [api, desktop]
-author: afsenovilla
+author: Alberto Fernández
+authorGithub: afsenovilla
 license: MIT
 status: active
 official: false

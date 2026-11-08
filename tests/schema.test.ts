@@ -39,6 +39,12 @@ describe('validateProjectFile', () => {
     expect(validateProjectFile({ ...valid, colour: 'red' }).join(' ')).toContain('additional');
   });
 
+  it('rejects an invalid authorGithub', () => {
+    expect(validateProjectFile({ ...valid, authorGithub: 'not a handle' }).join(' ')).toContain(
+      '/authorGithub',
+    );
+  });
+
   it('rejects a description shorter than 20 characters', () => {
     expect(validateProjectFile({ ...valid, description: 'Too short.' }).join(' ')).toContain(
       '/description',

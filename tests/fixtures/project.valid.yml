@@ -5,6 +5,7 @@ description: Turn a YouTube playlist into a Yoto MYO card, with automatic splitt
 category: create
 tags: [youtube, myo]
 author: Stuart Romanek
+authorGithub: stuartromanek
 license: MIT
 status: active
 official: false

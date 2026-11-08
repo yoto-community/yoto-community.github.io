@@ -5,6 +5,7 @@ descriptionFr: Documentation officielle de l'API, configuration OAuth et tableau
 category: official
 tags: [api, oauth]
 author: Yoto
+authorGithub: yotoplay
 license: Proprietary
 status: active
 official: true

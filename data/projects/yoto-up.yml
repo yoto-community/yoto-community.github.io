@@ -6,6 +6,7 @@ descriptionFr: Boîte à outils Python avec modes CLI, TUI et interface graphiqu
 category: audio
 tags: [cli, api]
 author: xkjq
+authorGithub: xkjq
 license: MIT
 status: active
 official: false

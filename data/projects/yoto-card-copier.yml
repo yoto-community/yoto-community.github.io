@@ -5,7 +5,8 @@ description: Offline Android app that copies a linked MYO playlist from a genuin
 descriptionFr: Application Android hors ligne qui copie une playlist MYO d'une carte officielle vers une puce MIFARE vierge.
 category: create
 tags: [nfc, android]
-author: DovieW
+author: Dovie Weinstock
+authorGithub: DovieW
 license: MIT
 status: active
 official: false

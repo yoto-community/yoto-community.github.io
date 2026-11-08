@@ -5,7 +5,8 @@ description: Command-line tool that exports a Spotify playlist to a Yoto MYO car
 descriptionFr: Outil en ligne de commande qui exporte une playlist Spotify vers une carte MYO Yoto via spotDL.
 category: create
 tags: [spotify, api]
-author: jstammers
+author: Jimmy Stammers
+authorGithub: jstammers
 license: MIT
 status: active
 official: false

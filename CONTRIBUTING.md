@@ -9,7 +9,7 @@ Two ways to get an entry in:
 1. **Open an issue.** Use the "Submit an app" issue form with the name, URL, category and a one-sentence description in English and in French. The submission workflow turns it into a pull request, which a maintainer reviews.
 2. **Open a pull request.** Add one YAML file under `data/projects/`, named after the project slug (`louis.yml`, `yoto-sdk.yml`). Copy an existing file as a template and check it against `schema/project.schema.json`.
 
-Every entry needs a `name`, an `https://` `url`, a `description` between 20 and 180 characters, a `category` slug from `data/categories.yml`, one to eight `tags`, an `author`, a `license`, a `status`, at least one platform, and the `added` date in `YYYY-MM-DD` form. `descriptionFr` is required too: one French sentence of 20 to 180 characters, written with the [translation glossary](docs/translation-glossary.md); `pnpm check:fr` fails without it. If you mark an entry `deprecated`, also provide `deprecatedBy`.
+Every entry needs a `name`, an `https://` `url`, a `description` between 20 and 180 characters, a `category` slug from `data/categories.yml`, one to eight `tags`, an `author`, a `license`, a `status`, at least one platform, and the `added` date in `YYYY-MM-DD` form. `author` is the name shown on the site; add `authorGithub` with the GitHub username that owns the repository so the author links to the right account. `descriptionFr` is required too: one French sentence of 20 to 180 characters, written with the [translation glossary](docs/translation-glossary.md); `pnpm check:fr` fails without it. If you mark an entry `deprecated`, also provide `deprecatedBy`.
 
 ## Propose a translation
 

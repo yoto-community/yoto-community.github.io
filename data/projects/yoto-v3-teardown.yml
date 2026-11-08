@@ -6,6 +6,7 @@ descriptionFr: Notes de démontage, plans de carte et test de haut-parleur Ardui
 category: hardware
 tags: [hardware, experimental]
 author: iamearlgrey
+authorGithub: iamearlgrey
 license: MIT
 status: active
 official: false

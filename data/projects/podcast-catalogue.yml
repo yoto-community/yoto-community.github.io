@@ -5,6 +5,7 @@ descriptionFr: Flux de podcasts pour enfants validés, classés par âge et par 
 category: audio
 tags: [podcast, rss, french]
 author: Yoto Community
+authorGithub: yoto-community
 license: MIT
 status: active
 official: false
