@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-08",
+  "updatedAt": "2026-11-09",
   "projects": {
     "yoto-audiobookshelf-bridge": {
       "stars": 16,
@@ -14,7 +14,7 @@
       "licenseDetected": "MIT"
     },
     "circuitpython-yoto": {
-      "stars": 3,
+      "stars": 4,
       "lastCommit": "2026-04-23",
       "archived": false,
       "licenseDetected": "MIT"
@@ -113,8 +113,8 @@
       "archived": false
     },
     "yoto-ha": {
-      "stars": 232,
-      "lastCommit": "2026-11-03",
+      "stars": 233,
+      "lastCommit": "2026-11-09",
       "archived": false,
       "licenseDetected": "MIT"
     },
@@ -165,7 +165,7 @@
     },
     "yoto-api": {
       "stars": 58,
-      "lastCommit": "2026-11-05",
+      "lastCommit": "2026-11-09",
       "archived": false,
       "licenseDetected": "Apache-2.0"
     },
@@ -224,7 +224,7 @@
       "archived": false
     },
     "yoto-smart-stream": {
-      "stars": 10,
+      "stars": 11,
       "lastCommit": "2026-11-08",
       "archived": false
     },
@@ -235,7 +235,7 @@
       "licenseDetected": "MIT"
     },
     "yoto-book-maker": {
-      "stars": 17,
+      "stars": 18,
       "lastCommit": "2026-09-12",
       "archived": false,
       "licenseDetected": "MIT"
