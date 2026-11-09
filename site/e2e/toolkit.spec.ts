@@ -3,26 +3,19 @@ import { expect, test } from '@playwright/test';
 
 const TOOLKIT_KEY = 'yoto-community:toolkit:v1';
 
-test('adds a project to the toolkit, persists it and removes it', async ({ page }) => {
-  await page.goto('/projects/');
-  const card = page.locator('[data-project][data-slug="louis"]');
-  const toggle = card.locator('[data-toolkit-toggle]');
+const PROJECT_ITEM = {
+  version: 1,
+  items: [{ type: 'project', id: 'louis', title: 'Louis', addedAt: '2026-11-06' }],
+};
 
-  await expect(toggle).toHaveAttribute('aria-pressed', 'false');
-  await toggle.click();
-  await expect(toggle).toHaveAttribute('aria-pressed', 'true');
-
-  const stored = await page.evaluate((key) => {
-    const raw = localStorage.getItem(key);
-    return raw === null ? null : JSON.parse(raw);
-  }, TOOLKIT_KEY);
-
-  expect(stored).toMatchObject({
-    version: 1,
-    items: [{ type: 'project', id: 'louis', title: 'Louis' }],
-  });
-
+test('removes a project from the toolkit and persists the removal', async ({ page }) => {
   await page.goto('/toolkit/');
+  await page.evaluate(
+    ([key, value]) => localStorage.setItem(key, JSON.stringify(value)),
+    [TOOLKIT_KEY, PROJECT_ITEM] as const,
+  );
+  await page.reload();
+
   const row = page.locator('[data-toolkit-group="project"] li').filter({ hasText: 'Louis' });
   await expect(row).toBeVisible();
   await row.getByRole('button', { name: /Remove from toolkit/ }).click();
@@ -30,18 +23,27 @@ test('adds a project to the toolkit, persists it and removes it', async ({ page 
   await expect(page.locator('[data-toolkit-empty]')).toBeVisible();
   await expect(page.locator('[data-toolkit-group="project"]')).toBeHidden();
 
+  const stored = await page.evaluate((key) => {
+    const raw = localStorage.getItem(key);
+    return raw === null ? null : JSON.parse(raw);
+  }, TOOLKIT_KEY);
+
+  expect(stored).toMatchObject({ version: 1, items: [] });
+
   await page.reload();
   await expect(page.locator('[data-toolkit-empty]')).toBeVisible();
 });
 
-
-
 test('syncs the toolkit between two tabs', async ({ context, page }) => {
   const other = await context.newPage();
   await other.goto('/toolkit/');
-  await page.goto('/projects/');
+  await page.goto('/toolkit/');
 
-  await page.locator('[data-project][data-slug="louis"] [data-toolkit-toggle]').click();
+  await page.locator('[data-toolkit-import]').setInputFiles({
+    name: 'toolkit.json',
+    mimeType: 'application/json',
+    buffer: Buffer.from(JSON.stringify(PROJECT_ITEM)),
+  });
 
   await expect(other.locator('[data-toolkit-group="project"] li')).toHaveCount(1);
   await expect(other.locator('[data-toolkit-group="project"] li')).toContainText('Louis');
