@@ -61,12 +61,21 @@
     }
   }
 
+  function syncThemeSelects() {
+    var theme = read().theme || 'system';
+    var selects = document.querySelectorAll('[data-theme-switch]');
+    for (var i = 0; i < selects.length; i += 1) {
+      selects[i].value = theme;
+    }
+  }
+
   function applyTheme() {
     var theme = read().theme || 'system';
     var dark =
       theme === 'dark' ||
       (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+    syncThemeSelects();
   }
 
   function redirectHome() {
@@ -83,6 +92,44 @@
     var link = target.closest('[data-locale-switch]');
     var locale = link && link.getAttribute('data-locale-switch');
     if (locale === 'fr' || locale === 'en') write({ locale: locale });
+  });
+
+  document.addEventListener('change', function (event) {
+    var target = event.target;
+    if (!target || !target.matches) return;
+
+    if (target.matches('[data-locale-select]')) {
+      var locale = target.value;
+      if (locale !== 'fr' && locale !== 'en') return;
+      write({ locale: locale });
+      var option = target.options[target.selectedIndex];
+      var href = option && option.getAttribute('data-href');
+      if (href) window.location.assign(href);
+      return;
+    }
+
+    if (target.matches('[data-theme-switch]')) {
+      var theme = target.value;
+      if (theme !== 'light' && theme !== 'dark' && theme !== 'system') return;
+      write({ theme: theme });
+      applyTheme();
+    }
+  });
+
+  function closeSettingsMenus(except) {
+    var menus = document.querySelectorAll('[data-settings-menu][open]');
+    for (var i = 0; i < menus.length; i += 1) {
+      if (except && menus[i].contains(except)) continue;
+      menus[i].removeAttribute('open');
+    }
+  }
+
+  document.addEventListener('click', function (event) {
+    closeSettingsMenus(event.target);
+  });
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') closeSettingsMenus();
   });
 
   window.addEventListener('storage', function (event) {

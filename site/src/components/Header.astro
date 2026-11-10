@@ -5,9 +5,9 @@ import { localePath, type Lang } from '../lib/routes';
 interface Props {
   lang: Lang;
   path: string;
-  altUrl: string;
 }
-const { lang, path, altUrl } = Astro.props;
+const { lang, path } = Astro.props;
+const currentUrl = localePath(lang, path);
 const links = [
   { href: '/projects/', label: 'nav.projects' as const },
   { href: '/myo/', label: 'nav.myo' as const },
@@ -27,16 +27,6 @@ const contributeLink = {
   label: t(lang, 'nav.contribute'),
   prefix: '/contribute/',
 };
-const ecosystemLinks = [
-  {
-    href: 'https://yoto-community.github.io/podcast-catalogue/',
-    label: t(lang, 'nav.podcasts'),
-  },
-  {
-    href: 'https://yoto-community.github.io/icons-catalogue/',
-    label: t(lang, 'nav.icons'),
-  },
-];
 const githubLink = {
   href: 'https://github.com/yoto-community/yoto-community.github.io',
   label: t(lang, 'nav.github'),
@@ -44,35 +34,67 @@ const githubLink = {
 const navLabel = lang === 'fr' ? 'Navigation principale' : 'Main navigation';
 const communityLabel = t(lang, 'nav.community');
 const newTabLabel = t(lang, 'nav.newTab');
+
+/** Les sites de l'écosystème, dans le même ordre sur les trois applications. */
+const ecosystemLinks = [
+  { href: localePath(lang, '/'), label: t(lang, 'site.title'), current: true },
+  {
+    href: 'https://yoto-community.github.io/icons-catalogue/',
+    label: t(lang, 'nav.icons'),
+    current: false,
+  },
+  {
+    href: `https://yoto-community.github.io/podcast-catalogue/${lang}/`,
+    label: t(lang, 'nav.podcasts'),
+    current: false,
+  },
+];
+
+const languageSelectLabel = t(lang, 'language.ariaLabel');
+const themeSelectLabel = t(lang, 'theme.ariaLabel');
+const otherLang = lang === 'en' ? 'fr' : 'en';
+const otherLangPath = localePath(otherLang, path);
+const languageName = (code: Lang) =>
+  t(lang, code === 'fr' ? 'language.french' : 'language.english');
 ---
 
-<header class="site-header" data-pagefind-ignore>
-  <div class="container bar">
-    <a class="brand" href={localePath(lang, '/')} aria-label={t(lang, 'site.title')}>
-      <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+<header class="yc-header" data-pagefind-ignore>
+  <div class="yc-header__inner">
+    <a class="yc-brand" href={localePath(lang, '/')}>
+      <svg width="28" height="28" viewBox="0 0 34 34" aria-hidden="true">
         <rect x="2" y="2" width="30" height="30" rx="10" fill="var(--accent)"></rect>
         <path
           d="M10 12v10M14 9v16M18 13v8M22 10v14M26 14v6"
           stroke="var(--bg)"
           stroke-width="2.2"
-          stroke-linecap="round"></path>
+          stroke-linecap="round"
+        ></path>
       </svg>
-      <span>Awesome Yoto</span>
+      <span>Yoto Community</span>
     </a>
+
+    <nav class="yc-nav" aria-label={t(lang, 'nav.communitySites')}>
+      {ecosystemLinks.map((link) => (
+        <a href={link.href} aria-current={link.current ? 'page' : undefined}>
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <span class="yc-divider" aria-hidden="true"></span>
+
     <nav class="desktop-nav" aria-label={navLabel}>
       <ul>
-        {
-          links.map((link) => (
-            <li>
-              <a
-                href={localePath(lang, link.href)}
-                aria-current={path === link.href ? 'page' : undefined}
-              >
-                {t(lang, link.label)}
-              </a>
-            </li>
-          ))
-        }
+        {links.map((link) => (
+          <li>
+            <a
+              href={localePath(lang, link.href)}
+              aria-current={path === link.href ? 'page' : undefined}
+            >
+              {t(lang, link.label)}
+            </a>
+          </li>
+        ))}
         <li class="nav-group">
           <details data-nav-group>
             <summary class="nav-group__summary">
@@ -91,22 +113,18 @@ const newTabLabel = t(lang, 'nav.newTab');
                   stroke="currentColor"
                   stroke-width="2"
                   stroke-linecap="round"
-                  stroke-linejoin="round"></path>
+                  stroke-linejoin="round"
+                ></path>
               </svg>
             </summary>
             <ul class="nav-panel">
-              {
-                toolsLinks.map((link) => (
-                  <li>
-                    <a
-                      href={link.href}
-                      aria-current={path === link.prefix ? 'page' : undefined}
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))
-              }
+              {toolsLinks.map((link) => (
+                <li>
+                  <a href={link.href} aria-current={path === link.prefix ? 'page' : undefined}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </details>
         </li>
@@ -128,7 +146,8 @@ const newTabLabel = t(lang, 'nav.newTab');
                   stroke="currentColor"
                   stroke-width="2"
                   stroke-linecap="round"
-                  stroke-linejoin="round"></path>
+                  stroke-linejoin="round"
+                ></path>
               </svg>
             </summary>
             <ul class="nav-panel">
@@ -141,26 +160,10 @@ const newTabLabel = t(lang, 'nav.newTab');
                 </a>
               </li>
               <li class="nav-panel__separator" aria-hidden="true"></li>
-              {
-                ecosystemLinks.map((link) => (
-                  <li>
-                    <a href={link.href} target="_blank" rel="noopener noreferrer">
-                      {link.label}
-                      <span class="nav-panel__external-mark" aria-hidden="true">
-                        ↗
-                      </span>
-                      <span class="sr-only">{newTabLabel}</span>
-                    </a>
-                  </li>
-                ))
-              }
-              <li class="nav-panel__separator" aria-hidden="true"></li>
               <li>
                 <a href={githubLink.href} target="_blank" rel="noopener noreferrer">
                   {githubLink.label}
-                  <span class="nav-panel__external-mark" aria-hidden="true">
-                    ↗
-                  </span>
+                  <span class="nav-panel__external-mark" aria-hidden="true"> ↗ </span>
                   <span class="sr-only">{newTabLabel}</span>
                 </a>
               </li>
@@ -169,37 +172,90 @@ const newTabLabel = t(lang, 'nav.newTab');
         </li>
       </ul>
     </nav>
+
+    <div class="yc-actions">
+      <details class="settings-menu" data-settings-menu>
+        <summary
+          class="settings-toggle"
+          aria-label={t(lang, 'settings.label')}
+          title={t(lang, 'settings.label')}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </summary>
+        <div class="settings-panel" role="group" aria-label={t(lang, 'settings.label')}>
+          <label class="settings-group">
+            <span class="settings-group-label">{t(lang, 'language.label')}</span>
+            <select class="settings-select" data-locale-select aria-label={languageSelectLabel}>
+              <option value={lang} data-href={currentUrl} selected>
+                {languageName(lang)}
+              </option>
+              <option value={otherLang} data-href={otherLangPath}>
+                {languageName(otherLang)}
+              </option>
+            </select>
+          </label>
+          <label class="settings-group">
+            <span class="settings-group-label">{t(lang, 'theme.label')}</span>
+            <select class="settings-select" data-theme-switch aria-label={themeSelectLabel}>
+              <option value="light">{t(lang, 'theme.light')}</option>
+              <option value="dark">{t(lang, 'theme.dark')}</option>
+              <option value="system">{t(lang, 'theme.system')}</option>
+            </select>
+          </label>
+        </div>
+      </details>
+    </div>
+
     <details class="mobile-menu">
       <summary>Menu</summary>
       <nav aria-label={navLabel}>
         <ul>
-          {
-            links.map((link) => (
-              <li>
-                <a
-                  href={localePath(lang, link.href)}
-                  aria-current={path === link.href ? 'page' : undefined}
-                >
-                  {t(lang, link.label)}
-                </a>
-              </li>
-            ))
-          }
+          <li class="mobile-group mobile-group--ecosystem">
+            <span class="mobile-group__label">{t(lang, 'nav.communitySites')}</span>
+            <ul>
+              {ecosystemLinks.map((link) => (
+                <li>
+                  <a href={link.href} aria-current={link.current ? 'page' : undefined}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </li>
+          {links.map((link) => (
+            <li>
+              <a
+                href={localePath(lang, link.href)}
+                aria-current={path === link.href ? 'page' : undefined}
+              >
+                {t(lang, link.label)}
+              </a>
+            </li>
+          ))}
           <li class="mobile-group">
             <span class="mobile-group__label">{toolsLabel}</span>
             <ul>
-              {
-                toolsLinks.map((link) => (
-                  <li>
-                    <a
-                      href={link.href}
-                      aria-current={path === link.prefix ? 'page' : undefined}
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))
-              }
+              {toolsLinks.map((link) => (
+                <li>
+                  <a href={link.href} aria-current={path === link.prefix ? 'page' : undefined}>
+                    {link.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </li>
           <li class="mobile-group">
@@ -213,25 +269,10 @@ const newTabLabel = t(lang, 'nav.newTab');
                   {contributeLink.label}
                 </a>
               </li>
-              {
-                ecosystemLinks.map((link) => (
-                  <li>
-                    <a href={link.href} target="_blank" rel="noopener noreferrer">
-                      {link.label}
-                      <span class="nav-panel__external-mark" aria-hidden="true">
-                        ↗
-                      </span>
-                      <span class="sr-only">{newTabLabel}</span>
-                    </a>
-                  </li>
-                ))
-              }
               <li>
                 <a href={githubLink.href} target="_blank" rel="noopener noreferrer">
                   {githubLink.label}
-                  <span class="nav-panel__external-mark" aria-hidden="true">
-                    ↗
-                  </span>
+                  <span class="nav-panel__external-mark" aria-hidden="true"> ↗ </span>
                   <span class="sr-only">{newTabLabel}</span>
                 </a>
               </li>
@@ -240,20 +281,11 @@ const newTabLabel = t(lang, 'nav.newTab');
         </ul>
       </nav>
     </details>
-    <a
-      class="lang"
-      href={altUrl}
-      hreflang={lang === 'en' ? 'fr' : 'en'}
-      data-locale-switch={lang === 'en' ? 'fr' : 'en'}
-      aria-label={lang === 'en' ? 'Version française' : 'English version'}
-    >
-      {lang === 'en' ? 'FR' : 'EN'}
-    </a>
   </div>
 </header>
 
 <style>
-  .site-header {
+  .yc-header {
     border-bottom: 1px solid var(--border);
     background: color-mix(in srgb, var(--bg) 88%, transparent);
     backdrop-filter: blur(8px);
@@ -261,51 +293,180 @@ const newTabLabel = t(lang, 'nav.newTab');
     top: 0;
     z-index: 20;
   }
-  .bar {
+  .yc-header__inner {
+    width: min(1120px, 100% - 2rem);
+    margin-inline: auto;
+    min-height: 64px;
+    padding-block: 0.5rem;
     display: flex;
     align-items: center;
-    gap: var(--space-5);
-    min-height: 72px;
+    gap: var(--space-2) var(--space-3);
+    flex-wrap: nowrap;
   }
-  .brand {
+  .yc-brand {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: 0.4rem;
+    flex: none;
     font-weight: 800;
+    font-size: 0.9rem;
     color: var(--ink);
     text-decoration: none;
-    font-size: 1.1rem;
     white-space: nowrap;
   }
+  .yc-brand svg {
+    flex: none;
+  }
+  .yc-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+    flex: none;
+  }
+  .yc-nav a {
+    padding: 0.3rem 0.5rem;
+    border-radius: var(--radius-pill);
+    color: var(--ink-muted);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .yc-nav a:hover {
+    background: var(--surface-2);
+    color: var(--accent);
+  }
+  .yc-nav a[aria-current='page'] {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-weight: 800;
+  }
+  .yc-divider {
+    flex: none;
+    align-self: stretch;
+    width: 1px;
+    margin-block: 0.4rem;
+    background: var(--border);
+  }
+  .yc-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex: none;
+  }
+
+  /* Réglages (langue + thème), identiques sur les trois sites. */
+  .settings-menu {
+    position: relative;
+  }
+  .settings-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 800;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .settings-toggle::-webkit-details-marker {
+    display: none;
+  }
+  .settings-toggle:hover,
+  .settings-menu[open] > .settings-toggle {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .settings-panel {
+    position: absolute;
+    inset-inline-end: 0;
+    top: calc(100% + 0.5rem);
+    z-index: 40;
+    min-width: 220px;
+    padding: 0.75rem;
+    display: grid;
+    gap: 0.75rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+  }
+  .settings-menu:not([open]) > .settings-panel {
+    display: none;
+  }
+  .settings-group {
+    display: grid;
+    gap: 0.3rem;
+  }
+  .settings-group-label {
+    color: var(--ink-muted);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .settings-select {
+    width: 100%;
+    padding: 0.4rem 2rem 0.4rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background-color: var(--surface);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%235a665f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    cursor: pointer;
+    appearance: none;
+  }
+
   .desktop-nav {
     margin-inline-start: auto;
+    min-width: 0;
   }
   .desktop-nav > ul {
     display: flex;
-    gap: var(--space-4);
+    gap: 0.1rem;
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  .desktop-nav a,
-  .nav-group__summary {
+  .desktop-nav > ul > li > a,
+  .desktop-nav .nav-group__summary {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 0.35rem 0.6rem;
+    border-radius: var(--radius-pill);
     color: var(--ink-muted);
     text-decoration: none;
+    font-size: 0.875rem;
     font-weight: 700;
+    white-space: nowrap;
   }
-  .desktop-nav a[aria-current='page'],
-  .desktop-nav a:hover,
+  .desktop-nav > ul > li > a[aria-current='page'] {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-weight: 800;
+  }
+  .desktop-nav > ul > li > a:hover,
   .nav-group__summary:hover,
   .nav-group[open] > .nav-group__summary {
+    background: var(--surface-2);
     color: var(--accent);
   }
   .nav-group {
     position: relative;
   }
   .nav-group__summary {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-1);
     cursor: pointer;
     list-style: none;
     user-select: none;
@@ -375,7 +536,7 @@ const newTabLabel = t(lang, 'nav.newTab');
   .mobile-menu {
     display: none;
     position: relative;
-    margin-inline-start: auto;
+    margin-inline-start: 0;
   }
   .mobile-menu summary {
     cursor: pointer;
@@ -442,28 +603,35 @@ const newTabLabel = t(lang, 'nav.newTab');
     text-transform: uppercase;
     letter-spacing: 0.04em;
   }
-  .lang {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-pill);
-    padding: 0.35rem 0.8rem;
-    font-weight: 800;
-    text-decoration: none;
-    color: var(--ink);
+  .mobile-group--ecosystem {
+    display: none;
   }
-  @media (max-width: 720px) {
-    .bar {
-      gap: var(--space-3);
-    }
-    .desktop-nav {
+  @media (max-width: 1151px) {
+    .desktop-nav,
+    .yc-divider {
       display: none;
+    }
+    .yc-actions {
+      margin-inline-start: auto;
     }
     .mobile-menu {
       display: block;
     }
   }
+  @media (max-width: 719px) {
+    .yc-nav {
+      display: none;
+    }
+    .mobile-group--ecosystem {
+      display: block;
+    }
+    .yc-header__inner {
+      gap: var(--space-1) var(--space-2);
+    }
+  }
   @media (max-width: 380px) {
-    .brand span {
-      font-size: 1rem;
+    .yc-brand span {
+      font-size: 0.9rem;
     }
   }
 </style>

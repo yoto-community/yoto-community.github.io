@@ -117,12 +117,9 @@ test('applies shared theme and language preferences', async ({ page }) => {
   await expect(page).toHaveURL(/\/fr\/$/);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 
-  const english = page.getByRole('link', { name: 'English version' });
-  await english.evaluate((element) =>
-    element.addEventListener('click', (event) => event.preventDefault(), { once: true }),
-  );
-  await english.click();
-  await expect(page).toHaveURL(/\/fr\/$/);
+  await page.locator('[data-settings-menu] summary').click();
+  await page.locator('[data-locale-select]').selectOption('en');
+  await expect(page).toHaveURL(/\/$/);
 
   const prefs = await page.evaluate(() =>
     JSON.parse(localStorage.getItem('yoto-community:prefs:v1') ?? '{}'),

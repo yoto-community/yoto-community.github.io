@@ -3,7 +3,7 @@ import '../styles/global.css';
 import '../styles/fonts.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { localePath, otherLang, type Lang } from '../lib/routes';
+import { localePath, type Lang } from '../lib/routes';
 import { t } from '../i18n';
 
 interface Props {
@@ -14,7 +14,6 @@ interface Props {
 }
 const { lang, title, description, path } = Astro.props;
 const canonical = new URL(localePath(lang, path), Astro.site).href;
-const alt = new URL(localePath(otherLang(lang), path), Astro.site).href;
 const fullTitle =
   path === '/' || path === '/fr/'
     ? `${title} — ${t(lang, 'site.tagline')}`
@@ -63,8 +62,10 @@ const fullTitle =
     />
   </head>
   <body>
-    <a class="skip-link" href="#main">{lang === 'fr' ? 'Aller au contenu' : 'Skip to content'}</a>
-    <Header lang={lang} path={path} altUrl={alt} />
+    <a class="skip-link" href="#main">
+      {lang === 'fr' ? 'Aller au contenu' : 'Skip to content'}
+    </a>
+    <Header lang={lang} path={path} />
     <main id="main" data-pagefind-body>
       <slot />
     </main>
