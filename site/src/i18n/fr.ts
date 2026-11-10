@@ -146,6 +146,12 @@ export const fr: Record<MessageKey, string> = {
   'myo.favorites.open': 'Voir dans le catalogue',
   'myo.favorites.unavailable':
     'Impossible de charger les vignettes pour le moment. Ouvrez le catalogue pour voir vos favoris.',
+  'myo.podcasts.title': 'Vos podcasts favoris',
+  'myo.podcasts.hint': 'Touchez le cœur d’un podcast dans le catalogue pour le retrouver ici.',
+  'myo.podcasts.seeAll': 'Voir tous mes podcasts favoris',
+  'myo.podcasts.open': 'Voir le podcast',
+  'myo.podcasts.unavailable':
+    'Impossible de charger les détails des podcasts pour le moment. Ouvrez le catalogue pour voir vos favoris.',
   'chooser.title': 'Quel outil pour moi ?',
   'chooser.lede':
     'Répondez à trois questions et obtenez un outil recommandé plus deux alternatives. Sans compte ni suivi.',

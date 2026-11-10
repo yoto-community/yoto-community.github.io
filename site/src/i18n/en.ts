@@ -140,6 +140,12 @@ export const en = {
   'myo.favorites.open': 'View in the catalogue',
   'myo.favorites.unavailable':
     'Thumbnails could not be loaded right now. Open the catalogue to see your favourites.',
+  'myo.podcasts.title': 'Your favourite podcasts',
+  'myo.podcasts.hint': 'Tap the heart on a podcast in the catalogue to find it here.',
+  'myo.podcasts.seeAll': 'See all my favourite podcasts',
+  'myo.podcasts.open': 'View the podcast',
+  'myo.podcasts.unavailable':
+    'Podcast details could not be loaded right now. Open the catalogue to see your favourites.',
   'chooser.title': 'Which tool is right for me?',
   'chooser.lede':
     'Answer three questions and get one recommended tool plus two alternatives. No account, no tracking.',

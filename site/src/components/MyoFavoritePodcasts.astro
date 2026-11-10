@@ -1,0 +1,146 @@
+---
+/**
+ * Podcasts favoris de la trousse partagée, proposés à l'étape « Trouver
+ * l'audio » du parcours MYO.
+ *
+ * Le composant porte le balisage ; la lecture de la trousse, les lookups du
+ * catalogue et le rendu vivent dans `scripts/myo-favorite-podcasts.ts`.
+ */
+import { t } from '../i18n';
+import { favoritePodcastsUrl } from '../lib/favorite-podcasts';
+import type { Lang } from '../lib/routes';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const favouritesUrl = favoritePodcastsUrl(lang);
+---
+
+<section
+  class="myo-podcast-favorites"
+  data-myo-favorite-podcasts
+  data-catalogue-url={favouritesUrl}
+  data-label-see-all={t(lang, 'myo.podcasts.seeAll')}
+  data-label-open={t(lang, 'myo.podcasts.open')}
+  data-label-unavailable={t(lang, 'myo.podcasts.unavailable')}
+  hidden
+>
+  <div class="myo-podcast-favorites-head">
+    <h3>{t(lang, 'myo.podcasts.title')}</h3>
+    <a class="myo-podcast-favorites-all" data-myo-podcast-all href={favouritesUrl}>
+      {t(lang, 'myo.podcasts.seeAll')}
+    </a>
+  </div>
+  <p class="myo-podcast-favorites-hint">{t(lang, 'myo.podcasts.hint')}</p>
+  <ul class="myo-podcast-grid" data-myo-podcast-grid></ul>
+  <p class="myo-podcast-favorites-status" role="status" aria-live="polite" data-myo-podcast-status></p>
+</section>
+
+<style is:global>
+  .myo-podcast-favorites {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+  }
+  .myo-podcast-favorites-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+  .myo-podcast-favorites-head h3 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+  .myo-podcast-favorites-all {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--accent-strong);
+    text-decoration: none;
+  }
+  .myo-podcast-favorites-all:hover {
+    text-decoration: underline;
+  }
+  .myo-podcast-favorites-hint {
+    margin: var(--space-2) 0 var(--space-3);
+    color: var(--ink-muted);
+    font-size: 0.85rem;
+  }
+  .myo-podcast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .myo-podcast {
+    display: grid;
+    justify-items: center;
+    gap: 0.35rem;
+    padding: 0.55rem 0.35rem;
+    color: var(--ink);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+  }
+  .myo-podcast:hover {
+    border-color: var(--accent);
+  }
+  .myo-podcast:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .myo-podcast-thumb {
+    display: grid;
+    place-items: center;
+    inline-size: 56px;
+    block-size: 56px;
+    overflow: hidden;
+    background-color: var(--surface);
+    background-image: repeating-conic-gradient(var(--surface-2) 0% 25%, var(--surface) 0% 50%);
+    background-size: 12px 12px;
+    border-radius: 6px;
+  }
+  .myo-podcast-thumb.is-empty {
+    background-image: none;
+    border: 1px dashed var(--border);
+  }
+  .myo-podcast-thumb img {
+    inline-size: 56px;
+    block-size: 56px;
+    object-fit: cover;
+  }
+  .myo-podcast-thumb-initial {
+    color: var(--ink-muted);
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
+  .myo-podcast-name {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    overflow-wrap: anywhere;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .myo-podcast-favorites-status {
+    margin: var(--space-3) 0 0;
+    color: var(--ink-muted);
+    font-size: 0.85rem;
+  }
+  .myo-podcast-favorites-status:empty {
+    display: none;
+  }
+</style>
+
+<script>
+  import '../scripts/myo-favorite-podcasts';
+</script>
