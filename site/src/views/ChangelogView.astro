@@ -58,20 +58,28 @@ const isCommit = (id: string) => /^[0-9a-f]{7,40}$/i.test(id);
                     {entry.projects.length} {t(lang, 'changelog.projects')}
                   </summary>
                   <ul class="projects">
-                    {entry.projects.map((slug) => (
-                      <li>
-                        <a href={localePath(lang, `/p/${slug}/`)}>{projectNames.get(slug) ?? slug}</a>
-                      </li>
-                    ))}
+                    {entry.projects.map((slug) => {
+                      const projectName = projectNames.get(slug);
+                      if (!projectName) return null;
+                      return (
+                        <li>
+                          <a href={localePath(lang, `/p/${slug}/`)}>{projectName}</a>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </details>
               ) : entry.projects.length > 0 ? (
                 <ul class="projects">
-                  {entry.projects.map((slug) => (
-                    <li>
-                      <a href={localePath(lang, `/p/${slug}/`)}>{projectNames.get(slug) ?? slug}</a>
-                    </li>
-                  ))}
+                  {entry.projects.map((slug) => {
+                      const projectName = projectNames.get(slug);
+                      if (!projectName) return null;
+                      return (
+                        <li>
+                          <a href={localePath(lang, `/p/${slug}/`)}>{projectName}</a>
+                        </li>
+                      );
+                    })}
                 </ul>
               ) : null}
               {entry.areas.length > 0 && (
