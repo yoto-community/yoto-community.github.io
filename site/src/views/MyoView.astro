@@ -59,7 +59,7 @@ const steps = [
       en: 'Print a label with the same cover art and the child’s name. Laminate it or use a sticker sheet so it survives small hands.',
       fr: 'Imprimez un label avec la même jaquette et le prénom de l’enfant. Plastifiez-le ou utilisez une planche d’autocollants.',
     },
-    tools: ['selphyoto', 'yotolabels'],
+    tools: ['selphyoto', 'yotolabels-web'],
   },
 ] as const;
 
@@ -135,6 +135,27 @@ const bySlug = new Map(catalog.projects.map((project) => [project.slug, project]
                   </a>
                 </p>
               </>
+            )}
+            {step.n === 4 && (
+              <p class="step-cta">
+                <a class="btn" href="https://yotolabels.com/" target="_blank" rel="noopener">
+                  {lang === 'fr' ? 'Créer ma jaquette Yoto' : 'Create my Yoto cover'}
+                </a>
+              </p>
+            )}
+            {step.n === 5 && (
+              <p class="step-cta">
+                <a class="btn" href="https://eu.yotoplay.com/fr/make-your-own" target="_blank" rel="noopener">
+                  {lang === 'fr' ? 'Ouvrir l\'éditeur MYO Yoto' : 'Open Yoto MYO editor'}
+                </a>
+              </p>
+            )}
+            {step.n === 6 && (
+              <p class="step-cta">
+                <a class="btn" href="https://yotolabels.com/" target="_blank" rel="noopener">
+                  {lang === 'fr' ? 'Créer mes étiquettes Yoto' : 'Create my Yoto labels'}
+                </a>
+              </p>
             )}
           </div>
         </li>

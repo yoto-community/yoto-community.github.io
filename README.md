@@ -57,7 +57,8 @@
 - [Yoto Icon Search](https://github.com/Schmavery/yoto-icon-search) - Chrome extension that adds a search box to the Yoto icon picker when building a Make Your Own card. *(stale)*
 - [Yoto Icons Catalogue](https://yoto-community.github.io/icons-catalogue/) - Search and download 16x16 Yoto icons from three catalogues, with favourites and a pixel editor.
 - [YotoIcons](https://yotoicons.com/) - A community library of 16x16 pixel icons for Yoto cards.
-- [yotolabels](https://github.com/michel2323/yotolabels) - Native Windows app that prints ten Yoto card labels per Letter sheet on TownStix US-10 label paper.
+- [YotoLabels \(desktop\)](https://github.com/michel2323/yotolabels) - Native Windows app that prints ten Yoto card labels per Letter sheet on TownStix US-10 label paper.
+- [YotoLabels \(web\)](https://yotolabels.com/) - Free web tool to design and print Yoto card labels — upload an image, get a perfect PDF instantly.
 - [YotoPixels](https://yotopixels.com/) - Browser tool that crops and pixelates an image into pixel-art icons for Yoto players.
 
 ## Audio & podcasts

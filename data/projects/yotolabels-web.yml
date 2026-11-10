@@ -1,0 +1,12 @@
+name: YotoLabels (web)
+url: https://yotolabels.com/
+description: Free web tool to design and print Yoto card labels — upload an image, get a perfect PDF instantly.
+descriptionFr: Outil web gratuit pour créer et imprimer des étiquettes Yoto — ajoutez une image, obtenez un PDF parfait.
+category: icons
+tags: [printing, web]
+author: David Stefanides
+license: MIT
+status: active
+official: false
+platforms: [web]
+added: 2026-11-03
