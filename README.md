@@ -1,4 +1,4 @@
-# Awesome Yoto [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![CI](https://img.shields.io/github.com/yoto-community/yoto-community.github.io/actions/workflows/ci.yml?style=for-the-badge&logo=githubactions&logoColor=white)](https://yoto-community.github.io/)
+# Awesome Yoto [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
 > A curated list of apps, tools and resources for the Yoto Player.
 
