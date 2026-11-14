@@ -11,6 +11,8 @@ Two ways to get an entry in:
 
 Every entry needs a `name`, an `https://` `url`, a `description` between 20 and 180 characters, a `category` slug from `data/categories.yml`, one to eight `tags`, an `author`, a `license`, a `status`, at least one platform, and the `added` date in `YYYY-MM-DD` form. `author` is the name shown on the site; add `authorGithub` with the GitHub username that owns the repository so the author links to the right account. `descriptionFr` is required too: one French sentence of 20 to 180 characters, written with the [translation glossary](docs/translation-glossary.md); `pnpm check:fr` fails without it. If you mark an entry `deprecated`, also provide `deprecatedBy`.
 
+Optionally add a `sponsor` field with an `https://` URL (for example a GitHub Sponsors page). It renders as a "Sponsor this project" button on the project's detail page.
+
 ## Propose a translation
 
 Every entry ships a French description. If one is missing, the French project page links to the "Translate a project" issue form, which is prefilled with the slug. A maintainer can also translate the YAML directly. The glossary fixes the vocabulary, and `pnpm check:fr` checks both coverage and length.

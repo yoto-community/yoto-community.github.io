@@ -11,13 +11,13 @@ const currentUrl = localePath(lang, path);
 const links = [
   { href: '/projects/', label: 'nav.projects' as const },
   { href: '/myo/', label: 'nav.myo' as const },
-  { href: '/services/', label: 'nav.services' as const },
 ];
 
 /** Outils intégrés au portail, accessibles depuis le menu « Outils ». */
 const toolsLinks = [
   { href: localePath(lang, '/chooser/'), label: t(lang, 'nav.chooser'), prefix: '/chooser/' },
   { href: localePath(lang, '/editor/'), label: t(lang, 'nav.editor'), prefix: '/editor/' },
+  { href: '/services/', label: t(lang, 'nav.services'), prefix: '/services/' },
 ];
 const toolsLabel = t(lang, 'nav.tools');
 
@@ -174,6 +174,16 @@ const languageName = (code: Lang) =>
     </nav>
 
     <div class="yc-actions">
+      <a
+        class="sponsor-btn"
+        href="https://github.com/sponsors/yoto-community"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {t(lang, 'nav.sponsor')}
+        <span class="nav-panel__external-mark" aria-hidden="true"> ↗ </span>
+        <span class="sr-only">{newTabLabel}</span>
+      </a>
       <details class="settings-menu" data-settings-menu>
         <summary
           class="settings-toggle"
@@ -353,6 +363,30 @@ const languageName = (code: Lang) =>
     align-items: center;
     gap: var(--space-2);
     flex: none;
+    margin-inline-start: auto;
+  }
+  .sponsor-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .sponsor-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent-soft) 60%, var(--surface));
+  }
+  .sponsor-btn .nav-panel__external-mark {
+    color: var(--ink-muted);
+    font-size: 0.8em;
   }
 
   /* Réglages (langue + thème), identiques sur les trois sites. */
@@ -429,7 +463,6 @@ const languageName = (code: Lang) =>
   }
 
   .desktop-nav {
-    margin-inline-start: auto;
     min-width: 0;
   }
   .desktop-nav > ul {

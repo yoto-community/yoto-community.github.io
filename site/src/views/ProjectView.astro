@@ -101,6 +101,18 @@ const readmeUnavailable = t(lang, 'project.readmeUnavailable');
           </a>
         )
       }
+      {
+        project.sponsor && (
+          <a
+            class="btn ghost"
+            href={project.sponsor}
+            rel="noopener"
+            target="_blank"
+          >
+            {t(lang, 'project.sponsor')}
+          </a>
+        )
+      }
     </div>
   </header>
   {warningKey && <p class="warning">{t(lang, warningKey)}</p>}

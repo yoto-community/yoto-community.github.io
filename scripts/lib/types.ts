@@ -34,6 +34,7 @@ export interface ProjectFile {
   name: string;
   url: string;
   repo?: string;
+  sponsor?: string;
   description: string;
   descriptionFr?: string;
   category: string;

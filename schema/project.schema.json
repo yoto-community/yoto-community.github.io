@@ -20,6 +20,7 @@
     "name": { "type": "string", "minLength": 2, "maxLength": 60 },
     "url": { "type": "string", "format": "uri", "pattern": "^https://" },
     "repo": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "sponsor": { "type": "string", "format": "uri", "pattern": "^https://" },
     "description": { "type": "string", "minLength": 20, "maxLength": 180 },
     "descriptionFr": { "type": "string", "minLength": 20, "maxLength": 180 },
     "category": { "type": "string", "minLength": 1 },

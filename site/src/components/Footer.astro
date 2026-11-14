@@ -8,6 +8,9 @@ const { lang } = Astro.props as { lang: Lang };
   <div class="container">
     <p>{t(lang, 'footer.disclaimer')} · {t(lang, 'footer.license')}</p>
     <p>
+      <a href="https://github.com/sponsors/yoto-community" target="_blank" rel="noopener noreferrer">
+        {lang === 'fr' ? 'Soutenir le projet' : 'Sponsor the project'}
+      </a> ·
       <a href={localePath(lang, '/about/')}>{t(lang, 'nav.about')}</a> ·
       <a href={localePath(lang, '/changelog/')}>{t(lang, 'nav.changelog')}</a> ·
       <a href={localePath(lang, '/api/')}>{t(lang, 'nav.api')}</a> ·
