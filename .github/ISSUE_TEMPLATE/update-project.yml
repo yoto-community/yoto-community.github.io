@@ -1,0 +1,62 @@
+name: Update a project
+description: Propose a correction to an existing entry, or report a status change.
+title: '[Update]: '
+labels: ['update-request']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci ! Une correction garde l'annuaire précis pour les parents et les makers.
+        Lisez `docs/translation-glossary.md` si vous touchez à la description française.
+
+  - type: input
+    id: slug
+    attributes:
+      label: Project slug
+      description: The YAML file name under data/projects/, without the .yml extension.
+      placeholder: yoto-cli
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Project name
+      description: Optional, only to make the issue easier to find.
+      placeholder: yoto-cli
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of change?
+      description: Pick the closest match.
+      options:
+        - Correction of a field (name, URL, description, category, tags…)
+        - Status change (stale, archived, deprecated)
+        - Claim ownership (you are the author)
+    validations:
+      required: true
+
+  - type: textarea
+    id: change
+    attributes:
+      label: What should change?
+      description: Describe the current value and the value you expect. Include links when helpful.
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Source
+      description: Where did you find the correct information? (project website, repository, author confirmation…)
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I checked the current YAML file under data/projects/ before proposing this change.
+          required: true
+        - label: I am not proposing a brand-new project (use "Submit an app" for that).
+          required: true

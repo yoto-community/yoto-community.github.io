@@ -3,64 +3,101 @@ import { t } from '../i18n';
 import { localePath, type Lang } from '../lib/routes';
 const { lang } = Astro.props as { lang: Lang };
 const repo = 'https://github.com/yoto-community/yoto-community.github.io';
+
+type Step = {
+  title: string;
+  desc: string;
+  href?: string;
+  link?: string;
+};
+
+const steps: Step[] = [
+  {
+    title: t(lang, 'contribute.form.title'),
+    desc: t(lang, 'contribute.form.desc'),
+    href: `${repo}/issues/new?template=submit-app.yml`,
+    link: t(lang, 'contribute.form.link'),
+  },
+  {
+    title: t(lang, 'contribute.pr.title'),
+    desc: t(lang, 'contribute.pr.desc'),
+  },
+  {
+    title: t(lang, 'contribute.translation.title'),
+    desc: t(lang, 'contribute.translation.desc'),
+    href: `${repo}/issues/new?template=translate-project.yml`,
+    link: t(lang, 'contribute.translation.link'),
+  },
+  {
+    title: t(lang, 'contribute.report.title'),
+    desc: t(lang, 'contribute.report.desc'),
+    href: `${repo}/issues/new?labels=link-health&title=Dead+link`,
+    link: t(lang, 'contribute.report.link'),
+  },
+  {
+    title: t(lang, 'contribute.fix.title'),
+    desc: t(lang, 'contribute.fix.desc'),
+    href: `${repo}/issues/new?template=update-project.yml`,
+    link: t(lang, 'contribute.fix.link'),
+  },
+  {
+    title: t(lang, 'contribute.claim.title'),
+    desc: t(lang, 'contribute.claim.desc'),
+    href: `${repo}/issues/new?labels=update-request&title=Claim:+`,
+    link: t(lang, 'contribute.fix.link'),
+  },
+  {
+    title: t(lang, 'contribute.french.title'),
+    desc: t(lang, 'contribute.french.desc'),
+    href: `${repo}/issues/new?template=translate-project.yml`,
+    link: t(lang, 'contribute.french.link'),
+  },
+  {
+    title: t(lang, 'contribute.status.title'),
+    desc: t(lang, 'contribute.status.desc'),
+    href: `${repo}/issues/new?template=update-project.yml`,
+    link: t(lang, 'contribute.status.link'),
+  },
+  {
+    title: t(lang, 'contribute.maintain.title'),
+    desc: t(lang, 'contribute.maintain.desc'),
+  },
+];
 ---
 
 <section class="container page">
   <h1>{t(lang, 'nav.contribute')}</h1>
-  <p>
-    {
-      lang === 'fr'
-        ? 'Le dépôt est la seule source de vérité : on édite data/, jamais le README ni le site.'
-        : 'The repository is the only source of truth: edit data/, never the README or the site.'
-    }
-  </p>
-  <h2>{lang === 'fr' ? 'Quatre façons de contribuer' : 'Four ways to contribute'}</h2>
+  <p>{t(lang, 'contribute.intro')}</p>
+
+  <h2>{t(lang, 'contribute.headline')}</h2>
   <ol>
-    <li>
-      <strong>{lang === 'fr' ? 'Formulaire' : 'Form'}</strong> —
-      <a href={`${repo}/issues/new?template=submit-app.yml`}
-        >{lang === 'fr' ? 'proposer une application' : 'submit an app'}</a
-      >.
-    </li>
-    <li>
-      <strong>Pull request</strong> —
-      {
-        lang === 'fr'
-          ? 'ajoutez un fichier YAML dans data/projects/.'
-          : 'add a YAML file under data/projects/.'
-      }
-    </li>
-    <li>
-      <strong>{lang === 'fr' ? 'Traduction' : 'Translation'}</strong> —
-      <a href={`${repo}/issues/new?template=translate-project.yml`}>
-        {
-          lang === 'fr'
-            ? 'proposer une description en français'
-            : 'propose a French description'
-        }
-      </a>.
-    </li>
-    <li>
-      <strong>{lang === 'fr' ? 'Signaler' : 'Report'}</strong> —
-      <a href={`${repo}/issues/new?labels=link-health&title=Dead+link`}
-        >{lang === 'fr' ? 'un lien mort' : 'a dead link'}</a
-      >.
-    </li>
+    {steps.map((step) => (
+      <li>
+        <strong>
+          {step.href ? (
+            <a href={step.href}>{step.title}</a>
+          ) : (
+            step.title
+          )}
+        </strong>
+        {' — '}
+        {step.desc}
+        {step.link && step.href ? (
+          <span> — <a href={step.href}>{step.link}</a></span>
+        ) : undefined}
+      </li>
+    ))}
   </ol>
-  <h2>{lang === 'fr' ? 'Vérifier en local' : 'Check locally'}</h2>
+
+  <h2>{t(lang, 'contribute.check.title')}</h2>
   <pre><code>pnpm install
 pnpm validate
 pnpm check:fr
 pnpm build:data
 pnpm verify</code></pre>
-  <p>
-    {
-      lang === 'fr'
-        ? 'La CI rejette toute PR si le schéma, les doublons, les catégories, la couverture française ou le README généré sont invalides.'
-        : 'CI blocks any PR with an invalid schema, duplicate, unknown category, missing French description, or stale generated README.'
-    }
-  </p>
-  <a href={localePath(lang, '/projects/')}>{t(lang, 'nav.projects')} →</a>
+  <p>{t(lang, 'contribute.check.ci')}</p>
+
+  <a href={localePath(lang, '/projects/')}>{t(lang, 'contribute.seeProjects')}</a>
 </section>
 
 <style>
