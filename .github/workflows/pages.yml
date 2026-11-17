@@ -54,6 +54,13 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/.meta.json
           git diff --cached --quiet || git commit -m "chore: refresh project metadata [skip ci]"
+          # Rebase onto the latest main so the push fast-forwards even if
+          # another commit landed while the nightly run was in flight. Only the
+          # bot touches data/.meta.json, so conflicts are unlikely. The deploy
+          # step stays non-blocking; this just keeps the metadata refresh from
+          # being silently dropped on a race.
+          git fetch origin
+          git rebase origin/main
           git push origin HEAD:main
 
       - run: pnpm build
