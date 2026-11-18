@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-17",
+  "updatedAt": "2026-11-18",
   "projects": {
     "yoto-audiobookshelf-bridge": {
       "stars": 16,
@@ -20,7 +20,7 @@
       "licenseDetected": "MIT"
     },
     "custom-yoto-cards": {
-      "stars": 11,
+      "stars": 12,
       "lastCommit": "2026-10-05",
       "archived": false,
       "licenseDetected": "MIT"
