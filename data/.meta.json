@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19",
+  "updatedAt": "2026-11-20",
   "projects": {
     "yoto-audiobookshelf-bridge": {
       "stars": 16,
@@ -63,7 +63,7 @@
       "archived": false
     },
     "toto-backup": {
-      "stars": 21,
+      "stars": 22,
       "lastCommit": "2026-11-16",
       "archived": false,
       "licenseDetected": "MPL-2.0"
