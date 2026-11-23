@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22",
+  "updatedAt": "2026-11-23",
   "projects": {
     "yoto-audiobookshelf-bridge": {
       "stars": 16,
@@ -20,7 +20,7 @@
       "licenseDetected": "MIT"
     },
     "custom-yoto-cards": {
-      "stars": 12,
+      "stars": 13,
       "lastCommit": "2026-10-05",
       "archived": false,
       "licenseDetected": "MIT"
@@ -53,7 +53,7 @@
       "archived": false
     },
     "open-yoto": {
-      "stars": 15,
+      "stars": 16,
       "lastCommit": "2026-09-08",
       "archived": false
     },
@@ -63,7 +63,7 @@
       "archived": false
     },
     "toto-backup": {
-      "stars": 22,
+      "stars": 23,
       "lastCommit": "2026-11-16",
       "archived": false,
       "licenseDetected": "MPL-2.0"
@@ -135,7 +135,7 @@
       "archived": false
     },
     "yoto-media-manager": {
-      "stars": 1,
+      "stars": 2,
       "lastCommit": "2026-11-10",
       "archived": false,
       "licenseDetected": "GPL-3.0"
@@ -147,7 +147,7 @@
       "licenseDetected": "MIT"
     },
     "yoto-playlist-creator": {
-      "stars": 9,
+      "stars": 10,
       "lastCommit": "2026-01-07",
       "archived": false
     },
@@ -165,7 +165,7 @@
     },
     "yoto-api": {
       "stars": 58,
-      "lastCommit": "2026-11-16",
+      "lastCommit": "2026-11-23",
       "archived": false,
       "licenseDetected": "Apache-2.0"
     },
