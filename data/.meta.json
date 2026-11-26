@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-25",
+  "updatedAt": "2026-11-26",
   "projects": {
     "yoto-audiobookshelf-bridge": {
       "stars": 16,
@@ -53,7 +53,7 @@
       "archived": false
     },
     "open-yoto": {
-      "stars": 18,
+      "stars": 19,
       "lastCommit": "2026-09-08",
       "archived": false
     },
@@ -104,7 +104,7 @@
     },
     "yoto-card-studio": {
       "stars": 0,
-      "lastCommit": "2026-10-29",
+      "lastCommit": "2026-11-26",
       "archived": false
     },
     "yoto-examples": {
@@ -181,7 +181,7 @@
     },
     "yoto-cli": {
       "stars": 16,
-      "lastCommit": "2026-01-01",
+      "lastCommit": "2026-11-25",
       "archived": false,
       "licenseDetected": "MIT"
     },
