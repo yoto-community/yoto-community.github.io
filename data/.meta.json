@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27",
+  "updatedAt": "2026-11-28",
   "projects": {
     "yoto-audiobookshelf-bridge": {
       "stars": 16,
@@ -31,7 +31,7 @@
       "archived": false
     },
     "louis": {
-      "stars": 62,
+      "stars": 63,
       "lastCommit": "2026-11-07",
       "archived": false,
       "licenseDetected": "MIT"
@@ -53,7 +53,7 @@
       "archived": false
     },
     "open-yoto": {
-      "stars": 20,
+      "stars": 21,
       "lastCommit": "2026-09-08",
       "archived": false
     },
@@ -64,7 +64,7 @@
     },
     "toto-backup": {
       "stars": 23,
-      "lastCommit": "2026-11-16",
+      "lastCommit": "2026-11-28",
       "archived": false,
       "licenseDetected": "MPL-2.0"
     },
